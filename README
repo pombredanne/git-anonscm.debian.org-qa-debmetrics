@@ -1,0 +1,31 @@
+=====================
+Debian Metrics Portal
+=====================
+
+:HomePage: 
+:License: AGPL 3
+:Version: 0.0.1
+
+Introduction
+============
+
+Debian Metrics Portal is a uniform (Web) interface to peruse Debian metrics, as well as a uniform (declarative) interface to add and maintain metrics.
+
+Requirements
+============
+
+Download
+========
+
+Installation
+============
+
+Authors
+=======
+
+See AUTHORS
+
+License
+=======
+
+See COPYING
