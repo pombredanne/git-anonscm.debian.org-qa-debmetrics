@@ -93,4 +93,49 @@ plot = $("#placeholder").plot(json["coords"], {
     ...
 }).data("plot");
 
+Database Structure
+==================
 
+example:
+  tablename
+  - column (type)
+  - column (type)
+
+sources_count
+- ts (DateTime)
+- vcs_arch (BigInteger)
+- vcs_bzr (BigInteger)
+- vcs_cvs (BigInteger)
+- vcs_darcs (BigInteger)
+- vcs_git (BigInteger)
+- vcs_hg (BigInteger)
+- vcs_mtn (BigInteger)
+- vcs_svn (BigInteger)
+- format_3native (BigInteger)
+- format_3quilt (BigInteger)
+
+releases
+- name (Text) i.e. Jessie
+- releasedate (Date)
+- releaseversion (Text) i.e. 7.0
+
+releases_count
+- ts (DateTime)
+- name (Text) i.e. Jessie
+- sourcefiles (BigInteger)
+- sourcepackages (BigInteger)
+- diskusage (BigInteger) in kB
+- ctags (BigInteger)
+- sloc (BigInteger) source lines of code
+
+rc_bug_count
+- ts (DateTime)
+- rc_bugs (BigInteger)
+- with_patch (BigInteger)
+- with_fix (BigInteger)
+- ignored (BigInteger)
+- concern_current_stable (BigInteger)
+- concern_next_release (BigInteger)
+
+bts
+TO BE ADDED
