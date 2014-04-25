@@ -1,0 +1,67 @@
+Debmetrics Contribution Guidelines
+
+Prerequisites
+=============
+
+You need git to clone the repository. In Debian, git is provided by "git".
+ You also need Python 3.
+
+Project Overview
+================
+
+The goal of Debian Metrics Portal is to provide an iterface for viewing,
+ adding, and maintaining metrics in a uniform way.
+
+Communication
+=============
+
+For now, you can just email Joseph at joseph.bisch@gmail.com.
+
+Getting the Code
+================
+
+You can get a copy of the latest code with this command:
+
+    git clone git://git.debian.org/users/josephbisch-guest/debmetrics.git
+    cd debmetrics.git
+
+To get updates (as long as you haven't committed changes to master) run this
+ command:
+
+    git pull
+
+Style Guide
+===========
+
+Follow PEP 8[0]. In particular, be sure to indent 4 spaces and use spaces
+ instead of tabs. Limit lines to 79 characters.
+
+Structure
+=========
+
+AUTHORS
+- A list of contributors. Add yourself if you make a commit.
+
+COPYING
+- The AGPL 3. This is the license the project uses.
+
+debmetrics directory
+- The directory under which the code resides.
+
+doc directory
+- The directory under which the documentation resides.
+
+HACKING
+- This document
+
+README
+
+setup.py
+
+tests directory
+- The directory under which tests reside.
+
+TODO
+- A list of tasks to be done.
+
+[0] http://legacy.python.org/dev/peps/pep-0008/

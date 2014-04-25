@@ -1,0 +1,96 @@
+Title
+=====
+
+Debian Metrics Portal
+
+Description
+===========
+
+Create a Debian Metrics Portal to view, add, and maintain metrics in a
+ uniform way. 
+
+Benefits to Debian
+==================
+
+Make it easier to improve Debian by providing a single source of metrics to
+ evaluate changes.
+
+Data Sources
+============
+
+For now we will focus on the following data sources:
+
+- BTS stats including important bugs and old bugs. Important bugs are those
+ that have a major effect on the usability of a package, making it completely
+ unusable. Old bugs are bugs older than 2 years. Old bugs may either have just
+ been neglected or the bug report might not be detailed enough. It is important
+ to display these in such a way as to make the data accessable.
+
+- Release-critical means that a bug affects the release of the package with the
+ stable release of Debian. It is important to graph the total number of RC bugs
+ and also the packages with the most RC bugs to show how close a release is to
+ being RC bug free and which packages need the most attention. 
+
+- Dpkg-formats - List and graph the total number of packages that use each
+ format. Can use to figure out why there is so much 3.0 (native) and 1.0
+ format usage. Possibly can correlate with packages with missing maintainers,
+ undermaintained packages.
+
+- Source code stats - Display statistics about the number of lines and size
+ of releases and various packages. Important to identify changes in number of
+ lines and in size between releases so we can identify where increased size
+ comes from. 
+
+- VCS-usage - List and graph the total number of packages that use each VCS.
+ Proves that git is most popular VCS in Debian. Allows us to look into trends
+ in VCS usage and see how tools can be improved to encourage use of git over
+ other VCS.
+
+Choice of Libraries
+===================
+
+- jinja2
+  - templating engine
+- flot
+  - JS graphing library
+- SQLAlchemy
+  - ORM
+- flask
+  - web framework
+- marshmallow
+  - object to JSON serializer
+- Alembic
+  - model versioning
+
+Data Format
+===========
+
+Flot expects something like the following format:
+
+{
+  "coords": [{"data": [[x1, y1], [x2, y2], ...], "label": "Label1"},
+             {"data": [[x1, y1], [x2, y2], ...], "label": "Label2"}]
+}
+
+Then you can use the following snippet:
+
+var json = (function () {
+    var json = null;
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': "dump.json",
+        'dataType': "json",
+        'success': function (data) {
+            json = data;
+        }
+    });
+    return json;
+})();
+plot = $("#placeholder").plot(json["coords"], { 
+    ...
+    ...
+    ...
+}).data("plot");
+
+
