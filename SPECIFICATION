@@ -6,14 +6,14 @@ Debian Metrics Portal
 Description
 ===========
 
-Create a Debian Metrics Portal to view, add, and maintain metrics in a
- uniform way. 
+Create a Debian Metrics Portal to view, add, and maintain metrics in a 
+uniform way. 
 
 Benefits to Debian
 ==================
 
-Make it easier to improve Debian by providing a single source of metrics to
- evaluate changes.
+Make it easier to improve Debian by providing a single source of metrics to 
+evaluate changes.
 
 Data Sources
 ============
@@ -139,3 +139,35 @@ rc_bug_count
 
 bts
 TO BE ADDED
+
+Interface
+=========
+
+1) Local metrics
+
+Run on machine hosting the metrics portal. Client provides a script via 
+push interface (POST to some URL with an api key). See Data Format for 
+sample output format.
+
+2) Remote metrics
+
+Run remote script located at some URL. Outputs data in some format predefined 
+by the client. Metrics portal parses it into standard format as described in 
+Data Format.
+
+3) Manifest file
+
+A manifest file is uploaded by the client to tell the metrics portal information 
+about when to run scripts and the format of the output.
+
+sample format:
+
+{
+  "output": "local|remote"
+  "freq": # crontab format
+  "url": http://www.example.com/script # for remote metrics; don't include for local
+  "data1": [0, 20, 30, ...]
+  "label1": "Label"
+  "data2": [...]
+  "label2": "Label2"
+}
