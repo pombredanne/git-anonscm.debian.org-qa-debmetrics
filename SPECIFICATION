@@ -160,14 +160,22 @@ Data Format.
 A manifest file is uploaded by the client to tell the metrics portal information 
 about when to run scripts and the format of the output.
 
-sample format:
+sample format (ConfigParser):
 
-{
-  "output": "local|remote"
-  "freq": # crontab format
-  "url": http://www.example.com/script # for remote metrics; don't include for local
-  "data1": [0, 20, 30, ...]
-  "label1": "Label"
-  "data2": [...]
-  "label2": "Label2"
-}
+[script1]
+output = local|remote
+freq = min, hour, dom, month, dow, year # crontab format
+url = http://www.example.com/script # for remote metrics; don't include for local
+title = Title # title of graph
+xrange = xmin, xmax # optional hint
+yrange = ymin, ymax # optional hint
+data1 = 0, 20, 30, ...
+label1 = Label 
+data2 = ...
+label2 = Label2
+
+[script2]
+output = local|remote
+...
+...
+...
