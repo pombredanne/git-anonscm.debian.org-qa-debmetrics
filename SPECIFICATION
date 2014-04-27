@@ -103,39 +103,40 @@ example:
 
 sources_count
 - ts (DateTime)
-- vcs_arch (BigInteger)
-- vcs_bzr (BigInteger)
-- vcs_cvs (BigInteger)
-- vcs_darcs (BigInteger)
-- vcs_git (BigInteger)
-- vcs_hg (BigInteger)
-- vcs_mtn (BigInteger)
-- vcs_svn (BigInteger)
-- format_3native (BigInteger)
-- format_3quilt (BigInteger)
+- arch Integer)
+- bzr (Integer)
+- cvs (Integer)
+- darcs (Integer)
+- git (Integer)
+- hg (Integer)
+- mtn (Integer)
+- svn (Integer)
+- total (Integer)
+- using_vcs (Integer)
 
 releases
+- ts (DateTime)
 - name (Text) i.e. Jessie
 - releasedate (Date)
-- releaseversion (Text) i.e. 7.0
+- releaseversion (Text) i.e. 8.0
 
 releases_count
 - ts (DateTime)
 - name (Text) i.e. Jessie
-- sourcefiles (BigInteger)
-- sourcepackages (BigInteger)
-- diskusage (BigInteger) in kB
-- ctags (BigInteger)
-- sloc (BigInteger) source lines of code
+- sourcefiles (Integer)
+- sourcepackages (Integer)
+- diskusage (Integer) in kB
+- ctags (Integer)
+- sloc (Integer) source lines of code
 
 rc_bug_count
 - ts (DateTime)
-- rc_bugs (BigInteger)
-- with_patch (BigInteger)
-- with_fix (BigInteger)
-- ignored (BigInteger)
-- concern_current_stable (BigInteger)
-- concern_next_release (BigInteger)
+- rc_bugs (Integer)
+- with_patch (Integer)
+- with_fix (Integer)
+- ignored (Integer)
+- concern_current_stable (Integer)
+- concern_next_release (Integer)
 
 bts
 TO BE ADDED
@@ -146,12 +147,11 @@ Interface
 1) Local metrics
 
 Run on machine hosting the metrics portal. Client provides a script via 
-push interface (POST to some URL with an api key). See Data Format for 
-sample output format.
+push interface (POST to some URL with an api key).
 
 2) Remote metrics
 
-Run remote script located at some URL. Outputs data in some format predefined 
+Run remote script located at some URL. Outputs data as json or xml as predefined 
 by the client. Metrics portal parses it into standard format as described in 
 Data Format.
 
@@ -164,15 +164,11 @@ sample format (ConfigParser):
 
 [script1]
 output = local|remote
-freq = min, hour, dom, month, dow, year # crontab format
+freq = min hour dom month dow year # crontab format
 url = http://www.example.com/script # for remote metrics; don't include for local
-title = Title # title of graph
-xrange = xmin, xmax # optional hint
-yrange = ymin, ymax # optional hint
-data1 = 0, 20, 30, ...
-label1 = Label 
-data2 = ...
-label2 = Label2
+tablename = Name
+fields = field1, field2, field3, ... # ts is field, but isn't defined by client
+format = json|xml
 
 [script2]
 output = local|remote
