@@ -12,19 +12,15 @@ engine = (create_engine('postgresql://'+DATABASE['dev']['USER']+':'+DATABASE['de
 Base = declarative_base(bind=engine)
 Session = scoped_session(sessionmaker(engine))
 
-class Sources_Count(Base):
-    __tablename__ = 'sources_count'
+class RC_Bug_Count(Base):
+    __tablename__ = 'rc_bug_count'
     __table_args__ =  {'schema': 'metrics'}
 
     ts = Column(TIMESTAMP, primary_key=True)
-    arch = Column(Integer)
-    bzr = Column(Integer)
-    cvs = Column(Integer)
-    darcs = Column(Integer)
-    git = Column(Integer)
-    hg = Column(Integer)
-    mtn = Column(Integer)
-    svn = Column(Integer)
-    total = Column(Integer)
-    using_vcs = Column(Integer)
-
+    rc_bugs = Column(Integer)
+    with_patch = Column(Integer)
+    with_fix = Column(Integer)
+    ignored = Column(Integer)
+    concern_current_stable = Column(Integer)
+    concern_next_release = Column(Integer)
+    

@@ -12,19 +12,12 @@ engine = (create_engine('postgresql://'+DATABASE['dev']['USER']+':'+DATABASE['de
 Base = declarative_base(bind=engine)
 Session = scoped_session(sessionmaker(engine))
 
-class Sources_Count(Base):
-    __tablename__ = 'sources_count'
+class Release(Base):
+    __tablename__ = 'releases'
     __table_args__ =  {'schema': 'metrics'}
 
     ts = Column(TIMESTAMP, primary_key=True)
-    arch = Column(Integer)
-    bzr = Column(Integer)
-    cvs = Column(Integer)
-    darcs = Column(Integer)
-    git = Column(Integer)
-    hg = Column(Integer)
-    mtn = Column(Integer)
-    svn = Column(Integer)
-    total = Column(Integer)
-    using_vcs = Column(Integer)
-
+    name = Column(Text)
+    release_date = Column(Date)
+    release_version = Column(Text)
+    

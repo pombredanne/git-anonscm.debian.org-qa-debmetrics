@@ -102,7 +102,7 @@ example:
   - column (type)
 
 sources_count
-- ts (DateTime)
+- ts (TIMESTAMP)
 - arch Integer)
 - bzr (Integer)
 - cvs (Integer)
@@ -115,22 +115,22 @@ sources_count
 - using_vcs (Integer)
 
 releases
-- ts (DateTime)
+- ts (TIMESTAMP)
 - name (Text) i.e. Jessie
-- releasedate (Date)
-- releaseversion (Text) i.e. 8.0
+- release_date (Date)
+- release_version (Text) i.e. 8.0
 
 releases_count
-- ts (DateTime)
+- ts (TIMESTAMP)
 - name (Text) i.e. Jessie
-- sourcefiles (Integer)
-- sourcepackages (Integer)
-- diskusage (Integer) in kB
+- source_files (Integer)
+- source_packages (Integer)
+- disk_usage (Integer) in kB
 - ctags (Integer)
 - sloc (Integer) source lines of code
 
 rc_bug_count
-- ts (DateTime)
+- ts (TIMESTAMP)
 - rc_bugs (Integer)
 - with_patch (Integer)
 - with_fix (Integer)
