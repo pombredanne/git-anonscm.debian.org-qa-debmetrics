@@ -164,6 +164,7 @@ sample format (ConfigParser):
 
 [script1]
 output = local|remote
+deps = dep1, dep2, dep3, ... # optional
 freq = min hour dom month dow year # crontab format
 url = http://www.example.com/script # for remote metrics; don't include for local
 tablename = Name
