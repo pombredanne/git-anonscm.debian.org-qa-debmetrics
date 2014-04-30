@@ -1,7 +1,9 @@
 [script1]
-output = remote
+type = push
+kind = transient
 freq = 0 0 * * * *
 url = https://upsilon.cc/~zack/stuff/vcs-usage/usage.json
 tablename = sources_count
 fields = svn, darcs, git, bzr, using_vcs, cvs, mtn, total, arch, hg
+types = Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer
 format = json

@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import Column, Integer, String, DateTime
 from credentials import DATABASE
 
-"""This module definees the Sources_Count class and sources_count table."""
+"""This module defines the Sources_Count class and sources_count table."""
 
 engine = (create_engine('postgresql://'+DATABASE['dev']['USER']+':'+DATABASE['dev']
         ['PASS']+'@'+DATABASE['dev']['IP']+'/debmetrics'))
