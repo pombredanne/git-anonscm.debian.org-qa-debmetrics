@@ -96,50 +96,7 @@ plot = $("#placeholder").plot(json["coords"], {
 Database Structure
 ==================
 
-example:
-  tablename
-  - column (type)
-  - column (type)
-
-sources_count
-- ts (TIMESTAMP)
-- arch Integer)
-- bzr (Integer)
-- cvs (Integer)
-- darcs (Integer)
-- git (Integer)
-- hg (Integer)
-- mtn (Integer)
-- svn (Integer)
-- total (Integer)
-- using_vcs (Integer)
-
-releases
-- ts (TIMESTAMP)
-- name (Text) i.e. Jessie
-- release_date (Date)
-- release_version (Text) i.e. 8.0
-
-releases_count
-- ts (TIMESTAMP)
-- name (Text) i.e. Jessie
-- source_files (Integer)
-- source_packages (Integer)
-- disk_usage (Integer) in kB
-- ctags (Integer)
-- sloc (Integer) source lines of code
-
-rc_bug_count
-- ts (TIMESTAMP)
-- rc_bugs (Integer)
-- with_patch (Integer)
-- with_fix (Integer)
-- ignored (Integer)
-- concern_current_stable (Integer)
-- concern_next_release (Integer)
-
-bts
-TO BE ADDED
+See http://www.josephbisch.com/debmetrics.html.
 
 Interface
 =========
@@ -163,16 +120,18 @@ about when to run scripts and the format of the output.
 sample format (ConfigParser):
 
 [script1]
-output = local|remote
+type = pull|push
+kind = static|transient
 deps = dep1, dep2, dep3, ... # optional
 freq = min hour dom month dow year # crontab format
-url = http://www.example.com/script # for remote metrics; don't include for local
+url = http://www.example.com/script # for remote metrics; don't include for pull
 tablename = Name
 fields = field1, field2, field3, ... # ts is field, but isn't defined by client
-format = json|xml
+types = Integer, Integer, Integer, ... # correspond to the fields in fields
+format = json|xml|fixed_width|tab|csv
 
 [script2]
-output = local|remote
+type = pull|push
 ...
 ...
 ...
