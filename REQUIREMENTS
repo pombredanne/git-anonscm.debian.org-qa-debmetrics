@@ -1,2 +1,3 @@
 alembic
 python-sqlalchemy
+python-flask
