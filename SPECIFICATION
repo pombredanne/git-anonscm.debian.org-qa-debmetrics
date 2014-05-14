@@ -115,17 +115,16 @@ Data Format.
 3) Manifest file
 
 A manifest file is uploaded by the client to tell the metrics portal information 
-about when to run scripts and the format of the output.
+about when to run scripts and the format of the output. Table name is derived from 
+the name of the manifest file with error checking.
 
 sample format (ConfigParser):
 
 [script1]
 type = pull|push
-kind = static|transient
 deps = dep1, dep2, dep3, ... # optional
 freq = min hour dom month dow year # crontab format
 url = http://www.example.com/script # for remote metrics; don't include for pull
-tablename = Name
 fields = field1, field2, field3, ... # ts is field, but isn't defined by client
 types = Integer, Integer, Integer, ... # correspond to the fields in fields
 format = json|xml|fixed_width|tab|csv
