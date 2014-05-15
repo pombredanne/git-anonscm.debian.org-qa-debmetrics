@@ -122,7 +122,7 @@ sample format (ConfigParser):
 
 [script1]
 type = pull|push
-packages = dep1:stable, dep2:stable, ... # optional package dependencies
+depends = dep1>=w.x.y-z, dep2>=w.x.y-z, ... # optional package dependencies
 freq = min hour dom month dow year # crontab format
 script = scripts/scriptname # relative location in directory structure
 fields = field1:Integer, field2:Integer, ... # ts is field, but isn't defined by client
