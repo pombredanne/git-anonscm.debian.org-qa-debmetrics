@@ -1,5 +1,13 @@
 [HIGH]
+- convert documentation to restructured text
+- look into readthedocs
+- roll back on non-zero exit status/error
+- create config file format
+- create makefile or binary that checks for new or changed manifests and 
+writes ORM code to disk
+- lookup about api keys
+- create basic pull runner which runs all scripts irrespective of freq
 
 [LOW]
-historical data injection
+- historical data injection
 
