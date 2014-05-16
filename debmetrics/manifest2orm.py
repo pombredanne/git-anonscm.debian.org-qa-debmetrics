@@ -1,7 +1,7 @@
 import ConfigParser
-import sys
 
 config = ConfigParser.RawConfigParser()
+
 
 def manifest2orm(manifest):
     config.read(manifest)
@@ -34,6 +34,7 @@ def manifest2orm(manifest):
     temp = fields.split(', ')
     for i in range(len(temp)):
         print '        '+temp[i]+' = Column('+types.split(', ')[i]+')'
+
 
 def table2class(table):
     temp = table.split('_')
