@@ -1,3 +1,5 @@
+"""This module creates the orm from a manifest file."""
+
 import ConfigParser
 import ntpath
 
@@ -5,6 +7,11 @@ config = ConfigParser.RawConfigParser()
 
 
 def manifest2orm(manifest):
+    """Outputs the orm given a manifest file
+    
+    Keyword arguments:
+    manifest -- location of manifest on file system
+    """
     config.read(manifest)
     fieldtypes = config.get('script1', 'fields')
     fieldtypes = ':'.join(fieldtypes.split(', '))
@@ -40,6 +47,7 @@ def manifest2orm(manifest):
 
 
 def table2class(table):
+    """Capitalizes the table name to form a class name"""
     temp = table.split('_')
     for i in range(len(temp)):
         temp[i] = temp[i].capitalize()
