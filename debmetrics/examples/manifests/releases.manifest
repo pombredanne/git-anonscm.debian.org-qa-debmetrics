@@ -1,0 +1,15 @@
+[script1]
+output = remote
+freq = 0 0 * * * *
+url = 
+tablename = releases_count
+fields = name, sourcefiles, sourcepackages, diskusage, ctags, sloc
+format = json
+
+[script2]
+output remote
+freq = 0 0 * * * *
+url = 
+tablename = releases
+fields = name, releasedate, releaseversion
+format = json

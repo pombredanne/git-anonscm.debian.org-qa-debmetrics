@@ -1,26 +1,29 @@
 import ConfigParser
+import ntpath
 
 config = ConfigParser.RawConfigParser()
 
 
 def manifest2orm(manifest):
     config.read(manifest)
-    tablename = config.get('script1', 'tablename')
-    fields = config.get('script1', 'fields')
-    types = config.get('script1', 'types')
+    fieldtypes = config.get('script1', 'fields')
+    fieldtypes = ':'.join(fieldtypes.split(', '))
+    fieldtypes = fieldtypes.split(':')
+    fields = fieldtypes[0::2]
+    types = fieldtypes[1::2]
 
     print """
+    \"\"\"This module defines the {0} class and {1} table.\"\"\"
+
     import sqlalchemy
     from sqlalchemy import create_engine
     from sqlalchemy.ext.declarative import declarative_base
     from sqlalchemy.orm import sessionmaker, scoped_session
-    from sqlalchemy import Column, Integer, String, DateTime
+    from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
     from credentials import DATABASE
-
-    \"\"\"This module defines the {0} class and {1} table.\"\"\"
-    
+   
     engine = (create_engine('postgresql://'+DATABASE['dev']['USER']+':'+DATABASE['dev']
-                ['PASS']+'@'+DATABASE['dev']['IP']+'/debmetrics'))
+              ['PASS']+'@'+DATABASE['dev']['IP']+'/debmetrics'))
     Base = declarative_base(bind=engine)
     Session = scoped_session(sessionmaker(engine))
     
@@ -29,11 +32,11 @@ def manifest2orm(manifest):
         __table_args__ =  {{'schema': 'metrics'}}
                 
         ts = Column(TIMESTAMP, primary_key=True)
-""".format(table2class(tablename), tablename),
+""".format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
+           ntpath.basename(file_name).split('.', 1)[0]),
 
-    temp = fields.split(', ')
-    for i in range(len(temp)):
-        print '        '+temp[i]+' = Column('+types.split(', ')[i]+')'
+    for i in range(len(fields)):
+        print '        '+fields[i]+' = Column('+types[i]+')'
 
 
 def table2class(table):
@@ -43,5 +46,5 @@ def table2class(table):
     return '_'.join(temp)
 
 if __name__ == '__main__':
-    manifest2orm('../examples/manifests/vcs.manifest')
-
+    file_name = 'examples/manifests/vcs.manifest'
+    manifest2orm(file_name)

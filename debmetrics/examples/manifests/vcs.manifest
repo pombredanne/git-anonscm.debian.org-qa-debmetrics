@@ -1,0 +1,6 @@
+[script1]
+type = push
+freq = 0 0 * * * *
+url = https://upsilon.cc/~zack/stuff/vcs-usage/usage.json
+fields = svn:Integer, darcs:Integer, git:Integer, bzr:Integer, using_vcs:Integer, cvs:Integer, mtn:Integer, total:Integer, arch:Integer, hg:Integer
+format = json
