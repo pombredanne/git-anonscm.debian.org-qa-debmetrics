@@ -22,31 +22,29 @@ def manifest2orm(manifest):
 
     f = open('models/'+ntpath.basename(file_name).split('.', 1)[0]+'.py', 'w')
 
-    f.write("""
-    \"\"\"This module defines the {0} class and {1} table.\"\"\"
+    f.write("""\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
-    import sqlalchemy
-    from sqlalchemy import create_engine
-    from sqlalchemy.ext.declarative import declarative_base
-    from sqlalchemy.orm import sessionmaker, scoped_session
-    from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
-    from credentials import DATABASE
+import sqlalchemy
+from sqlalchemy import engine_from_config
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
+from credentials import DATABASE
    
-    engine = (create_engine('postgresql://'+DATABASE['dev']['USER']+':'+DATABASE['dev']
-              ['PASS']+'@'+DATABASE['dev']['IP']+'/debmetrics'))
-    Base = declarative_base(bind=engine)
-    Session = scoped_session(sessionmaker(engine))
+engine = engine_from_config(DATABASE, prefix='')
+Base = declarative_base(bind=engine)
+Session = scoped_session(sessionmaker(engine))
     
-    class {0}(Base):
-        __tablename__ = '{1}'
-        __table_args__ =  {{'schema': 'metrics'}}
+class {0}(Base):
+    __tablename__ = '{1}'
+    __table_args__ =  {{'schema': 'metrics'}}
                 
-        ts = Column(TIMESTAMP, primary_key=True)
+    ts = Column(TIMESTAMP, primary_key=True)
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
            ntpath.basename(file_name).split('.', 1)[0]))
 
     for i in range(len(fields)):
-        f.write('        '+fields[i]+' = Column('+types[i]+')\n')
+        f.write('    '+fields[i]+' = Column('+types[i]+')\n')
 
 
 def table2class(table):

@@ -11,4 +11,9 @@ create_all.py
 .. automodule:: debmetrics.create_all
    :members:
 
+config_reader.py
+================
+.. automodule:: debmetrics.config_reader
+   :members:
+
 
