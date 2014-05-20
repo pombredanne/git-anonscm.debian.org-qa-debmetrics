@@ -1,6 +1,7 @@
 """This module creates the orm from a manifest file."""
 
 import ConfigParser
+import sys
 import ntpath
 
 config = ConfigParser.RawConfigParser()
@@ -19,7 +20,9 @@ def manifest2orm(manifest):
     fields = fieldtypes[0::2]
     types = fieldtypes[1::2]
 
-    print """
+    f = open('models/'+ntpath.basename(file_name).split('.', 1)[0]+'.py', 'w')
+
+    f.write("""
     \"\"\"This module defines the {0} class and {1} table.\"\"\"
 
     import sqlalchemy
@@ -40,10 +43,10 @@ def manifest2orm(manifest):
                 
         ts = Column(TIMESTAMP, primary_key=True)
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
-           ntpath.basename(file_name).split('.', 1)[0]),
+           ntpath.basename(file_name).split('.', 1)[0]))
 
     for i in range(len(fields)):
-        print '        '+fields[i]+' = Column('+types[i]+')'
+        f.write('        '+fields[i]+' = Column('+types[i]+')\n')
 
 
 def table2class(table):
@@ -54,5 +57,6 @@ def table2class(table):
     return '_'.join(temp)
 
 if __name__ == '__main__':
-    file_name = 'examples/manifests/vcs.manifest'
-    manifest2orm(file_name)
+    for i in range(1, len(sys.argv)):
+        file_name = sys.argv[i]
+        manifest2orm(file_name)

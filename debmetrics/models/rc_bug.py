@@ -1,5 +1,5 @@
 
-    """This module defines the Releases class and releases table."""
+    """This module defines the Rc_Bug class and rc_bug table."""
 
     import sqlalchemy
     from sqlalchemy import create_engine
@@ -13,14 +13,14 @@
     Base = declarative_base(bind=engine)
     Session = scoped_session(sessionmaker(engine))
     
-    class Releases(Base):
-        __tablename__ = 'releases'
+    class Rc_Bug(Base):
+        __tablename__ = 'rc_bug'
         __table_args__ =  {'schema': 'metrics'}
                 
         ts = Column(TIMESTAMP, primary_key=True)
-        name = Column(String)
-        sourcefiles = Column(Integer)
-        sourcepackages = Column(Integer)
-        diskusage = Column(Integer)
-        ctags = Column(Integer)
-        sloc = Column(Integer)
+        rc_bugs = Column(Integer)
+        with_patch = Column(Integer)
+        with_fix = Column(Integer)
+        ignored = Column(Integer)
+        concern_current_stable = Column(Integer)
+        concern_next_release = Column(Integer)

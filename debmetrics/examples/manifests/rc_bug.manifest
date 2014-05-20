@@ -1,7 +1,7 @@
 [script1]
-output = remote
+output = push
 freq = 0 0 * * * *
 url = 
 tablename = rc_bug_count
-fields = rc_bugs, with_patch, with_fix, ignored, concern_current_stable, concern_next_release
+fields = rc_bugs:Integer, with_patch:Integer, with_fix:Integer, ignored:Integer, concern_current_stable:Integer, concern_next_release:Integer
 format = json

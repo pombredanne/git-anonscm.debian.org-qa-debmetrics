@@ -1,15 +1,14 @@
 [script1]
-output = remote
+output = push
 freq = 0 0 * * * *
 url = 
-tablename = releases_count
-fields = name, sourcefiles, sourcepackages, diskusage, ctags, sloc
+fields = name:String, sourcefiles:Integer, sourcepackages:Integer, diskusage:Integer, ctags:Integer, sloc:Integer
 format = json
 
 [script2]
-output remote
+output = pushe
 freq = 0 0 * * * *
 url = 
 tablename = releases
-fields = name, releasedate, releaseversion
+fields = name:String, releasedate:DateTime, releaseversion:String
 format = json

@@ -1,5 +1,5 @@
 
-    """This module defines the Releases class and releases table."""
+    """This module defines the Vcs class and vcs table."""
 
     import sqlalchemy
     from sqlalchemy import create_engine
@@ -13,14 +13,18 @@
     Base = declarative_base(bind=engine)
     Session = scoped_session(sessionmaker(engine))
     
-    class Releases(Base):
-        __tablename__ = 'releases'
+    class Vcs(Base):
+        __tablename__ = 'vcs'
         __table_args__ =  {'schema': 'metrics'}
                 
         ts = Column(TIMESTAMP, primary_key=True)
-        name = Column(String)
-        sourcefiles = Column(Integer)
-        sourcepackages = Column(Integer)
-        diskusage = Column(Integer)
-        ctags = Column(Integer)
-        sloc = Column(Integer)
+        svn = Column(Integer)
+        darcs = Column(Integer)
+        git = Column(Integer)
+        bzr = Column(Integer)
+        using_vcs = Column(Integer)
+        cvs = Column(Integer)
+        mtn = Column(Integer)
+        total = Column(Integer)
+        arch = Column(Integer)
+        hg = Column(Integer)
