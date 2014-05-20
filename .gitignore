@@ -2,4 +2,4 @@
 credentials.py
 alembic.ini
 *.swp
-
+docs/_build/
