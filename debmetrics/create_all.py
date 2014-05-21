@@ -4,7 +4,6 @@ the database already exists"""
 from sqlalchemy import engine_from_config
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-#from credentials import DATABASE
 from config_reader import settings, read_config
 from models.vcs import Vcs
 
