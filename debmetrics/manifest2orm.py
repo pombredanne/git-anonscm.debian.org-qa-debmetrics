@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 """This module creates the orm from a manifest file."""
 
 import ConfigParser
@@ -20,9 +22,7 @@ def manifest2orm(manifest):
     fields = fieldtypes[0::2]
     types = fieldtypes[1::2]
 
-    f = open('models/'+ntpath.basename(file_name).split('.', 1)[0]+'.py', 'w')
-
-    f.write("""\"\"\"This module defines the {0} class and {1} table.\"\"\"
+    print """\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
 import sqlalchemy
 from sqlalchemy import engine_from_config
@@ -41,10 +41,10 @@ class {0}(Base):
                 
     ts = Column(TIMESTAMP, primary_key=True)
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
-           ntpath.basename(file_name).split('.', 1)[0]))
+           ntpath.basename(file_name).split('.', 1)[0])
 
     for i in range(len(fields)):
-        f.write('    '+fields[i]+' = Column('+types[i]+')\n')
+        print'    '+fields[i]+' = Column('+types[i]+')'
 
 
 def table2class(table):

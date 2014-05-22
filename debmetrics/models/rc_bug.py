@@ -16,6 +16,7 @@ class Rc_Bug(Base):
     __table_args__ =  {'schema': 'metrics'}
                 
     ts = Column(TIMESTAMP, primary_key=True)
+
     rc_bugs = Column(Integer)
     with_patch = Column(Integer)
     with_fix = Column(Integer)

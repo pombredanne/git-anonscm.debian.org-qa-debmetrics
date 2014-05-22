@@ -16,6 +16,7 @@ class Releases(Base):
     __table_args__ =  {'schema': 'metrics'}
                 
     ts = Column(TIMESTAMP, primary_key=True)
+
     name = Column(String)
     sourcefiles = Column(Integer)
     sourcepackages = Column(Integer)

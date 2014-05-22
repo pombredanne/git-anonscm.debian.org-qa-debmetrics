@@ -1,8 +1,6 @@
 [HIGH]
 - roll back on non-zero exit status/error
-- create config file format
-- lookup about api keys
-- create basic pull runner which runs all scripts irrespective of freq
+- add more to config file format
 
 [LOW]
 - historical data injection

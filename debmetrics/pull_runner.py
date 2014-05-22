@@ -1,12 +1,12 @@
+#! /usr/bin/python
+
 import os
 import subprocess
 
-for filename in os.listdir('examples/manifests'):
+for filename in os.listdir('manifests'):
     name, ext = os.path.splitext(filename)
     if ext == '.py' and not name == '__init__':
-        if subprocess.call('./examples/manifests/'+filename, shell=True):
-            # success
-            pass
+        if not subprocess.call('./manifests/'+filename, shell=True):
+            print 'success'
         else:
-            # failure
-            pass
+            print 'failure'

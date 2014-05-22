@@ -16,6 +16,7 @@ class Vcs(Base):
     __table_args__ =  {'schema': 'metrics'}
                 
     ts = Column(TIMESTAMP, primary_key=True)
+
     svn = Column(Integer)
     darcs = Column(Integer)
     git = Column(Integer)
