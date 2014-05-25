@@ -6,7 +6,6 @@
 - change URL to DB_URI in config file
 - decide how to authenticate push metrics
 - make directory name for manifests configurable
-- use Shell=False
 - create two sample pull scripts (using CSV)
 - create crontab
 - create script to generate graphs
@@ -17,4 +16,5 @@
 
 [DONE]
 - add git hook to email upon commit
+- use Shell=False
 
