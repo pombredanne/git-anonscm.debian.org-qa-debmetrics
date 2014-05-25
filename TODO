@@ -2,7 +2,6 @@
 - roll back on non-zero exit status/error
 - add more to config file format
 - use ConfigParser for config file parsing
-- use ini as filename extension
 - change URL to DB_URI in config file
 - decide how to authenticate push metrics
 - make directory name for manifests configurable
@@ -17,4 +16,5 @@
 [DONE]
 - add git hook to email upon commit
 - use Shell=False
+- use ini as filename extension for config
 

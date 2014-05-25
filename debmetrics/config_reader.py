@@ -18,4 +18,4 @@ def read_config(config):
     f.close()
 
 if __name__ == '__main__':
-    read_config('.debmetrics.cfg')
+    read_config('.debmetrics.ini')
