@@ -1,7 +1,20 @@
 [HIGH]
 - roll back on non-zero exit status/error
 - add more to config file format
+- use ConfigParser for config file parsing
+- use ini as filename extension
+- change URL to DB_URI in config file
+- decide how to authenticate push metrics
+- make directory name for manifests configurable
+- use Shell=False
+- create two sample pull scripts (using CSV)
+- create crontab
+- create script to generate graphs
+- display graphs on the website
 
 [LOW]
 - historical data injection
+
+[DONE]
+- add git hook to email upon commit
 
