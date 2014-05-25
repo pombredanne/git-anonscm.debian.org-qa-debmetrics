@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from config_reader import settings, read_config
 from models.vcs import Vcs
 
-read_config('.debmetrics.cfg')
+read_config('.debmetrics.ini')
 engine = engine_from_config(settings, prefix='')
 Base = declarative_base(bind=engine)
 Session = scoped_session(sessionmaker(engine))
