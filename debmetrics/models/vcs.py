@@ -1,13 +1,19 @@
 """This module defines the Vcs class and vcs table."""
 
 import sqlalchemy
-from sqlalchemy import engine_from_config
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
-from credentials import DATABASE
+import ConfigParser
    
-engine = engine_from_config(DATABASE, prefix='')
+config = ConfigParser.RawConfigParser()
+config.read('.debmetrics.ini')
+DB_URI = config.get('DB', 'DB_URI')
+
+print DB_URI
+
+engine = create_engine(DB_URI)
 Base = declarative_base(bind=engine)
 Session = scoped_session(sessionmaker(engine))
     
