@@ -2,7 +2,7 @@
 - roll back on non-zero exit status/error
 - add more to config file format
 - decide how to authenticate push metrics
-- create two sample pull scripts (using CSV)
+- create another sample pull script (using CSV)
 - create crontab
 - create script to generate graphs
 - display graphs on the website
@@ -17,4 +17,5 @@
 - change URL to DB_URI in config file
 - use ConfigParser for config file parsing
 - make directory name for manifests configurable
+- create a sample pull script using CSV
 

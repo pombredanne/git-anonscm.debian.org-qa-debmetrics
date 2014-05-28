@@ -25,19 +25,8 @@ def manifest2orm(manifest):
     print """\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
 import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, scoped_session
+from base import engine, Base, Session
 from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
-import ConfigParser
-   
-config = ConfigParser.RawConfigParser()
-config.read('.debmetrics.ini')
-DB_URI = config.get('DB', 'DB_URI')
-
-engine = create_engine(DB_URI)
-Base = declarative_base(bind=engine)
-Session = scoped_session(sessionmaker(engine))
     
 class {0}(Base):
     __tablename__ = '{1}'
