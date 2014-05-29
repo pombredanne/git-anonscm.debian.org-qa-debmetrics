@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>{% block title %}{% endblock %} - Debian Metrics Portal</title>
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        <script src="static/js/jquery-1.11.1.min.js"></script>
+        <script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
