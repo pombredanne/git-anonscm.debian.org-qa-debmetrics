@@ -16,7 +16,6 @@ def run():
                      'mtn', 'total', 'arch', 'hg'])
     today = 'TIMESTAMP \'' + \
         str(datetime.datetime.utcnow()) + '\''
-    sys.stderr.write(str(today) + '\n')
     writer.writerow([today, j['svn'], j['darcs'],
                     j['git'], j['bzr'], j['using_vcs'], j['cvs'], j['mtn'],
                     j['total'], j['arch'], j['hg']])

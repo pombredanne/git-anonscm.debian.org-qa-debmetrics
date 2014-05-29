@@ -13,6 +13,14 @@ directory = settings['DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
 
 
+def quote(data):
+    if data[0:9] == 'TIMESTAMP':
+        return data
+    if data.isdigit():
+        return data
+    return "'" + data + "'"
+
+
 def db_insert(header, rows, table):
     try:
         conn = psycopg2.connect(conn_str)
@@ -21,8 +29,12 @@ def db_insert(header, rows, table):
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     for row in rows:
-        cur.execute("INSERT INTO " + table_name + " (%s) VALUES (%s);" %
-                    (', '.join(header), ','.join(row)))
+        try:
+            cur.execute("INSERT INTO " + table_name + " (%s) VALUES (%s);" %
+                        (', '.join(header), ','.join(row)))
+        except:
+            conn.rollback
+    conn.commit()
 
 
 def handle_csv(data):
@@ -33,7 +45,10 @@ def handle_csv(data):
         if rownum == 0:
             header = row
         else:
-            rows.append(row)
+            r = []
+            for col in row:
+                r.append(quote(col))
+            rows.append(r)
         rownum += 1
     return header, rows
 

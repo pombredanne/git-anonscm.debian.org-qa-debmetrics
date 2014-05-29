@@ -1,14 +1,6 @@
 [script1]
-output = push
+type = push
 freq = 0 0 * * * *
-url = 
-fields = name:String, sourcefiles:Integer, sourcepackages:Integer, diskusage:Integer, ctags:Integer, sloc:Integer
-format = json
-
-[script2]
-output = pushe
-freq = 0 0 * * * *
-url = 
-tablename = releases
+script = scripts/releases.py
 fields = name:String, releasedate:DateTime, releaseversion:String
-format = json
+format = csv
