@@ -1,21 +1,30 @@
 #! /usr/bin/python
 
+import ast
+import fileinput
 import datetime
 import matplotlib.pyplot as plt
 
 
 def graph(data):
     for row in data:
-        plt.pie([row[5]/float(row[8]), (row[8]-row[5])/float(row[8])])
+        pie_labels = ['using vcs', 'not using vcs']
+        plt.pie([float(row[5])/float(row[8]), (float(row[8])-float(row[5]))
+                / float(row[8])], labels=pie_labels)
         plt.savefig('graphs/vcs_vcsusage_pie_' + str(row[0]) + '.png')
 
 
 if __name__ == '__main__':
-    # test data
+    """ test data
     graph([
         (datetime.datetime(2014, 5, 1), 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
         (datetime.datetime(2014, 5, 2), 11, 12, 13, 14, 15, 16, 17, 18, 19,
             20),
         (datetime.datetime(2014, 5, 3), 21, 22, 23, 24, 25, 26, 27, 28, 29,
             30)])
-   
+    """
+    inp = ''
+    for line in fileinput.input():
+        inp += line
+    inp = ast.literal_eval('[' + inp + ']')
+    graph(inp)

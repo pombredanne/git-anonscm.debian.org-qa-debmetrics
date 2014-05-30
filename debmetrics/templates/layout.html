@@ -3,10 +3,12 @@
     <head>
         <meta charset=utf-8>
         <title>{% block title %}{% endblock %} - Debian Metrics Portal</title>
+        <link rel="stylesheet" href="static/css/ui-lightness/jquery-ui-1.10.4.min.css" />
     </head>
     <body>
         {% block body %}{% endblock %}
         <script src="static/js/jquery-1.11.1.min.js"></script>
+        <script src="static/js/jquery-ui-1.10.4.min.js"></script>
         <script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
         {% block scripts %}{% endblock %}
     </body>

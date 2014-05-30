@@ -56,7 +56,7 @@ def handle_csv(data):
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
-        if ext == '.py' and not name == '__init__' and not 'graph' in name:
+        if ext == '.py' and not name == '__init__' and 'graph' not in name:
             manifest = ConfigParser.RawConfigParser()
             manifest.read(os.path.join(directory, name + '.manifest'))
             format = manifest.get('script1', 'format')
