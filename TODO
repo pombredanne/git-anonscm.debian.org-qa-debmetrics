@@ -4,6 +4,10 @@
 - decide how to authenticate push metrics
 - create crontab
 - display rest of the graphs on the website
+- automatic time series plotting
+- provide a python api for graphing
+- add metric from irc bot for number of packages vs time
+- implement python-crontab for crontab parsing
 
 [LOW]
 - historical data injection
