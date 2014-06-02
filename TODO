@@ -2,7 +2,6 @@
 - roll back on non-zero exit status/error
 - add more to config file format
 - decide how to authenticate push metrics
-- create crontab
 - display rest of the graphs on the website
 - provide a python api for graphing
 - add metric from irc bot for number of packages vs time
@@ -24,4 +23,5 @@
 - pull data from database when generating graphs
 - display some graphs on the website
 - automatic time series plotting
+- create crontab
 
