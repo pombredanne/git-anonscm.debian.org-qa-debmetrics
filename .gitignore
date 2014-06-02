@@ -4,3 +4,4 @@ alembic.ini
 *.swp
 docs/_build/
 debmetrics/graphs/
+debmetrics/last_ran.txt

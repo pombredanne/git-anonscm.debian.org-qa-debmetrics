@@ -1,7 +1,7 @@
 [script1]
 type = push
 depends = python-beautifulsoup>=3.2.1-1
-freq = 0 0 * * * *
+freq = */5 * * * *
 script = scripts/releases_count.py
 fields = name:String, sourcefiles:Integer, sourcepackages:Integer, diskusage:Integer, ctags:Integer, sloc:Integer
 format = csv

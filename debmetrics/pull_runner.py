@@ -1,11 +1,14 @@
 #! /usr/bin/python
 
 import os
+import re
+import csv
+import datetime
 import subprocess
 import ConfigParser
-import csv
 import StringIO
 import psycopg2
+from crontab import CronTab
 from config_reader import settings, read_config
 
 read_config('.debmetrics.ini')
@@ -53,6 +56,52 @@ def handle_csv(data):
     return header, rows
 
 
+def should_run(filename, freq):
+    job = CronTab(tab=freq + ' dummy')[0]
+    if not os.path.exists('last_ran.txt'):
+        f = open('last_ran.txt', 'w')
+    f = open('last_ran.txt', 'r')
+    for line in f:
+        line = line.rstrip('\n')
+        if line == '':
+            continue
+        if line.split(',')[1] == filename:
+            if str_to_date(line.split(',')[0]) < job.schedule().get_prev():
+                update_last_ran(filename)
+                return True
+            else:
+                return False
+    print 'First time'
+    update_last_ran(filename)
+    return True
+
+
+def update_last_ran(filename):
+    pat = '.+,' + filename
+    now = datetime.datetime.now()
+    with open('last_ran.txt', 'r+') as f:
+        if not any(re.search(pat, line) for line in f):
+                f.write(date_to_str(now) + ',' + filename + '\n')
+                return
+
+    with open('last_ran.txt') as f:
+        out_f = 'last_ran.tmp'
+        out = open(out_f, 'w')
+        for line in f:
+            out.write(re.sub(pat, date_to_str(now) + ',' + filename + '\n',
+                      line))
+        out.close()
+        os.rename(out_f, 'last_ran.txt')
+
+
+def date_to_str(date):
+    return datetime.datetime.strftime(date, '%Y-%m-%d %H:%M')
+
+
+def str_to_date(string):
+    return datetime.datetime.strptime(string, '%Y-%m-%d %H:%M')
+
+
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
@@ -60,15 +109,18 @@ def run():
             manifest = ConfigParser.RawConfigParser()
             manifest.read(os.path.join(directory, name + '.manifest'))
             format = manifest.get('script1', 'format')
-            try:
-                output = subprocess.check_output(os.path.join(directory,
-                                                              filename))
-                if format == 'csv':
-                    header, rows = handle_csv(output)
-                db_insert(header, rows, name)
-                print 'success'
-            except subprocess.CalledProcessError:
-                print 'failure'
+            if should_run(name+ext, manifest.get('script1', 'freq')):
+                try:
+                    output = subprocess.check_output(os.path.join(directory,
+                                                                  filename))
+                    if format == 'csv':
+                        header, rows = handle_csv(output)
+                    db_insert(header, rows, name)
+                    print 'success'
+                except subprocess.CalledProcessError:
+                    print 'failure'
+            else:
+                print 'did not run ' + filename
 
 if __name__ == '__main__':
     run()

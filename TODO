@@ -5,7 +5,6 @@
 - display rest of the graphs on the website
 - provide a python api for graphing
 - add metric from irc bot for number of packages vs time
-- implement python-crontab for crontab parsing
 
 [LOW]
 - historical data injection
@@ -24,4 +23,5 @@
 - display some graphs on the website
 - automatic time series plotting
 - create crontab
+- implement python-crontab for crontab parsing
 
