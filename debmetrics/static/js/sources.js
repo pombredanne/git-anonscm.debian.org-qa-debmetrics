@@ -4,13 +4,19 @@ $(function() {
             d: $('input#date').val()
         }, function(data) {
             $('#graph').attr('src', data.graph);
-            $('#title').text(data.name);
-            $('input#date').datepicker('option', 'maxDate', data.maxDate);
-            $('input#date').datepicker('option', 'minDate', data.minDate);
+            $('.title').each(function() {$(this).text(data.name)});
         });
         return false;
     });
 });
+
+$.getJSON($SCRIPT_ROOT + '/_sourcesminmax', {},
+        function(data) {
+            $('input#date').datepicker('option', 'maxDate', data.maxDate);
+            $('input#date').datepicker('option', 'minDate', data.minDate);
+        });
+
+$('#tabs').tabs();
 
 $('input#date').datepicker({
     dateFormat: "yy-mm-dd",

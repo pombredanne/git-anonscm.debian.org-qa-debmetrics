@@ -1,11 +1,21 @@
 {% extends "layout.html" %}
 {% block title %}Sources{% endblock %}
 {% block body %}
-    <p>Placeholder for sources.html</p>
-    <div>
-        <h2 id="title">{{ name }}</h2>
-        <img id="graph" src="{{ graph }}" />
-        <input type="date" id="date" />
+    <h1>Sources</h1>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Timeseries</a></li>
+            <li><a class="title" href="#tabs-2">{{ name }}</a></li>
+        </ul>
+        <div id="tabs-1">
+            <h2>Timeseries</h2>
+            <img src="{{ timeseries }}" />
+        </div>
+        <div id="tabs-2">
+            <h2 class="title">{{ name }}</h2>
+            <img id="graph" src="{{ graph }}" />
+            <input type="date" id="date" />
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}

@@ -29,7 +29,7 @@ def get_max_date(t):
     max_date = datetime.datetime.strptime('0010-10-10', '%Y-%m-%d')
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
-        if fileparts[0] == t:
+        if fileparts[0] == t and fileparts[1] != 'timeseries':
             date = datetime.datetime.strptime(fileparts[-1],
                                               '%Y-%m-%d %H:%M:%S.%f')
             if date > max_date:
@@ -41,7 +41,7 @@ def get_min_date(t):
     min_date = datetime.datetime.strptime('9000-10-10', '%Y-%m-%d')
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
-        if fileparts[0] == t:
+        if fileparts[0] == t and fileparts[1] != 'timeseries':
             date = datetime.datetime.strptime(fileparts[-1],
                                               '%Y-%m-%d %H:%M:%S.%f')
             if date < min_date:
@@ -57,21 +57,29 @@ def index():
 @app.route('/sources')
 def sources():
     graphs = []
+    timeseries = ''
     names = []
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
-        if fileparts[0] == 'vcs':
+        if fileparts[0] == 'vcs' and fileparts[1] != 'timeseries':
             graphs.append('graphs/' + filename)
             names.append(fileparts[-1])
-    return render_template('sources.html', graph=graphs[0], name=names[0])
+        elif fileparts[0] == 'vcs' and fileparts[1] == 'timeseries':
+            timeseries = 'graphs/' + filename
+    return render_template('sources.html', graph=graphs[0], name=names[0],
+                           timeseries=timeseries)
 
 
 @app.route('/_sources')
 def _sources():
     d = request.args.get('d', type=str)
     return jsonify(graph=get_graph_from_date('vcs', d),
-                   name=get_graph_name_from_date('vcs', d),
-                   maxDate=get_max_date('vcs'),
+                   name=get_graph_name_from_date('vcs', d))
+
+
+@app.route('/_sourcesminmax')
+def _sourcesminmax():
+    return jsonify(maxDate=get_max_date('vcs'),
                    minDate=get_min_date('vcs'))
 
 
