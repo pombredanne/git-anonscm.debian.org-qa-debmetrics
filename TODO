@@ -24,4 +24,5 @@
 - create crontab
 - implement python-crontab for crontab parsing
 - provide a python api for graphing
+- move pull scripts and graph script to their own directory
 

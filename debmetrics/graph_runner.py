@@ -13,7 +13,7 @@ import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 
 read_config('.debmetrics.ini')
-directory = settings['DIRECTORY']
+directory = settings['GRAPH_SCRIPTS_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
 
 
@@ -62,7 +62,7 @@ def time_series_graph(table, data, cols):
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
-        if ext == '.py' and not name == '__init__' and 'graph' in name and 'api' not in name:
+        if ext == '.py' and not name == '__init__' and 'api' not in name:
             try:
                 table = name.split('_')[0]
                 data, cols = db_fetch(table)

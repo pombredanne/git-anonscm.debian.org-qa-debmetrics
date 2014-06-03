@@ -12,7 +12,8 @@ from crontab import CronTab
 from config_reader import settings, read_config
 
 read_config('.debmetrics.ini')
-directory = settings['DIRECTORY']
+directory = settings['PULL_DIRECTORY']
+man_directory = settings['MANIFEST_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
 
 
@@ -105,9 +106,9 @@ def str_to_date(string):
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
-        if ext == '.py' and not name == '__init__' and 'graph' not in name:
+        if ext == '.py' and not name == '__init__':
             manifest = ConfigParser.RawConfigParser()
-            manifest.read(os.path.join(directory, name + '.manifest'))
+            manifest.read(os.path.join(man_directory, name + '.manifest'))
             format = manifest.get('script1', 'format')
             if should_run(name+ext, manifest.get('script1', 'freq')):
                 try:

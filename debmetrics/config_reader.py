@@ -15,7 +15,10 @@ def read_config(config_file):
     config.read(config_file)
     settings['DB_URI'] = config.get('db', 'DB_URI')
     settings['PSYCOPG2_DB_STRING'] = config.get('db', 'PSYCOPG2_DB_STRING')
-    settings['DIRECTORY'] = config.get('manifest', 'DIRECTORY')
+    settings['MANIFEST_DIRECTORY'] = config.get('manifest', 'DIRECTORY')
+    settings['PULL_DIRECTORY'] = config.get('pull_scripts', 'DIRECTORY')
+    settings['GRAPH_SCRIPTS_DIRECTORY'] = config.get('graph_scripts',
+                                                     'DIRECTORY')
 
 if __name__ == '__main__':
     read_config('.debmetrics.ini')
