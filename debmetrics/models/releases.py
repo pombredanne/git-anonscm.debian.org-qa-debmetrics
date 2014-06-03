@@ -11,8 +11,5 @@ class Releases(Base):
     ts = Column(TIMESTAMP, primary_key=True)
 
     name = Column(String)
-    sourcefiles = Column(Integer)
-    sourcepackages = Column(Integer)
-    diskusage = Column(Integer)
-    ctags = Column(Integer)
-    sloc = Column(Integer)
+    releasedate = Column(DateTime)
+    releaseversion = Column(String)

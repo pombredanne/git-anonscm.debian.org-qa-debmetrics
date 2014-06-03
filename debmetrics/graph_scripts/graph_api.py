@@ -27,3 +27,4 @@ def scatter(xlabel, ylabel, title, x, y):
 
 def savefig(fname):
     plt.savefig(fname)
+    plt.clf()

@@ -26,6 +26,9 @@ def quote(data):
 
 
 def db_insert(header, rows, table):
+    for i in range(len(rows)):
+        for j in range(len(rows[i])):
+            rows[i][j] = rows[i][j].replace(',', '')
     try:
         conn = psycopg2.connect(conn_str)
     except:
@@ -33,11 +36,12 @@ def db_insert(header, rows, table):
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     for row in rows:
+        print table_name
         try:
             cur.execute("INSERT INTO " + table_name + " (%s) VALUES (%s);" %
                         (', '.join(header), ','.join(row)))
-        except:
-            conn.rollback
+        except psycopg2.IntegrityError:
+            conn.rollback()
     conn.commit()
 
 

@@ -2,6 +2,7 @@
 
 import sys
 import csv
+import time
 import datetime
 import urllib2
 from BeautifulSoup import BeautifulSoup
@@ -38,11 +39,12 @@ def run():
     writer = csv.writer(sys.stdout)
     writer.writerow(['ts', 'name', 'disk_usage', 'sloc', 'source_packages',
                      'source_files', 'ctags'])
-    today = 'TIMESTAMP \'' + \
-        str(datetime.datetime.utcnow()) + '\''
     for row in data:
+        today = 'TIMESTAMP \'' + \
+                str(datetime.datetime.utcnow()) + '\''
         row = [today] + row
         writer.writerow(row)
+        time.sleep(2)
     sys.exit(0)
 
 if __name__ == '__main__':

@@ -8,10 +8,6 @@ import matplotlib.pyplot as plt
 from matplotlib import dates
 from config_reader import settings, read_config
 
-import sys
-import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-
 read_config('.debmetrics.ini')
 directory = settings['GRAPH_SCRIPTS_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
@@ -40,23 +36,31 @@ def pack(data):
 
 
 def time_series_graph(table, data, cols):
+    plt.clf()
     ts, rest = zip(*data)[0], zip(*data)[1:]
     ts = list(ts)
     for ind, t in enumerate(ts):
-        ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f')
+        try:
+            ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f')
+        except:
+            ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S')
     fig = plt.figure()
     sub = fig.add_subplot(111)
     fmt = dates.DateFormatter('%Y-%m-%d')
     sub.xaxis.set_major_locator(dates.DayLocator())
     sub.xaxis.set_major_formatter(fmt)
     plt.xticks(rotation=70)
+    count = 0
     for ind, r in enumerate(rest):
-        sub.plot(ts, r, label=cols[ind+1])
+        if r[0].isdigit():
+            count += 1
+            sub.plot(ts, r, label=cols[ind+1])
     plt.title("Time series data for " + table)
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
-    plt.savefig('graphs/' + table + '_timeseries.png')
+    if not count == 0:
+        plt.savefig('graphs/' + table + '_timeseries.png')
 
 
 def run():
@@ -64,7 +68,8 @@ def run():
         name, ext = os.path.splitext(filename)
         if ext == '.py' and not name == '__init__' and 'api' not in name:
             try:
-                table = name.split('_')[0]
+                table = '_'.join(name.split('_')[0:-1])
+                print table
                 data, cols = db_fetch(table)
                 time_series_graph(table, data, cols)
                 data = pack(data)
