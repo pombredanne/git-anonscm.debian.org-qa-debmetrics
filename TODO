@@ -3,7 +3,6 @@
 - add more to config file format
 - decide how to authenticate push metrics
 - display rest of the graphs on the website
-- provide a python api for graphing
 - add metric from irc bot for number of packages vs time
 
 [LOW]
@@ -24,4 +23,5 @@
 - automatic time series plotting
 - create crontab
 - implement python-crontab for crontab parsing
+- provide a python api for graphing
 
