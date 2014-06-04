@@ -49,6 +49,24 @@ def get_min_date(t):
     return min_date.strftime('%Y-%m-%d %H:%M:%S.%f')
 
 
+def graph_helper(t):
+    graphs = []
+    timeseries = ''
+    names = []
+    for filename in os.listdir('graphs'):
+        fileparts = os.path.splitext(filename)[0].split('_')
+        if '_'.join(fileparts[0:-3]) == t and fileparts[-1] != 'timeseries':
+            graphs.append('graphs/' + filename)
+            names.append(fileparts[-1])
+        elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
+            timeseries = 'graphs/' + filename
+    if len(graphs) == 0:
+        graphs.append(None)
+    if len(names) == 0:
+        names.append(None)
+    return graphs, names, timeseries
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -56,16 +74,7 @@ def index():
 
 @app.route('/sources')
 def sources():
-    graphs = []
-    timeseries = ''
-    names = []
-    for filename in os.listdir('graphs'):
-        fileparts = os.path.splitext(filename)[0].split('_')
-        if fileparts[0] == 'vcs' and fileparts[1] != 'timeseries':
-            graphs.append('graphs/' + filename)
-            names.append(fileparts[-1])
-        elif fileparts[0] == 'vcs' and fileparts[1] == 'timeseries':
-            timeseries = 'graphs/' + filename
+    graphs, names, timeseries = graph_helper('vcs')
     return render_template('sources.html', graph=graphs[0], name=names[0],
                            timeseries=timeseries)
 
@@ -85,7 +94,16 @@ def _sourcesminmax():
 
 @app.route('/releases')
 def releases():
-    return render_template('releases.html')
+    graphs, names, timeseries = graph_helper('releases')
+    return render_template('releases.html', graph=graphs[0], name=names[0],
+                           timeseries=timeseries)
+
+
+@app.route('/releases_count')
+def releases_count():
+    graphs, names, timeseries = graph_helper('releases_count')
+    return render_template('releases_count.html', graph=graphs[0],
+                           name=names[0], timeseries=timeseries)
 
 
 @app.route('/rc_bugs')
