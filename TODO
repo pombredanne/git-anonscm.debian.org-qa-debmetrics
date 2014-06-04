@@ -2,6 +2,8 @@
 - roll back on non-zero exit status/error
 - decide how to authenticate push metrics
 - add metric from irc bot for number of packages vs time
+- add graph_type key to manifest (pie, line, histogram, etc.)
+- add website pages for releases, releases_count, and irc bot
 
 [LOW]
 - historical data injection
