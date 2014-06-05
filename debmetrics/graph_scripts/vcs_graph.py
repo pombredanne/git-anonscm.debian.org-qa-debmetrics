@@ -12,7 +12,7 @@ def graph(data):
         graph_api.pie([float(row[5])/float(row[8]),
                       (float(row[8])-float(row[5])) / float(row[8])],
                       labels=pie_labels, autopct='%.1f')
-        graph_api.savefig(os.path.join('graphs', 'vcs_vcsusage_pie_', str(row[0]), '.png'))
+        graph_api.savefig(os.path.join('graphs', 'vcs_vcsusage_pie_' + str(row[0]) + '.png'))
 
 
 if __name__ == '__main__':

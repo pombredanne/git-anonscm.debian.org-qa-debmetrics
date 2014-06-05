@@ -65,7 +65,7 @@ def time_series_graph(table, data, cols):
     plt.legend()
     plt.tight_layout()
     if not count == 0:
-        plt.savefig('graphs/' + table + '_timeseries.png')
+        plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
 
 
 def run():
