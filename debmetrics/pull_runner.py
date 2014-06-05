@@ -4,7 +4,7 @@ import os
 import re
 import csv
 import sys
-import logger
+import logging
 import datetime
 import subprocess
 import ConfigParser
