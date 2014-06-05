@@ -16,7 +16,7 @@ conn_str = settings['PSYCOPG2_DB_STRING']
 def db_fetch(table):
     try:
         conn = psycopg2.connect(conn_str)
-    except:
+    except Exception:
         print "Unable to connect to database."
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
@@ -42,7 +42,7 @@ def time_series_graph(table, data, cols):
     for ind, t in enumerate(ts):
         try:
             ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f')
-        except:
+        except Exception:
             ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S')
     fig = plt.figure()
     sub = fig.add_subplot(111)

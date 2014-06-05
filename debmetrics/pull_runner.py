@@ -31,7 +31,7 @@ def db_insert(header, rows, table):
             rows[i][j] = rows[i][j].replace(',', '')
     try:
         conn = psycopg2.connect(conn_str)
-    except:
+    except Exception:
         print "Unable to connect to database."
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
