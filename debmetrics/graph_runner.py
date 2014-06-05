@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import os
+import sys
 import datetime
 import subprocess
 import psycopg2
@@ -17,7 +18,7 @@ def db_fetch(table):
     try:
         conn = psycopg2.connect(conn_str)
     except Exception:
-        print "Unable to connect to database."
+        print >> sys.stderr, "Unable to connect to database."
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     cur.execute('SELECT * FROM ' + table_name + ';')
@@ -69,19 +70,16 @@ def run():
         if ext == '.py' and not name == '__init__' and 'api' not in name:
             try:
                 table = '_'.join(name.split('_')[0:-1])
-                print table
                 data, cols = db_fetch(table)
                 time_series_graph(table, data, cols)
                 data = pack(data)
                 proc = subprocess.Popen([os.path.join(directory, filename)],
                                         stdin=subprocess.PIPE)
                 out, err = proc.communicate(data)
-                if not err:
-                    print 'success'
-                else:
-                    print 'failure'
+                if err:
+                    print >> sys.stderr, 'failure'
             except subprocess.CalledProcessError:
-                print 'failure'
+                print >> sys.stderr 'failure'
 
 if __name__ == '__main__':
     if not os.path.exists('graphs'):

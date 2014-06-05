@@ -3,6 +3,7 @@
 import os
 import re
 import csv
+import sys
 import datetime
 import subprocess
 import ConfigParser
@@ -32,11 +33,10 @@ def db_insert(header, rows, table):
     try:
         conn = psycopg2.connect(conn_str)
     except Exception:
-        print "Unable to connect to database."
+        print >> sys.stderr, "Unable to connect to database."
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     for row in rows:
-        print table_name
         try:
             cur.execute("INSERT INTO " + table_name + " (%s) VALUES (%s);" %
                         (', '.join(header), ','.join(row)))
@@ -121,11 +121,10 @@ def run():
                     if format == 'csv':
                         header, rows = handle_csv(output)
                     db_insert(header, rows, name)
-                    print 'success'
                 except subprocess.CalledProcessError:
-                    print 'failure'
+                    print >> sys.stderr, 'failure'
             else:
-                print 'did not run ' + filename
+                print >> sys.stderr, 'did not run ' + filename
 
 if __name__ == '__main__':
     run()
