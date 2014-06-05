@@ -4,6 +4,7 @@ import os
 import re
 import csv
 import sys
+import logger
 import datetime
 import subprocess
 import ConfigParser
@@ -16,6 +17,9 @@ read_config('.debmetrics.ini')
 directory = settings['PULL_DIRECTORY']
 man_directory = settings['MANIFEST_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def quote(data):
@@ -33,7 +37,7 @@ def db_insert(header, rows, table):
     try:
         conn = psycopg2.connect(conn_str)
     except Exception:
-        print >> sys.stderr, "Unable to connect to database."
+        logger.error('Unable to connect to database.')
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     for row in rows:
@@ -76,7 +80,7 @@ def should_run(filename, freq):
                 return True
             else:
                 return False
-    print 'First time'
+    # First time ran
     update_last_ran(filename)
     return True
 
@@ -122,9 +126,9 @@ def run():
                         header, rows = handle_csv(output)
                     db_insert(header, rows, name)
                 except subprocess.CalledProcessError:
-                    print >> sys.stderr, 'failure'
+                    logger.error('failure')
             else:
-                print >> sys.stderr, 'did not run ' + filename
+                logger.error('did not run %s', filename)
 
 if __name__ == '__main__':
     run()

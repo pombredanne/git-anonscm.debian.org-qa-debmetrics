@@ -2,6 +2,7 @@
 
 import os
 import sys
+import logging
 import datetime
 import subprocess
 import psycopg2
@@ -13,12 +14,15 @@ read_config('.debmetrics.ini')
 directory = settings['GRAPH_SCRIPTS_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 
 def db_fetch(table):
     try:
         conn = psycopg2.connect(conn_str)
     except Exception:
-        print >> sys.stderr, "Unable to connect to database."
+        logger.error('Unable to connect to database.')
     cur = conn.cursor()
     table_name = 'metrics.%s' % (table)
     cur.execute('SELECT * FROM ' + table_name + ';')
@@ -77,9 +81,9 @@ def run():
                                         stdin=subprocess.PIPE)
                 out, err = proc.communicate(data)
                 if err:
-                    print >> sys.stderr, 'failure'
+                    logger.error('failure')
             except subprocess.CalledProcessError:
-                print >> sys.stderr 'failure'
+                logger.error('failure')
 
 if __name__ == '__main__':
     if not os.path.exists('graphs'):
