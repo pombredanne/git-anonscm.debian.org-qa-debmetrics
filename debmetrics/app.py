@@ -11,8 +11,8 @@ def get_graph_from_date(t, d):
         fileparts = os.path.splitext(filename)[0].split('_')
         if fileparts[0] == t:
             if d in fileparts[-1]:
-                return 'graphs/' + filename
-    return 'graphs/' + os.listdir('graphs')[0]
+                return os.path.join('graphs', filename)
+    return os.path.join('graphs', os.listdir('graphs')[0])
 
 
 def get_graph_name_from_date(t, d):
@@ -56,10 +56,10 @@ def graph_helper(t):
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
         if '_'.join(fileparts[0:-3]) == t and fileparts[-1] != 'timeseries':
-            graphs.append('graphs/' + filename)
+            graphs.append(os.path.join('graphs', filename))
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
-            timeseries = 'graphs/' + filename
+            timeseries = os.path.join('graphs', filename)
     if len(graphs) == 0:
         graphs.append(None)
     if len(names) == 0:
