@@ -60,9 +60,9 @@ def graph_helper(t):
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
             timeseries = os.path.join('graphs', filename)
-    if len(graphs) == 0:
+    if not graphs:
         graphs.append(None)
-    if len(names) == 0:
+    if not names:
         names.append(None)
     return graphs, names, timeseries
 
