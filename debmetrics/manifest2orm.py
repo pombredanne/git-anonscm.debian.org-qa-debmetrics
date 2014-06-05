@@ -26,7 +26,7 @@ def manifest2orm(manifest):
 
 import sqlalchemy
 from base import engine, Base, Session
-from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Date, DateTime, TIMESTAMP
     
 class {0}(Base):
     __tablename__ = '{1}'

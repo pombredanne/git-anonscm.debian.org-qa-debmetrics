@@ -4,5 +4,6 @@ the database already exists"""
 from base import engine, Base, Session
 from models.vcs import Vcs
 from models.releases import Releases
+from models.ircbots import Ircbots
 
 Base.metadata.create_all(engine)
