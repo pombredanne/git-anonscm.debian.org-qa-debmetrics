@@ -1,6 +1,6 @@
 [script1]
 type = push
-freq = */5 * * * *
+freq = 0 0 * * *
 script = scripts/releases.py
 fields = name:String, releasedate:DateTime, releaseversion:String
 format = csv
