@@ -103,8 +103,8 @@ def date_to_str(date):
     return datetime.datetime.strftime(date, '%Y-%m-%d %H:%M')
 
 
-def str_to_date(string):
-    return datetime.datetime.strptime(string, '%Y-%m-%d %H:%M')
+def str_to_date(astring):
+    return datetime.datetime.strptime(astring, '%Y-%m-%d %H:%M')
 
 
 def run():
