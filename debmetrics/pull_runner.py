@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 def quote(data):
-    if data[0:9] == 'TIMESTAMP':
+    if 'timestamp' in data:
         return data
     if data.isdigit():
         return data
