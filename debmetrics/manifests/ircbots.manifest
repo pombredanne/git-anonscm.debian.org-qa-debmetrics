@@ -4,3 +4,4 @@ freq = 0 0 * * *
 script = scripts/ircbots.py
 fields = date:Date, stable:Integer, testing:Integer, unstable:Integer, experimental:Integer, stable_to_testing:Integer, testing_to_unstable:Integer, unstable_to_experimental:Integer, new_in_testing:Integer, new_in_unstable:Integer, new_in_experimental:Integer, new_upstream_in_testing:Integer, new_upstream_in_unstable:Integer, new_upstream_in_experimental:Integer
 format = csv
+override_ts = false

@@ -4,3 +4,4 @@ freq = 0 0 * * *
 script = scripts/vcs.py
 fields = svn:Integer, darcs:Integer, git:Integer, bzr:Integer, using_vcs:Integer, cvs:Integer, mtn:Integer, total:Integer, arch:Integer, hg:Integer
 format = csv
+override_ts = false
