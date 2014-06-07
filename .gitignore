@@ -5,4 +5,4 @@ alembic.ini
 docs/_build/
 debmetrics/graphs/
 debmetrics/last_ran.txt
-debmetrics/models
+debmetrics/models/
