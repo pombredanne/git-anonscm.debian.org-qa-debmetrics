@@ -12,7 +12,12 @@ def run():
     writer = csv.writer(sys.stdout)
     for ind, elem in enumerate(data):
         if ind == 0:
-            pass
+            temp = []
+            for e in elem:
+                if e == 'timestamp':
+                    e = 'ts'
+                temp.append(e)
+            writer.writerow(temp)
         else:
             if elem[0].startswith('#'):
                 continue
