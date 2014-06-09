@@ -21,6 +21,7 @@ def manifest2orm(manifest):
     fieldtypes = fieldtypes.split(':')
     fields = fieldtypes[0::2]
     types = fieldtypes[1::2]
+    override_ts = config.getboolean('script1', 'override_ts')
 
     print """\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
@@ -32,12 +33,17 @@ class {0}(Base):
     __tablename__ = '{1}'
     __table_args__ =  {{'schema': 'metrics'}}
                 
-    ts = Column(TIMESTAMP, primary_key=True)
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
            ntpath.basename(file_name).split('.', 1)[0])
 
+    if not override_ts:
+        print '    ts = Column(TIMESTAMP, primary_key=True)'
+    else:
+        print '    an_id = Column(Integer, primary_key=True, autoincrement=True)'
+        print '    ts = Column(TIMESTAMP)'
+
     for i in range(len(fields)):
-        print'    '+fields[i]+' = Column('+types[i]+')'
+        print '    '+fields[i]+' = Column('+types[i]+')'
 
 
 def table2class(table):
