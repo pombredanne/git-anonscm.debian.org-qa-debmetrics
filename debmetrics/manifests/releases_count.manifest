@@ -6,3 +6,4 @@ script = scripts/releases_count.py
 fields = name:String, sourcefiles:Integer, sourcepackages:Integer, diskusage:Integer, ctags:Integer, sloc:Integer
 format = csv
 override_ts = false
+graph_type = custom
