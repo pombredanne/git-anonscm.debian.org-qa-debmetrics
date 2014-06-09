@@ -6,12 +6,14 @@ import logging
 import datetime
 import subprocess
 import psycopg2
+import ConfigParser
 import matplotlib.pyplot as plt
 from matplotlib import dates
 from config_reader import settings, read_config
 
 read_config('.debmetrics.ini')
 directory = settings['GRAPH_SCRIPTS_DIRECTORY']
+man_dir = settings['MANIFEST_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
 
 logging.basicConfig(level=logging.DEBUG)
@@ -68,6 +70,20 @@ def time_series_graph(table, data, cols):
         plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
 
 
+def table_graph(table, data, cols):
+    plt.clf()
+    fig = plt.figure()
+    sub = fig.add_subplot(111, frame_on=False)
+    sub.xaxis.set_visible(False)
+    sub.yaxis.set_visible(False)
+    sub.table(cellText=data,
+              colLabels=cols,
+              loc='center')
+    plt.title('Table for ' + table)
+    plt.tight_layout()
+    plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
+
+
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
@@ -75,7 +91,13 @@ def run():
             try:
                 table = '_'.join(name.split('_')[0:-1])
                 data, cols = db_fetch(table)
-                time_series_graph(table, data, cols)
+                config = ConfigParser.RawConfigParser()
+                config.read(os.path.join(man_dir, table + '.manifest'))
+                graph_type = config.get('script1', 'graph_type')
+                if graph_type == 'default':
+                    time_series_graph(table, data, cols)
+                elif graph_type == 'table':
+                    table_graph(table, data, cols)
                 data = pack(data)
                 proc = subprocess.Popen([os.path.join(directory, filename)],
                                         stdin=subprocess.PIPE)
