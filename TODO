@@ -4,6 +4,10 @@
 - add metric from irc bot for number of packages vs time
 - add graph_type key to manifest (pie, line, histogram, etc.)
 - add website page to display graphs for irc bot
+- package python-crontab
+- implement scaffolding to run tests
+- add table as default method of display of data
+- customizable page templates
 
 [LOW]
 - historical data injection
@@ -28,4 +32,7 @@
 - add graphs for releases and releases_count
 - add more to config file format
 - display releases and releases_count graphs on website
+- add override_ts and graph_type to manifest
+- add table to graph_runner.py
+- merge graph_runner.py into pull_runner.py
 
