@@ -193,9 +193,10 @@ def run():
                         header, rows = handle_csv(output)
                     db_insert(header, rows, name)
                 except subprocess.CalledProcessError:
-                    logger.error('failure')
+                    logger.error('Failure calling process for pull script %s',
+                                 filename)
             else:
-                logger.error('did not run %s', filename)
+                logger.error('Did not run pull script %s', filename)
 
     for filename in os.listdir(graph_scripts_directory):
         name, ext = os.path.splitext(filename)
@@ -211,13 +212,15 @@ def run():
                 elif graph_type == 'table':
                     table_graph(table, data, cols)
                 data = pack(data)
-                proc = subprocess.Popen([os.path.join(graph_scripts_directory, filename)],
-                                        stdin=subprocess.PIPE)
+                proc = subprocess.Popen([os.path.join(graph_scripts_directory,
+                                        filename)], stdin=subprocess.PIPE)
                 out, err = proc.communicate(data)
                 if err:
-                    logger.error('failure')
+                    logger.error('Failure with graph script for %s: %s',
+                                 table, err)
             except subprocess.CalledProcessError:
-                logger.error('failure')
+                logger.error('Failure calling process for graph script for %s',
+                             table)
 
 if __name__ == '__main__':
     if not os.path.exists('graphs'):
