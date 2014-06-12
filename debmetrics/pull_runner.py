@@ -215,8 +215,7 @@ def run():
                 graph_type = config.get('script1', 'graph_type')
                 if graph_type == 'default':
                     time_series_graph(table, data, cols)
-                elif graph_type == 'table':
-                    table_graph(table, data, cols)
+                table_graph(table, data, cols)
                 data = pack(data)
                 proc = subprocess.Popen([os.path.join(graph_scripts_directory,
                                         filename)], stdin=subprocess.PIPE)
