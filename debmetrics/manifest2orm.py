@@ -39,7 +39,8 @@ class {0}(Base):
     if not override_ts:
         print '    ts = Column(TIMESTAMP, primary_key=True)'
     else:
-        print '    an_id = Column(Integer, primary_key=True, autoincrement=True)'
+        print '    an_id = Column(Integer, primary_key=True,' \
+              'autoincrement=True)'
         print '    ts = Column(TIMESTAMP)'
 
     for i in range(len(fields)):

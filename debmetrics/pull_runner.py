@@ -9,7 +9,8 @@ import datetime
 import subprocess
 import ConfigParser
 import StringIO
-import psycopg2
+from base import engine, Base, Session
+from sqlalchemy import Column, TIMESTAMP
 from crontab import CronTab
 import matplotlib.pyplot as plt
 from matplotlib import dates
@@ -24,6 +25,30 @@ conn_str = settings['PSYCOPG2_DB_STRING']
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+_tables = {}
+
+
+def table_factory(name):
+    if not name.replace('_', '').isalpha():
+        raise ValueError("table name is not valid: %s" % name)
+    if name in _tables:
+        return _tables[name]
+
+    new_class = type(table2class(name), (Base,), {'__tablename__': name,
+                     '__table_args__': {'schema': 'metrics'},
+                     'ts': 'Column(TIMESTAMP, primary_key=True)',
+                     'an_id': 'Column(TIMESTAMP, primary_key=True)'})
+    _tables[name] = new_class
+    return new_class
+
+
+def table2class(table):
+    """Capitalizes the table name to form a class name"""
+    temp = table.split('_')
+    for i in range(len(temp)):
+        temp[i] = temp[i].capitalize()
+    return '_'.join(temp)
+
 
 def quote(data):
     if 'timestamp' in data:
@@ -34,22 +59,12 @@ def quote(data):
 
 
 def db_insert(header, rows, table):
-    for i in range(len(rows)):
-        for j in range(len(rows[i])):
-            rows[i][j] = rows[i][j].replace(',', '')
-    try:
-        conn = psycopg2.connect(conn_str)
-    except Exception:
-        logger.error('Unable to connect to database.')
-    cur = conn.cursor()
-    table_name = 'metrics.%s' % (table)
+    the_class = table_factory(table)
     for row in rows:
-        try:
-            cur.execute("INSERT INTO " + table_name + " (%s) VALUES (%s);" %
-                        (', '.join(header), ','.join(row)))
-        except psycopg2.IntegrityError:
-            conn.rollback()
-    conn.commit()
+        for ind, h in enumerate(header):
+            setattr(the_class, h, row[ind])
+    Session.add(the_class)
+    Session.commit()
 
 
 def handle_csv(data):
@@ -115,21 +130,11 @@ def str_to_date(astring):
 
 
 def db_fetch(table):
-        try:
-            conn = psycopg2.connect(conn_str)
-        except Exception:
-            logger.error('Unable to connect to database.')
-        cur = conn.cursor()
-        table_name = 'metrics.%s' % (table)
-        cur.execute('SELECT * FROM ' + table_name + ';')
-        res = cur.fetchall()
-        cols = [desc[0] for desc in cur.description]
-        # make everything lists of lists containing strings
-        for i, row in enumerate(res):
-            res[i] = list(row)
-            for j, col in enumerate(row):
-                res[i][j] = str(col)
-        return res, cols
+    the_class = table_factory(table)
+    q = Session.query(the_class)
+    res = q.all()
+    cols = [col['name'] for col in q.column_descriptions]
+    return res, cols
 
 
 def pack(data):
@@ -184,6 +189,7 @@ def run():
         if ext == '.py' and not name == '__init__':
             manifest = ConfigParser.RawConfigParser()
             manifest.read(os.path.join(man_dir, name + '.manifest'))
+            print os.path.join(man_dir, name + '.manifest')
             format = manifest.get('script1', 'format')
             if should_run(name+ext, manifest.get('script1', 'freq')):
                 try:
