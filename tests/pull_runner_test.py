@@ -11,7 +11,7 @@ class pull_runner_test(unittest.TestCase):
         assert issubclass(a_class, Base)
 
     def test_table2class(self):
-        assert pull_runner.table2class('releases_count') == 'Releases_Count'
+        assert pull_runner.table2class('releases_count') == 'ReleasesCount'
 
     def test_quote(self):
         assert pull_runner.quote('timestamp') == 'timestamp'

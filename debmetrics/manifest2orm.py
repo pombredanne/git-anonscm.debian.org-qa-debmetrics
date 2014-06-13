@@ -49,10 +49,7 @@ class {0}(Base):
 
 def table2class(table):
     """Capitalizes the table name to form a class name"""
-    temp = table.split('_')
-    for i in range(len(temp)):
-        temp[i] = temp[i].capitalize()
-    return '_'.join(temp)
+    return table.title().replace('_', '')
 
 if __name__ == '__main__':
     for i in range(1, len(sys.argv)):

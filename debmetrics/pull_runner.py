@@ -44,10 +44,7 @@ def table_factory(name):
 
 def table2class(table):
     """Capitalizes the table name to form a class name"""
-    temp = table.split('_')
-    for i in range(len(temp)):
-        temp[i] = temp[i].capitalize()
-    return '_'.join(temp)
+    return table.title().replace('_', '')
 
 
 def quote(data):
