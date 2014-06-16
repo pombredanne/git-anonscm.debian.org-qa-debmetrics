@@ -6,3 +6,5 @@ docs/_build/
 debmetrics/graphs/
 debmetrics/last_ran.txt
 debmetrics/models/
+.coverage
+cover/
