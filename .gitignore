@@ -8,3 +8,5 @@ debmetrics/last_ran.txt
 debmetrics/models/
 .coverage
 cover/
+
+!debmetrics/models/__init__.py

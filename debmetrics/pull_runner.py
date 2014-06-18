@@ -9,6 +9,7 @@ import datetime
 import subprocess
 import ConfigParser
 import StringIO
+from models import models
 from base import engine, Base, Session
 from sqlalchemy import Column, TIMESTAMP
 from crontab import CronTab
@@ -37,10 +38,7 @@ def table_factory(name):
     if name in _tables:
         return _tables[name]
 
-    new_class = type(table2class(name), (Base,), {'__tablename__': name,
-                     '__table_args__': {'schema': 'metrics'},
-                     'ts': 'Column(TIMESTAMP, primary_key=True)',
-                     'an_id': 'Column(TIMESTAMP, primary_key=True)'})
+    new_class = models[name]
     _tables[name] = new_class
     return new_class
 
@@ -60,10 +58,11 @@ def quote(data):
 
 def db_insert(header, rows, table):
     the_class = table_factory(table)
+    an_instance = the_class()
     for row in rows:
         for ind, h in enumerate(header):
-            setattr(the_class, h, row[ind])
-    Session.add(the_class)
+            setattr(an_instance, h, row[ind])
+    Session.add(an_instance)
     Session.commit()
 
 
