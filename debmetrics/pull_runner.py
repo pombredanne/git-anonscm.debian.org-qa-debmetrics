@@ -16,7 +16,10 @@ import matplotlib.pyplot as plt
 from matplotlib import dates
 from config_reader import settings, read_config
 
-read_config('.debmetrics.ini')
+try:
+    read_config('.debmetrics.ini')
+except Exception:
+    read_config('debmetrics/.debmetrics.ini')
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
