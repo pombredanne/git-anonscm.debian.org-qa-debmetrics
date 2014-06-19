@@ -4,6 +4,7 @@ the database already exists"""
 from base import engine, Base, Session
 from models.vcs import Vcs
 from models.releases import Releases
-from models.package_stats import Package_Stats
+from models.package_stats import PackageStats
+from models.releases_count import ReleasesCount
 
 Base.metadata.create_all(engine)

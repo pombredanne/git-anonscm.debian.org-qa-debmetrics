@@ -40,7 +40,7 @@ def run():
     writer.writerow(['ts', 'name', 'disk_usage', 'sloc', 'source_packages',
                      'source_files', 'ctags'])
     for row in data:
-        today = "'%s'::timestamp" % datetime.datetime.utcnow()
+        today = "%s" % datetime.datetime.utcnow()
         row = [today] + row
         writer.writerow(row)
         time.sleep(2)

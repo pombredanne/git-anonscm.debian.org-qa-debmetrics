@@ -62,8 +62,11 @@ def db_insert(header, rows, table):
     for row in rows:
         for ind, h in enumerate(header):
             setattr(an_instance, h, row[ind])
-    Session.add(an_instance)
-    Session.commit()
+    try:
+        Session.add(an_instance)
+        Session.commit()
+    except Exception:
+        Session.rollback()
 
 
 def handle_csv(data):
@@ -129,10 +132,13 @@ def str_to_date(astring):
 
 
 def db_fetch(table):
+    res = []
     the_class = table_factory(table)
     q = Session.query(the_class)
-    res = q.all()
-    cols = [col['name'] for col in q.column_descriptions]
+    r = q.all()
+    for i in r:
+        res.append(row2list(i))
+    cols = the_class.__table__.columns.keys()
     return res, cols
 
 
@@ -140,8 +146,16 @@ def pack(data):
     return ', '.join(map(str, data))
 
 
+def row2list(row):
+    l = []
+    for col in row.__table__.columns:
+        l.append(str(getattr(row, col.name)))
+    return l
+
+
 def time_series_graph(table, data, cols):
     plt.clf()
+    print data
     ts, rest = zip(*data)[0], zip(*data)[1:]
     ts = list(ts)
     for ind, t in enumerate(ts):
@@ -212,9 +226,10 @@ def run():
                 config = ConfigParser.RawConfigParser()
                 config.read(os.path.join(man_dir, table + '.manifest'))
                 graph_type = config.get('script1', 'graph_type')
-                if graph_type == 'default':
-                    time_series_graph(table, data, cols)
-                table_graph(table, data, cols)
+                if data:
+                    if graph_type == 'default':
+                        time_series_graph(table, data, cols)
+                    table_graph(table, data, cols)
                 data = pack(data)
                 proc = subprocess.Popen([os.path.join(graph_scripts_directory,
                                         filename)], stdin=subprocess.PIPE)

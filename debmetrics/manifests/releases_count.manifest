@@ -3,7 +3,7 @@ type = push
 depends = python-beautifulsoup>=3.2.1-1
 freq = 0 0 * * *
 script = scripts/releases_count.py
-fields = name:String, sourcefiles:Integer, sourcepackages:Integer, diskusage:Integer, ctags:Integer, sloc:Integer
+fields = name:String, source_files:Integer, source_packages:Integer, disk_usage:Integer, ctags:Integer, sloc:Integer
 format = csv
 override_ts = false
 graph_type = custom

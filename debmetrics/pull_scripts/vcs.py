@@ -14,7 +14,7 @@ def run():
     writer = csv.writer(sys.stdout)
     writer.writerow(['ts', 'svn', 'darcs', 'git', 'bzr', 'using_vcs', 'cvs',
                      'mtn', 'total', 'arch', 'hg'])
-    today = "'%s'::timestamp" % datetime.datetime.utcnow()
+    today = "%s" % datetime.datetime.utcnow()
     writer.writerow([today, j['svn'], j['darcs'],
                     j['git'], j['bzr'], j['using_vcs'], j['cvs'], j['mtn'],
                     j['total'], j['arch'], j['hg']])

@@ -22,7 +22,7 @@ def run():
             if elem[0].startswith('#'):
                 continue
             else:
-                d = "'%s'::timestamp" % elem[0].replace('T', ' ')
+                d = "%s" % elem[0].replace('T', ' ')
                 writer.writerow([d, elem[1], elem[2], elem[3], elem[4],
                                  elem[5], elem[6], elem[7], elem[8], elem[9],
                                  elem[10], elem[11], elem[12], elem[13],
