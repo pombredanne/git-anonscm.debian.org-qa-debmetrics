@@ -193,7 +193,7 @@ def table_graph(table, data, cols):
               loc='center')
     plt.title('Table for ' + table)
     plt.tight_layout()
-    plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
+    plt.savefig(os.path.join('graphs', table + '_table.png'))
 
 
 def run():
