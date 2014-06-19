@@ -52,6 +52,7 @@ def get_min_date(t):
 def graph_helper(t):
     graphs = []
     timeseries = ''
+    table = ''
     names = []
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
@@ -60,11 +61,13 @@ def graph_helper(t):
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
             timeseries = os.path.join('graphs', filename)
+        elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'table':
+            table = os.path.join('graphs', filename)
     if not graphs:
         graphs.append(None)
     if not names:
         names.append(None)
-    return graphs, names, timeseries
+    return graphs, names, timeseries, table
 
 
 @app.route('/')
@@ -74,9 +77,9 @@ def index():
 
 @app.route('/sources')
 def sources():
-    graphs, names, timeseries = graph_helper('vcs')
+    graphs, names, timeseries, table = graph_helper('vcs')
     return render_template('sources.html', graph=graphs[0], name=names[0],
-                           timeseries=timeseries)
+                           timeseries=timeseries, table=table)
 
 
 @app.route('/_sources')
@@ -94,16 +97,17 @@ def _sourcesminmax():
 
 @app.route('/releases')
 def releases():
-    graphs, names, timeseries = graph_helper('releases')
+    graphs, names, timeseries, table = graph_helper('releases')
     return render_template('releases.html', graph=graphs[0], name=names[0],
-                           timeseries=timeseries)
+                           timeseries=timeseries, table=table)
 
 
 @app.route('/releases_count')
 def releases_count():
-    graphs, names, timeseries = graph_helper('releases_count')
+    graphs, names, timeseries, table = graph_helper('releases_count')
     return render_template('releases_count.html', graph=graphs[0],
-                           name=names[0], timeseries=timeseries)
+                           name=names[0], timeseries=timeseries,
+                           table=table)
 
 
 @app.route('/rc_bugs')

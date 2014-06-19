@@ -5,13 +5,18 @@
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Timeseries</a></li>
-            <li><a class="title" href="#tabs-2">{{ name }}</a></li>
+            <li><a href="#tabs-2">Table</a></li>
+            <li><a class="title" href="#tabs-3">{{ name }}</a></li>
         </ul>
         <div id="tabs-1">
             <h2>Timeseries</h2>
             <img src="{{ timeseries }}" />
         </div>
         <div id="tabs-2">
+            <h2>Table</h2>
+            <img src="{{ table }}" />
+        </div>
+        <div id="tabs-3">
             <h2 class="title">{{ name }}</h2>
             <img id="graph" src="{{ graph }}" />
             <input type="date" id="date" />
