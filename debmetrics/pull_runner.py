@@ -182,20 +182,6 @@ def time_series_graph(table, data, cols):
         plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
 
 
-def table_graph(table, data, cols):
-    plt.clf()
-    fig = plt.figure()
-    sub = fig.add_subplot(111, frame_on=False)
-    sub.xaxis.set_visible(False)
-    sub.yaxis.set_visible(False)
-    sub.table(cellText=data,
-              colLabels=cols,
-              loc='center')
-    plt.title('Table for ' + table)
-    plt.tight_layout()
-    plt.savefig(os.path.join('graphs', table + '_table.png'))
-
-
 def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
@@ -229,7 +215,6 @@ def run():
                 if data:
                     if graph_type == 'default':
                         time_series_graph(table, data, cols)
-                    table_graph(table, data, cols)
                 data = pack(data)
                 proc = subprocess.Popen([os.path.join(graph_scripts_directory,
                                         filename)], stdin=subprocess.PIPE)

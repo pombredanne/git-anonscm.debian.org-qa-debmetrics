@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request, render_template, send_from_directory
 import os
 import datetime
+from pull_runner import db_fetch
 app = Flask(__name__)
 
 
@@ -52,7 +53,6 @@ def get_min_date(t):
 def graph_helper(t):
     graphs = []
     timeseries = ''
-    table = ''
     names = []
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
@@ -61,13 +61,11 @@ def graph_helper(t):
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
             timeseries = os.path.join('graphs', filename)
-        elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'table':
-            table = os.path.join('graphs', filename)
     if not graphs:
         graphs.append(None)
     if not names:
         names.append(None)
-    return graphs, names, timeseries, table
+    return graphs, names, timeseries
 
 
 @app.route('/')
@@ -77,9 +75,12 @@ def index():
 
 @app.route('/sources')
 def sources():
-    graphs, names, timeseries, table = graph_helper('vcs')
+    table = 'vcs'
+    rows, cols = db_fetch(table)
+    graphs, names, timeseries = graph_helper('vcs')
     return render_template('metric.html', title='sources', graph=graphs[0],
-                           name=names[0], timeseries=timeseries, table=table)
+                           name=names[0], timeseries=timeseries,
+                           headers=cols, rows=rows)
 
 
 @app.route('/_sources')
@@ -97,17 +98,23 @@ def _sourcesminmax():
 
 @app.route('/releases')
 def releases():
-    graphs, names, timeseries, table = graph_helper('releases')
+    table = 'releases'
+    rows, cols = db_fetch(table)
+    graphs, names, timeseries = graph_helper('releases')
     return render_template('metric.html', title='releases', graph=graphs[0],
-                           name=names[0], timeseries=timeseries, table=table)
+                           name=names[0], timeseries=timeseries,
+                           headers=cols, rows=rows)
 
 
 @app.route('/releases_count')
 def releases_count():
-    graphs, names, timeseries, table = graph_helper('releases_count')
+    table = 'releases_count'
+    rows, cols = db_fetch(table)
+    graphs, names, timeseries = graph_helper('releases_count')
     return render_template('metric.html', title='releases_count',
                            graph=graphs[0], name=names[0],
-                           timeseries=timeseries, table=table)
+                           timeseries=timeseries,
+                           headers=cols, rows=rows)
 
 
 @app.route('/rc_bugs')
