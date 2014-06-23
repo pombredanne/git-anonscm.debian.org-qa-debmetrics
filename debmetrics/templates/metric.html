@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<h1>{{ title }}</h1>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Timeseries</a></li>
+            <li><a href="#tabs-2">Table</a></li>
+            {% if graph %}
+                <li><a class="title" href="#tabs-3">{{ name }}</a></li>
+            {% endif %}
+        </ul>
+        <div id="tabs-1">
+            <h2>Timeseries</h2>
+            <img src="{{ timeseries }}" />
+        </div>
+        <div id="tabs-2">
+            <h2>Table</h2>
+            <table>
+                <tr>
+                    {% for header in headers %}
+                        <th>{{ header }} </th>
+                    {% endfor %}
+                </tr>
+                {% for row in rows %}
+                    <tr>
+                        {% for col in row %}
+                            <td>{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% if graph %}
+            <div id="tabs-3">
+                <h2 class="title">{{ name }}</h2>
+                <img id="graph" src="{{ graph }}" />
+                <input type="date" id="date" />
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="static/js/{{ title }}.js"></script>
+{% endblock %}

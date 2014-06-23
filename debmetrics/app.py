@@ -78,8 +78,8 @@ def index():
 @app.route('/sources')
 def sources():
     graphs, names, timeseries, table = graph_helper('vcs')
-    return render_template('sources.html', graph=graphs[0], name=names[0],
-                           timeseries=timeseries, table=table)
+    return render_template('metric.html', title='sources', graph=graphs[0],
+                           name=names[0], timeseries=timeseries, table=table)
 
 
 @app.route('/_sources')
@@ -98,16 +98,16 @@ def _sourcesminmax():
 @app.route('/releases')
 def releases():
     graphs, names, timeseries, table = graph_helper('releases')
-    return render_template('releases.html', graph=graphs[0], name=names[0],
-                           timeseries=timeseries, table=table)
+    return render_template('metric.html', title='releases', graph=graphs[0],
+                           name=names[0], timeseries=timeseries, table=table)
 
 
 @app.route('/releases_count')
 def releases_count():
     graphs, names, timeseries, table = graph_helper('releases_count')
-    return render_template('releases_count.html', graph=graphs[0],
-                           name=names[0], timeseries=timeseries,
-                           table=table)
+    return render_template('metric.html', title='releases_count',
+                           graph=graphs[0], name=names[0],
+                           timeseries=timeseries, table=table)
 
 
 @app.route('/rc_bugs')
