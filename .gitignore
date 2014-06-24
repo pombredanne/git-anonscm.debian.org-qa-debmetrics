@@ -11,6 +11,8 @@ cover/
 debmetrics/static/js/jquery-1.11.1.min.js
 debmetrics/static/js/jquery-ui-1.10.4.min.js
 debmetrics/static/js/jquery.stickytableheaders.min.js
+debmetrics/static/js/jquery.tablesorter.min.js
 debmetrics/static/css/ui-lightness/
+debmetrics/static/css/ts-blue/
 
 !debmetrics/models/__init__.py
