@@ -4,13 +4,13 @@ Prerequisites
 =============
 
 You need git to clone the repository. In Debian, git is provided by "git".
- You also need Python 3.
+You also need Python 3.
 
 Project Overview
 ================
 
 The goal of Debian Metrics Portal is to provide an iterface for viewing,
- adding, and maintaining metrics in a uniform way.
+adding, and maintaining metrics in a uniform way.
 
 Communication
 =============
@@ -26,7 +26,7 @@ You can get a copy of the latest code with this command:
     cd debmetrics.git
 
 To get updates (as long as you haven't committed changes to master) run this
- command:
+command:
 
     git pull
 
@@ -34,7 +34,22 @@ Style Guide
 ===========
 
 Follow PEP 8[0]. In particular, be sure to indent 4 spaces and use spaces
- instead of tabs. Limit lines to 79 characters.
+instead of tabs. Limit lines to 79 characters.
+
+Getting JS and css files
+========================
+
+Minified JS and css files were excluded from this repo, but are necessary to
+take full advantage of the web interface.
+
+- JQuery: Download the compressed JQuery. This project currently uses JQuery 
+1.11.1.[1] Put JQuery in static/js/jquery-1.11.1.min.js.
+- JQuery UI: Download the compressed JQuery UI. This project currently uses 
+JQuery UI 1.10.4.[2] Put JQuery UI in static/js/jquery-ui-1.10.4.min.js. Put 
+the contents of the ui-lightness directory under static/css/ui-lightness.
+- StickyTableHeaders: Download the compressed StickyTableHeaders. This project 
+uses the latest version from GitHub.[3] Put StickyTableHeaders under 
+static/js/jquery.stickytableheaders.min.js.
 
 Structure
 =========
@@ -65,3 +80,6 @@ TODO
 - A list of tasks to be done.
 
 [0] http://legacy.python.org/dev/peps/pep-0008/
+[1] http://code.jquery.com/jquery-1.11.1.min.js
+[2] http://jqueryui.com/resources/download/jquery-ui-1.10.4.zip
+[3] https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
