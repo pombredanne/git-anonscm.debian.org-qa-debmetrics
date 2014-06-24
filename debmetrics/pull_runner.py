@@ -13,6 +13,8 @@ from models import models
 from base import engine, Base, Session
 from sqlalchemy import Column, TIMESTAMP
 from crontab import CronTab
+import tempfile
+os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
