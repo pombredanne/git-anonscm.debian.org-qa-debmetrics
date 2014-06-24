@@ -17,18 +17,22 @@
         <div id="tabs-2">
             <h2>Table</h2>
             <table>
-                <tr>
-                    {% for header in headers %}
-                        <th>{{ header }} </th>
-                    {% endfor %}
-                </tr>
-                {% for row in rows %}
+                <thead>
                     <tr>
-                        {% for col in row %}
-                            <td>{{ col }}</td>
+                        {% for header in headers %}
+                            <th>{{ header }} </th>
                         {% endfor %}
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            {% for col in row %}
+                                <td>{{ col }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         {% if graph %}
