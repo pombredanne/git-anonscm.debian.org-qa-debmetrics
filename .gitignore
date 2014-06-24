@@ -8,5 +8,8 @@ debmetrics/last_ran.txt
 debmetrics/models/
 .coverage
 cover/
+debmetrics/static/js/jquery-1.11.1.min.js
+debmetrics/static/js/jquery-ui-1.10.4.min.js
+debmetrics/static/css/ui-lightness/
 
 !debmetrics/models/__init__.py
