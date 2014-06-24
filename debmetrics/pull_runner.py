@@ -232,5 +232,5 @@ def run():
 
 if __name__ == '__main__':
     if not os.path.exists('graphs'):
-        os.mkdirdirs('graphs')
+        os.makedirs('graphs')
     run()
