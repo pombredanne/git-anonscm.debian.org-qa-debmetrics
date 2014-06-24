@@ -1,1 +1,9 @@
+th, td {
+    padding: 0.45rem;
+    text-align: left;
+    border: 1px solid #666;
+}
 
+tr:nth-child(odd) {
+    background: #fff;
+}
