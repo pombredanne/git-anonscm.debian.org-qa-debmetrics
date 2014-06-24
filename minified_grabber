@@ -1,0 +1,18 @@
+#!/bin/sh
+
+wget -P debmetrics/static/js/ http://code.jquery.com/jquery-1.11.1.min.js
+wget -P debmetrics/static/js/ https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
+wget -P debmetrics/static/js/ https://github.com/christianbach/tablesorter/raw/master/jquery.tablesorter.min.js
+
+mkdir -p debmetrics/static/css/ts-blue/
+wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/asc.gif
+wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/bg.gif
+wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/desc.gif
+wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/style.css
+
+mkdir -p temp
+wget -P temp http://jqueryui.com/resources/download/jquery-ui-1.10.4.zip
+unzip temp/jquery-ui-1.10.4.zip
+mv temp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js debmetrics/static/js/
+mv temp/jquery-ui-1.10.4/css/ui-lightness/ debmetrics/static/css/
+rm -r temp
