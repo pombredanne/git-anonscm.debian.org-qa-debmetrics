@@ -6,7 +6,10 @@ from config_reader import settings, read_config
 try:
     read_config('.debmetrics.ini')
 except Exception:
-    read_config('debmetrics/.debmetrics.ini')
+    try:
+        read_config('debmetrics/.debmetrics.ini')
+    except Exception:
+        read_config('../debmetrics/.debmetrics.ini')
 
 engine = create_engine(settings['DB_URI'], echo=True)
 Base = declarative_base(bind=engine)
