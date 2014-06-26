@@ -1,5 +1,7 @@
 #! /usr/bin/python
 
+"""This module runs all pull scripts and generates graphs from the data."""
+
 import os
 import re
 import csv
@@ -40,6 +42,11 @@ _tables = {}
 
 
 def table_factory(name):
+    """A factory to generate a class from a table name string.
+    
+    Keyword args:
+    name -- the table name
+    """
     if not name.replace('_', '').isalpha():
         raise ValueError("table name is not valid: %s" % name)
     if name in _tables:
@@ -51,11 +58,12 @@ def table_factory(name):
 
 
 def table2class(table):
-    """Capitalizes the table name to form a class name"""
+    """Capitalizes the table name to form a class name."""
     return table.title().replace('_', '')
 
 
 def quote(data):
+    """Quotes string data for insertion in the database."""
     if 'timestamp' in data:
         return data
     if data.isdigit():
@@ -64,6 +72,13 @@ def quote(data):
 
 
 def db_insert(header, rows, table):
+    """Inserts data in the database.
+
+    Keyword args:
+    header -- the names of the columns
+    rows -- the data to be inserted
+    table -- the name of the table to insert the data in
+    """
     the_class = table_factory(table)
     an_instance = the_class()
     for row in rows:
@@ -77,6 +92,11 @@ def db_insert(header, rows, table):
 
 
 def handle_csv(data):
+    """Parses csv data and returns the headers and rows.
+
+    Keyword args:
+    data -- the csv data
+    """
     data = csv.reader(StringIO.StringIO(data))
     rows = []
     rownum = 0
@@ -93,6 +113,13 @@ def handle_csv(data):
 
 
 def should_run(filename, freq):
+    """Checks to see if a script should run based on the freq and when it was
+    last ran.
+
+    Keyword args:
+    filename -- filename of the script to run
+    freq -- the crontab string of how frequently to run the script
+    """
     job = CronTab(tab=freq + ' dummy')[0]
     if not os.path.exists('last_ran.txt'):
         f = open('last_ran.txt', 'w')
@@ -113,6 +140,11 @@ def should_run(filename, freq):
 
 
 def update_last_ran(filename):
+    """Sets the time a script last ran in last_ran.txt.
+
+    Keyword args:
+    filename -- the filename of the script
+    """
     pat = '.+,' + filename
     now = datetime.datetime.now()
     with open('last_ran.txt', 'r+') as f:
@@ -131,14 +163,29 @@ def update_last_ran(filename):
 
 
 def date_to_str(date):
+    """Converts a datetime object to a string.
+    
+    Keyword args:
+    date -- the datetime object
+    """
     return datetime.datetime.strftime(date, '%Y-%m-%d %H:%M')
 
 
 def str_to_date(astring):
+    """Converts a string into a datetime object.
+
+    Keyword args:
+    astring -- the string
+    """
     return datetime.datetime.strptime(astring, '%Y-%m-%d %H:%M')
 
 
 def db_fetch(table):
+    """Fetches data from the database
+
+    Keyword args:
+    table -- the table to fetch from
+    """
     res = []
     the_class = table_factory(table)
     q = Session.query(the_class)
@@ -150,10 +197,20 @@ def db_fetch(table):
 
 
 def pack(data):
+    """Packs data into a string of csv to pass with subprocess.
+
+    Keyword args:
+    data -- the data to be packed
+    """
     return ', '.join(map(str, data))
 
 
 def row2list(row):
+    """Converts a SQLAlchemy row into a list.
+
+    Keyword args:
+    row -- a SQLAlchemy row object
+    """
     l = []
     for col in row.__table__.columns:
         l.append(str(getattr(row, col.name)))
@@ -161,6 +218,13 @@ def row2list(row):
 
 
 def time_series_graph(table, data, cols):
+    """Generate a time series graph.
+
+    Keyword args:
+    table -- the table the graph is for
+    data -- the data to be graphed
+    cols -- the column names corresponding to the data
+    """
     plt.clf()
     print data
     ts, rest = zip(*data)[0], zip(*data)[1:]
@@ -190,6 +254,7 @@ def time_series_graph(table, data, cols):
 
 
 def run():
+    """The main function that runs the pull scripts and generates graphs."""
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
         if ext == '.py' and not name == '__init__':

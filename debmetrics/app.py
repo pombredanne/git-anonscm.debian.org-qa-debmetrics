@@ -1,5 +1,7 @@
 #! /usr/bin/python
 
+"""This module contains the Flask code for debmetrics."""
+
 from flask import (Flask, abort, jsonify, request, render_template,
                    send_from_directory)
 import os
@@ -10,6 +12,12 @@ app = Flask(__name__)
 
 
 def get_graph_from_date(t, d):
+    """Returns the path to a graph.
+
+    Keyword arguments:
+    t -- the metric
+    d -- the date
+    """
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
         if fileparts[0] == t:
@@ -19,6 +27,12 @@ def get_graph_from_date(t, d):
 
 
 def get_graph_name_from_date(t, d):
+    """Returns the name corresponding to a graph.
+
+    Keyword arguments:
+    t -- the metric
+    d -- the date
+    """
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
         if fileparts[0] == t:
@@ -29,6 +43,12 @@ def get_graph_name_from_date(t, d):
 
 
 def get_max_date(t):
+    """Returns a string representing the most recent date for which a graph
+    is available.
+
+    Keyword arguments:
+    t -- the metric
+    """
     max_date = datetime.datetime.strptime('0010-10-10', '%Y-%m-%d')
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
@@ -42,6 +62,12 @@ def get_max_date(t):
 
 
 def get_min_date(t):
+    """Returns a string representing the oldest date for which a graph
+    is available.
+
+    Keyword arguments:
+    t -- the metric
+    """
     min_date = datetime.datetime.strptime('9000-10-10', '%Y-%m-%d')
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
@@ -55,6 +81,12 @@ def get_min_date(t):
 
 
 def graph_helper(t):
+    """A helper to retrieve the graphs, corresponding names, and the path to
+    the timeseries graph.
+
+    Keyword args:
+    t -- the metric
+    """
     graphs = []
     timeseries = ''
     names = []
@@ -74,11 +106,17 @@ def graph_helper(t):
 
 @app.route('/')
 def index():
+    """The index of the website."""
     return render_template('index.html')
 
 
 @app.route('/<metric>')
 def metric(metric):
+    """A general route for all metrics. Return 404 if metric does not exist.
+
+    Keyword args:
+    metric -- the metric
+    """
     if metric in models:
         rows, cols = db_fetch(metric)
         graphs, name, timeseries = graph_helper(metric)
@@ -91,6 +129,11 @@ def metric(metric):
 
 @app.route('/_<metric>')
 def _sources(metric):
+    """A route to get a graph from metric and date.
+
+    Keyword args:
+    metric -- the metric
+    """
     d = request.args.get('d', type=str)
     return jsonify(graph=get_graph_from_date(metric, d),
                    name=get_graph_name_from_date(metric, d))
@@ -98,17 +141,28 @@ def _sources(metric):
 
 @app.route('/_<metric>minmax')
 def _sourcesminmax(metric):
+    """A route to get the min and max date from metric.
+
+    Keyword args:
+    metric -- the metric
+    """
     return jsonify(maxDate=get_max_date(metric),
                    minDate=get_min_date(metric))
 
 
 @app.route('/graphs/<path:filename>')
 def graphs(filename):
+    """A route to retrieve a graph from a filename.
+
+    Keyword args:
+    filename -- the path to the graph
+    """
     return send_from_directory('graphs', filename)
 
 
 @app.route('/contact')
 def contact():
+    """A route for contact information."""
     return render_template('contact.html')
 
 

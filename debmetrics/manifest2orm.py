@@ -10,7 +10,7 @@ config = ConfigParser.RawConfigParser()
 
 
 def manifest2orm(manifest):
-    """Outputs the orm given a manifest file
+    """Outputs the orm given a manifest file.
     
     Keyword arguments:
     manifest -- location of manifest on file system
@@ -47,7 +47,11 @@ class {0}(Base):
 
 
 def table2class(table):
-    """Capitalizes the table name to form a class name"""
+    """Capitalizes the table name to form a class name.
+    
+    Keyword arguments:
+    table -- the table name
+    """
     return table.title().replace('_', '')
 
 if __name__ == '__main__':
