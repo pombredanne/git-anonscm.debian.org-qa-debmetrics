@@ -98,6 +98,16 @@ Database Structure
 
 See http://www.josephbisch.com/debmetrics.html.
 
+Token
+=====
+
+The token is used for push metrics. It is stored in the manifest file and is
+passed when POSTing new data. It is recommended that you generate a token in
+the following way:
+
+import hashlib, random
+hashlib.sha224(str(random.getrandbits(256))).hexdigest();
+
 Interface
 =========
 
@@ -124,9 +134,10 @@ sample format (ConfigParser):
 type = pull|push
 depends = dep1>=w.x.y-z, dep2>=w.x.y-z, ... # optional package dependencies
 freq = min hour dom month dow year # crontab format
-script = scripts/scriptname # relative location in directory structure
+script = scripts/scriptname # relative location in directory structure, only for pull metrics
 fields = field1:Integer, field2:Integer, ... # ts is field, but isn't defined by client
 format = json|xml|fixed_width|tab|csv
+token = 12345 # only for push metrics
 
 [script2]
 type = pull|push
