@@ -6,7 +6,8 @@ from flask import (Flask, abort, jsonify, request, render_template,
                    send_from_directory)
 import os
 import datetime
-from pull_runner import db_fetch
+from pull_runner import db_fetch, handle_csv
+from push_runner import store, token_matches
 from models import models
 app = Flask(__name__)
 
@@ -148,6 +149,21 @@ def _sourcesminmax(metric):
     """
     return jsonify(maxDate=get_max_date(metric),
                    minDate=get_min_date(metric))
+
+
+@app.route('/push', methods=['POST'])
+def push():
+    """A route to push data for a push metric."""
+    table = request.form['metric']
+    data = request.form['data']
+    format = request.form['format']
+    token = request.form['token']
+    if format == 'csv':
+        header, rows = handle_csv(data)
+    if token_matches(table, token) and store(table, header, rows):
+        return jsonify(result='Success')
+    else:
+        return jsonify(result='Failure')
 
 
 @app.route('/graphs/<path:filename>')

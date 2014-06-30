@@ -26,6 +26,24 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
+def token_matches(man, token):
+    """Compares the token to the token in the manifest file.
+
+    Keyword args:
+    token -- a push authorization token
+    """
+    for manifest in os.listdir(man_dir):
+        name, ext = os.path.splitext(manifest)
+        if name == man:
+            config = ConfigParser.RawConfigParser()
+            config.read(os.path.join(man_dir, manifest))
+            t = config.get('script1', 'token')
+            if t == token:
+                return True
+            else:
+                return False
+
+
 def store(table, header, rows):
     db_insert(header, rows, table)
 
