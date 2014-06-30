@@ -4,16 +4,20 @@
 <h1>{{ title }}</h1>
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Timeseries</a></li>
+            {% if timeseries %}
+                <li><a href="#tabs-1">Timeseries</a></li>
+            {% endif %}
             <li><a href="#tabs-2">Table</a></li>
             {% if graph %}
                 <li><a class="title" href="#tabs-3">{{ name }}</a></li>
             {% endif %}
         </ul>
-        <div id="tabs-1">
-            <h2>Timeseries</h2>
-            <img src="{{ timeseries }}" />
-        </div>
+        {% if timeseries %}
+            <div id="tabs-1">
+                <h2>Timeseries</h2>
+                <img src="{{ timeseries }}" />
+            </div>
+        {% endif %}
         <div id="tabs-2">
             <h2>Table</h2>
             <table class="tablesorter">
