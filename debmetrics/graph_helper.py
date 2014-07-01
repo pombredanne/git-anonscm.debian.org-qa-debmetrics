@@ -28,9 +28,7 @@ def time_series_graph(table, data, cols):
     fig = plt.figure()
     sub = fig.add_subplot(111)
     fmt = dates.DateFormatter('%Y-%m-%d')
-    sub.xaxis.set_major_locator(dates.DayLocator())
     sub.xaxis.set_major_formatter(fmt)
-    plt.xticks(rotation=70)
     count = 0
     for ind, r in enumerate(rest):
         if r[0].isdigit():
