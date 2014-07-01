@@ -1,5 +1,5 @@
 [script1]
-type = push
+type = pull
 freq = 0 0 * * *
 script = scripts/releases.py
 fields = name:String, releasedate:DateTime, releaseversion:String

@@ -1,5 +1,5 @@
 [script1]
-type = push
+type = pull
 depends = python-beautifulsoup>=3.2.1-1
 freq = 0 0 * * *
 script = scripts/releases_count.py

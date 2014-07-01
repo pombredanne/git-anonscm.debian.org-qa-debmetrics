@@ -1,5 +1,5 @@
 [script1]
-output = push
+output = pull
 freq = */5 * * * *
 url = 
 tablename = rc_bug_count
