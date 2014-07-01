@@ -1,6 +1,7 @@
 """This module is a helper for pull_runner and push_runner."""
 
 import os
+import os.path
 import re
 import csv
 import datetime
@@ -10,6 +11,7 @@ from models import models
 from base import engine, Base, Session
 
 _tables = {}
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def table_factory(name):
@@ -92,9 +94,9 @@ def should_run(filename, freq):
     freq -- the crontab string of how frequently to run the script
     """
     job = CronTab(tab=freq + ' dummy')[0]
-    if not os.path.exists('last_ran.txt'):
-        f = open('last_ran.txt', 'w')
-    f = open('last_ran.txt', 'r')
+    if not os.path.exists(os.path.join(pkg_dir, 'last_ran.txt')):
+        f = open(os.path.join(pkg_dir, 'last_ran.txt'), 'w')
+    f = open(os.path.join(pkg_dir, 'last_ran.txt'), 'r')
     for line in f:
         line = line.rstrip('\n')
         if line == '':
@@ -118,19 +120,19 @@ def update_last_ran(filename):
     """
     pat = '.+,' + filename
     now = datetime.datetime.now()
-    with open('last_ran.txt', 'r+') as f:
+    with open(os.path.join(pkg_dir, 'last_ran.txt'), 'r+') as f:
         if not any(re.search(pat, line) for line in f):
             f.write(date_to_str(now) + ',' + filename + '\n')
             return
 
-    with open('last_ran.txt') as f:
+    with open(os.path.join(pkg_dir, 'last_ran.txt')) as f:
         out_f = 'last_ran.tmp'
         out = open(out_f, 'w')
         for line in f:
             out.write(re.sub(pat, date_to_str(now) + ',' + filename + '\n',
                       line))
         out.close()
-        os.rename(out_f, 'last_ran.txt')
+        os.rename(out_f, os.path.join(pkg_dir, 'last_ran.txt'))
 
 
 def date_to_str(date):

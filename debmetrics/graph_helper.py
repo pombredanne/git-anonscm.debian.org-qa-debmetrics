@@ -1,4 +1,5 @@
 import os
+import os.path
 import tempfile
 import datetime
 os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
@@ -41,4 +42,6 @@ def time_series_graph(table, data, cols):
     plt.legend()
     plt.tight_layout()
     if not count == 0:
-        plt.savefig(os.path.join('graphs', table + '_timeseries.png'))
+        pkg_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(pkg_dir, 'graphs', table + '_timeseries.png')
+        plt.savefig(path)

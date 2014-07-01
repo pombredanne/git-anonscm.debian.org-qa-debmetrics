@@ -3,6 +3,7 @@
 """This module runs all pull scripts and generates graphs from the data."""
 
 import os
+import os.path
 import logging
 import subprocess
 import ConfigParser
@@ -21,6 +22,12 @@ directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
+
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+
+directory = os.path.join(pkg_dir, directory)
+man_dir = os.path.join(pkg_dir, man_dir)
+graph_scripts_directory = os.path.join(pkg_dir, man_dir)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
