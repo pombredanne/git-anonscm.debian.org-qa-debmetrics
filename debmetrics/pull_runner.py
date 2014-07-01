@@ -23,7 +23,7 @@ pkg_dir = os.path.dirname(os.path.abspath(__file__))
 
 directory = os.path.join(pkg_dir, directory)
 man_dir = os.path.join(pkg_dir, man_dir)
-graph_scripts_directory = os.path.join(pkg_dir, man_dir)
+graph_scripts_directory = os.path.join(pkg_dir, graph_scripts_directory)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
