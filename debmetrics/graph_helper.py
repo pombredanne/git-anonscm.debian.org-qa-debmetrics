@@ -18,7 +18,6 @@ def time_series_graph(table, data, cols):
     cols -- the column names corresponding to the data
     """
     plt.clf()
-    print data
     ts, rest = zip(*data)[0], zip(*data)[1:]
     ts = list(ts)
     for ind, t in enumerate(ts):
@@ -38,6 +37,7 @@ def time_series_graph(table, data, cols):
             count += 1
             sub.plot(ts, r, label=cols[ind+1])
     plt.title("Time series data for " + table)
+    fig.autofmt_xdate()
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
