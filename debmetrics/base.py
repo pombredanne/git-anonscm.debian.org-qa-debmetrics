@@ -1,18 +1,14 @@
 """This module provides a single SQLAlchemy Base for the entire debmetrics
 project."""
 
+import os.path
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from config_reader import settings, read_config
 
-try:
-    read_config('.debmetrics.ini')
-except Exception:
-    try:
-        read_config('debmetrics/.debmetrics.ini')
-    except Exception:
-        read_config('../debmetrics/.debmetrics.ini')
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
 
 engine = create_engine(settings['DB_URI'], echo=True)
 Base = declarative_base(bind=engine)

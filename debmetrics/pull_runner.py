@@ -11,13 +11,9 @@ from graph_helper import time_series_graph
 from config_reader import settings, read_config
 from runner_helper import db_fetch, db_insert, handle_csv, pack, should_run
 
-try:
-    read_config('.debmetrics.ini')
-except Exception:
-    try:
-        read_config('debmetrics/.debmetrics.ini')
-    except Exception:
-        read_config('../debmetrics/.debmetrics.ini')
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']

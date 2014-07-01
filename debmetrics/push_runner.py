@@ -4,19 +4,16 @@
 data."""
 
 import os
+import os.path
 import logging
 import ConfigParser
 from config_reader import settings, read_config
 from runner_helper import db_fetch, db_insert
 from graph_helper import time_series_graph
 
-try:
-    read_config('.debmetrics.ini')
-except Exception:
-    try:
-        read_config('debmetrics/.debmetrics.ini')
-    except Exception:
-        read_config('../debmetrics/.debmetrics.ini')
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
