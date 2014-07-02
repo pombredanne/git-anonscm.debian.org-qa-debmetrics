@@ -96,17 +96,17 @@ def should_run(filename, freq):
     job = CronTab(tab=freq + ' dummy')[0]
     if not os.path.exists(os.path.join(pkg_dir, 'last_ran.txt')):
         f = open(os.path.join(pkg_dir, 'last_ran.txt'), 'w')
-    f = open(os.path.join(pkg_dir, 'last_ran.txt'), 'r')
-    for line in f:
-        line = line.rstrip('\n')
-        if line == '':
-            continue
-        if line.split(',')[1] == filename:
-            if str_to_date(line.split(',')[0]) < job.schedule().get_prev():
-                update_last_ran(filename)
-                return True
-            else:
-                return False
+    with open(os.path.join(pkg_dir, 'last_ran.txt'), 'r') as f:
+        for line in f:
+            line = line.rstrip('\n')
+            if line == '':
+                continue
+            if line.split(',')[1] == filename:
+                if str_to_date(line.split(',')[0]) < job.schedule().get_prev():
+                    update_last_ran(filename)
+                    return True
+                else:
+                    return False
     # First time ran
     update_last_ran(filename)
     return True
