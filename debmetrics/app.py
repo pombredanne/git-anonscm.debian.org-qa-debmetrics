@@ -154,10 +154,10 @@ def _sourcesminmax(metric):
 @app.route('/push', methods=['POST'])
 def push():
     """A route to push data for a push metric."""
-    table = request.form['metric'].encode('ascii')
-    data = request.form['data'].encode('ascii')
-    format = request.form['format'].encode('ascii')
-    token = request.form['token'].encode('ascii')
+    table = request.form['metric'].encode('utf-8')
+    data = request.form['data'].encode('utf-8')
+    format = request.form['format'].encode('utf-8')
+    token = request.form['token'].encode('utf-8')
     if format == 'csv':
         header, rows = handle_csv(data)
     if token_matches(table, token) and store(table, header, rows):
