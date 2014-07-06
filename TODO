@@ -1,12 +1,20 @@
 [HIGH]
 - roll back on non-zero exit status/error
-- decide how to authenticate push metrics
-- add website page to display graphs for irc bot
 - package python-crontab
-- customizable page templates
+- fix error about lack of beautifulsoup when running tests
+- fix errors with releases and releases_count metrics
+- use css for tabs on static interface instead of JS
+- create manifest2index.py and add it to makefile
+- get initial dynamic web interface working
+- do all operations in unicode
+- move non-python files to root dir
+- generate push graph upon data being pushed
+- add description of metric to manifest file
+- make JQuery plugin sort the date column correctly
 
 [LOW]
 - historical data injection
+- customizable page templates
 
 [DONE]
 - add git hook to email upon commit
@@ -35,3 +43,31 @@
 - add graph_type key to manifest (pie, line, histogram, etc.)
 - implement scaffolding to run tests
 - add table as default method of display of data
+- use astring.title() in table2class function
+- add python-iter to requirements
+- add docstrings to pull_runner_test
+- use self.assertEqual in tests
+- add additional pull_runner tests
+- finish the switch to SQLAlchemy in pull_runner
+- rename filename used by the table
+- display tables on website
+- import models variable in create_all.py
+- change the tables to use HTML instead of matplotlib
+- generalize the flask code
+- make makefile use directory in config file
+- add JQuery plugin to make sticky headers
+- add Jquery plugin to sort columns
+- decide how to authenticate push metrics
+- add website page to display graphs for irc bot
+- pull out common runner code into runner_helper.py
+- add push runner
+- add push route to web interface
+- only run pull_runner for pull metrics
+- update tests for runner changes
+- use absolute paths
+- add push_runner to the crontab file
+- use autofmt_xdate() when graphing
+- remove day locator from xaxis for readability
+- use "with open()" in runner_helper
+- use a variable dir in makefile instead of hardcoded
+- rename rc_bug to rc_bug_count
