@@ -1,8 +1,14 @@
-$('#tabs').tabs();
+if (typeof tabs !== 'undefined' && $.isFunction(tabs)) {
+    $('#tabs').tabs();
+}
 
-$('.tablesorter').tablesorter();
+if (typeof tablesorter !== 'undefined' && $.isFunction(tablesorter)) {
+    $('.tablesorter').tablesorter();
+}
 
-$('table').stickyTableHeaders();
+if (typeof stickyTableHeaders !== 'undefined' && $.isFunction(stickyTableHeaders)) {
+    $('table').stickyTableHeaders();
+}
 
 var metric = $('h1').text();
 
@@ -24,6 +30,10 @@ $.getJSON($SCRIPT_ROOT + '/_' + metric + 'minmax', {},
             $('input#date').datepicker('option', 'minDate', data.minDate);
         });
 
-$('input#date').datepicker({
-    dateFormat: "yy-mm-dd",
-});
+if (typeof datepicker !== 'undefined' && $.isFunction(datepicker)) {
+    $('input#date').datepicker({
+        dateFormat: "yy-mm-dd",
+    });
+}
+
+$('table#index').remove()
