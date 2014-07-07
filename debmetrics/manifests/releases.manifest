@@ -6,3 +6,4 @@ fields = name:String, releasedate:DateTime, releaseversion:String
 format = csv
 override_ts = true
 graph_type = table
+description = Provides release name, date, and version number.

@@ -6,3 +6,4 @@ fields = date:Date, stable:Integer, testing:Integer, unstable:Integer, experimen
 format = csv
 override_ts = false
 graph_type = default
+description = Provides package statistics. Useful for comparing between Debian versions.

@@ -7,3 +7,4 @@ fields = rc_bugs:Integer, with_patch:Integer, with_fix:Integer, ignored:Integer,
 format = json
 override_ts = false
 graph_type = default
+description = Provides statistics about release critical bugs.

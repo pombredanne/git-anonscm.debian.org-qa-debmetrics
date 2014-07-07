@@ -6,3 +6,4 @@ fields = svn:Integer, darcs:Integer, git:Integer, bzr:Integer, using_vcs:Integer
 format = csv
 override_ts = false
 graph_type = default
+description = Provides statistics on how popular each vcs is with Debian packages.

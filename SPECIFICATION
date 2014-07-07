@@ -138,6 +138,7 @@ script = scripts/scriptname # relative location in directory structure, only for
 fields = field1:Integer, field2:Integer, ... # ts is field, but isn't defined by client
 format = json|xml|fixed_width|tab|csv
 token = 12345 # only for push metrics
+description = This provides ...
 
 [script2]
 type = pull|push

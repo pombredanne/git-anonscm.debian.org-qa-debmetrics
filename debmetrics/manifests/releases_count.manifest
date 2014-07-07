@@ -7,3 +7,4 @@ fields = name:String, source_files:Integer, source_packages:Integer, disk_usage:
 format = csv
 override_ts = false
 graph_type = custom
+description = Provides statistics about releases such as source files, source packages, disk usage, lines of code.
