@@ -15,11 +15,14 @@ def manifest2index(manifests):
     Keyword arguments:
     manifests -- the location of manifests on the filesystem
     """
+    descriptions = [0] * len(manifests)
     for ind, manifest in enumerate(manifests):
         config.read(manifest)
-        description = config.get('script1', 'description')
+        descriptions[ind] = config.get('script1', 'description')
         manifests[ind] = ntpath.basename(manifest).split('.', 1)[0]
-    manifests.sort()
+    manifests, descriptions = (list(x) for x in zip(*sorted(
+                                                    zip(manifests,
+                                                        descriptions))))
     print """<!doctype html>
 <html lang=en>
     <head>
@@ -30,9 +33,9 @@ def manifest2index(manifests):
         <h1>Debian Metrics Portal</h1>
         <table>
             <tr><th>Metric</th><th>Description</th></tr>"""
-    for manifest in manifests:
+    for ind, manifest in enumerate(manifests):
         print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
-              % (manifest, manifest, description)
+              % (manifest, manifest, descriptions[ind])
     print """    </body>
 </html>"""
 
