@@ -36,7 +36,8 @@ def manifest2index(manifests):
     for ind, manifest in enumerate(manifests):
         print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
               % (manifest, manifest, descriptions[ind])
-    print """</table>
+    print """       </table>
+        <script src="static/js/global.js"></script>
     </body>
 </html>"""
 
