@@ -81,6 +81,16 @@ def get_min_date(t):
     return min_date.strftime('%Y-%m-%d %H:%M:%S.%f')
 
 
+def get_graph_data(t):
+    """Returns the data for the dynamic flot graph.
+
+    Keyword arguments:
+    t -- the metric
+    """
+    res, cols = db_fetch(t)
+    return res, cols
+
+
 def graph_helper(t):
     """A helper to retrieve the graphs, corresponding names, and the path to
     the timeseries graph.
@@ -150,6 +160,17 @@ def _sourcesminmax(metric):
     return jsonify(maxDate=get_max_date(metric),
                    minDate=get_min_date(metric))
 
+
+@app.route('/_<metric>graphdata')
+def _metricgraphdata(metric):
+    """A route to get the data for the dynamic graph.
+
+    Keyword args:
+    metric -- the metric
+    """
+    res, cols = get_graph_data(metric)
+    return jsonify(res=res, cols=cols)
+ 
 
 @app.route('/push', methods=['POST'])
 def push():
