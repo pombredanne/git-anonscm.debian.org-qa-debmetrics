@@ -4,6 +4,9 @@
 
 import sys
 import ntpath
+import ConfigParser
+
+config = ConfigParser.RawConfigParser()
 
 
 def manifest2index(manifests):
@@ -13,6 +16,8 @@ def manifest2index(manifests):
     manifests -- the location of manifests on the filesystem
     """
     for ind, manifest in enumerate(manifests):
+        config.read(manifest)
+        description = config.get('script1', 'description')
         manifests[ind] = ntpath.basename(manifest).split('.', 1)[0]
     manifests.sort()
     print """<!doctype html>
@@ -22,10 +27,12 @@ def manifest2index(manifests):
         <title>Debian Metrics Portal</title>
     </head>
     <body>
-        <h1>Debian Metrics Portal</h1>"""
+        <h1>Debian Metrics Portal</h1>
+        <table>
+            <tr><th>Metric</th><th>Description</th></tr>"""
     for manifest in manifests:
-        print '        <p><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p>' \
-              % (manifest, manifest)
+        print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
+              % (manifest, manifest, description)
     print """    </body>
 </html>"""
 
