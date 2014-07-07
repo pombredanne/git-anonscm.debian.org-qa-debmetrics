@@ -38,6 +38,7 @@ def manifest2index(manifests):
               % (manifest, manifest, descriptions[ind])
     print """       </table>
         <script src="static/js/jquery-1.11.1.min.js"></script>
+        <script> $SCRIPT_ROOT = "";
         <script src="static/js/global.js"></script>
     </body>
 </html>"""
