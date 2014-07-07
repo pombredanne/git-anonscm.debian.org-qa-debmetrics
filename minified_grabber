@@ -12,7 +12,11 @@ wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesor
 
 mkdir -p temp
 wget -P temp http://jqueryui.com/resources/download/jquery-ui-1.10.4.zip
-unzip temp/jquery-ui-1.10.4.zip
+unzip -d temp temp/jquery-ui-1.10.4.zip
 mv temp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js debmetrics/static/js/
 mv temp/jquery-ui-1.10.4/css/ui-lightness/ debmetrics/static/css/
+
+wget -P temp http://www.flotcharts.org/downloads/flot-0.8.3.zip
+unzip -d temp temp/flot-0.8.3.zip
+mv temp/flot/jquery.flot.js debmetrics/static/js
 rm -r temp
