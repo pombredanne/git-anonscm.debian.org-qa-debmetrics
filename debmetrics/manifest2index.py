@@ -37,6 +37,7 @@ def manifest2index(manifests):
         print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
               % (manifest, manifest, descriptions[ind])
     print """       </table>
+        <script src="static/js/jquery-1.11.1.min.js"></script>
         <script src="static/js/global.js"></script>
     </body>
 </html>"""
