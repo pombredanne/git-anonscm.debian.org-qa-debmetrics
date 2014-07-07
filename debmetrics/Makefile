@@ -5,4 +5,7 @@ ORM_MODULES = $(patsubst $(shell $(MANIFEST_DIR))/%.manifest,models/%.py,$(MANIF
 models/%.py: $(shell $(MANIFEST_DIR))/%.manifest
 	./manifest2orm.py $< > $@
 
-all: $(ORM_MODULES)
+templates/index.html: $(MANIFESTS)
+	./manifest2index.py $^ > $@
+
+all: $(ORM_MODULES) templates/index.html
