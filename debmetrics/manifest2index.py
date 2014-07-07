@@ -31,12 +31,13 @@ def manifest2index(manifests):
     </head>
     <body>
         <h1>Debian Metrics Portal</h1>
-        <table>
+        <table id="index">
             <tr><th>Metric</th><th>Description</th></tr>"""
     for ind, manifest in enumerate(manifests):
         print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
               % (manifest, manifest, descriptions[ind])
-    print """    </body>
+    print """</table>
+    </body>
 </html>"""
 
 
