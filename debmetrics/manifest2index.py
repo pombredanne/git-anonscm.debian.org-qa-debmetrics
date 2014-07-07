@@ -24,7 +24,7 @@ def manifest2index(manifests):
     <body>
         <h1>Debian Metrics Portal</h1>"""
     for manifest in manifests:
-        print '        <p><a href="{{ url_for(\'metric\', metric=\'%s\' }}">%s</a></p>' \
+        print '        <p><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p>' \
               % (manifest, manifest)
     print """    </body>
 </html>"""
