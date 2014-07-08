@@ -14,6 +14,7 @@ debmetrics/static/js/jquery.stickytableheaders.min.js*
 debmetrics/static/js/jquery.tablesorter.min.js*
 debmetrics/static/js/jquery.flot.js*
 debmetrics/static/js/jquery.flot.time.js*
+debmetrics/static/js/jquery.flot.hiddengraphs.js*
 debmetrics/static/css/ui-lightness/
 debmetrics/static/css/ts-blue/
 debmetrics/templates/index.html
