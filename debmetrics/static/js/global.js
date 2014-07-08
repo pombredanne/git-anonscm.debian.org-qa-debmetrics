@@ -50,7 +50,7 @@ if ($('table#index')) {
     $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
             function(data) {
                 var select = $('<select></select>').attr('id', 'metrics-list');
-                $.each(data.metrics, function(i, el) {
+                $.each(data.non_ts_metrics, function(i, el) {
                     select.append('<option value="' + el + '">' + el + '</option>');
                 });
                 $('body').append(select);

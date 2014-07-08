@@ -6,10 +6,22 @@ from flask import (Flask, abort, jsonify, request, render_template,
                    send_from_directory)
 import os
 import datetime
+import logging
+import ConfigParser
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
 from models import models
+from config_reader import settings, read_config
 app = Flask(__name__)
+
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+
+man_dir = settings['MANIFEST_DIRECTORY']
+man_dir = os.path.join(pkg_dir, man_dir)
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def get_graph_from_date(t, d):
@@ -94,6 +106,19 @@ def get_graph_data(t):
 def get_all_metrics():
     """Returns a list of all metrics."""
     return models.keys()
+
+
+def get_metrics_non_ts():
+    """Returns a list of non-timeseries metrics."""
+    config = ConfigParser.RawConfigParser()
+    metrics = []
+    for key in models.keys():
+        logger.error(key)
+        config.read(os.path.join(man_dir, key + '.manifest'))
+        override_ts = config.getboolean('script1', 'override_ts')
+        if override_ts:
+            metrics.append(key)
+    return metrics
 
 
 def graph_helper(t):
@@ -181,7 +206,10 @@ def _metricgraphdata(metric):
 def _allmetrics():
     """A route to get a list of all metrics."""
     metrics = get_all_metrics()
-    return jsonify(metrics=metrics)
+    non_ts_metrics = metrics
+    for metric in get_metrics_non_ts():
+        non_ts_metrics.remove(metric)
+    return jsonify(non_ts_metrics=non_ts_metrics, metrics=metrics)
 
 
 @app.route('/push', methods=['POST'])
