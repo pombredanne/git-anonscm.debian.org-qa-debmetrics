@@ -2,48 +2,54 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <h1>{{ title }}</h1>
-    <div id="tabs">
-        <ul>
-            {% if timeseries %}
-                <li><a href="#tabs-1">Timeseries</a></li>
-            {% endif %}
-            <li><a href="#tabs-2">Table</a></li>
-            {% if graph %}
-                <li><a class="title" href="#tabs-3">{{ name }}</a></li>
-            {% endif %}
-        </ul>
+    <div class="tabs">
         {% if timeseries %}
-            <div id="tabs-1">
-                <h2>Timeseries</h2>
-                <img src="{{ timeseries }}" />
+            <div class="tab">
+                <input type="radio" id="tab-1" name="tab-group-1" checked>
+                <label for="tab-1">Timeseries</label>
+
+                <div class="content">
+                    <h2>Timeseries</h2>
+                    <img src="{{ timeseries }}" />
+                </div>
             </div>
         {% endif %}
-        <div id="tabs-2">
-            <h2>Table</h2>
-            <table class="tablesorter">
-                <thead>
-                    <tr>
-                        {% for header in headers %}
-                            <th>{{ header }} </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in rows %}
+        <div class="tab">
+            <input type="radio" id="tab-2" name="tab-group-1">
+            <label for="tab-2">Table</label>
+
+            <div class="content">
+                <h2>Table</h2>
+                <table class="tablesorter">
+                    <thead>
                         <tr>
-                            {% for col in row %}
-                                <td>{{ col }}</td>
+                            {% for header in headers %}
+                                <th>{{ header }}</th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                            <tr>
+                                {% for col in row %}
+                                    <td>{{ col }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         {% if graph %}
-            <div id="tabs-3">
-                <h2 class="title">{{ name }}</h2>
-                <img id="graph" src="{{ graph }}" />
-                <input type="date" id="date" />
+            <div class="tab">
+                <input type="radio" id="tab-3" name="tab-group-1">
+                <label for="tab-3">{{ name }}</label>
+
+                <div class="content">
+                    <h2 class="title">{{ name }}</h2>
+                    <img id="graph" src="{{ graph }}" />
+                    <input type="date" id="date" />
+                </div>
             </div>
         {% endif %}
     </div>
