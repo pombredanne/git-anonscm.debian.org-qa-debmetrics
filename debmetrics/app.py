@@ -91,6 +91,11 @@ def get_graph_data(t):
     return res, cols
 
 
+def get_all_metrics():
+    """Returns a list of all metrics."""
+    return models.keys()
+
+
 def graph_helper(t):
     """A helper to retrieve the graphs, corresponding names, and the path to
     the timeseries graph.
@@ -170,7 +175,14 @@ def _metricgraphdata(metric):
     """
     res, cols = get_graph_data(metric)
     return jsonify(res=res, cols=cols)
- 
+
+
+@app.route('/_allmetrics')
+def _allmetrics():
+    """A route to get a list of all metrics."""
+    metrics = get_all_metrics()
+    return jsonify(metrics=metrics)
+
 
 @app.route('/push', methods=['POST'])
 def push():
