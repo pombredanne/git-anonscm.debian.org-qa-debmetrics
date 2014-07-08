@@ -46,6 +46,7 @@ if ($('table#index')) {
     $('table#index').remove();
 
     $('body').append('<div id="flot-graph" style="width: 500px; height: 300px; float: left"></div>');
+    $('body').append('<div id="flot-graph-legend" style="float: left"></div>');
     $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
             function(data) {
                 var select = $('<select></select>').attr('id', 'metrics-list');
@@ -83,6 +84,9 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                 var options = {
                     xaxis: {
                         mode: 'time'
+                    },
+                    legend: {
+                        container: $('#flot-graph-legend')
                     }
                 };
                 $.plot($('#flot-graph'), d, options);
