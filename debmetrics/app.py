@@ -8,6 +8,7 @@ import os
 import datetime
 import logging
 import ConfigParser
+from graph_helper import time_series_graph
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
 from models import models
@@ -222,6 +223,8 @@ def push():
     if format == 'csv':
         header, rows = handle_csv(data)
     if token_matches(table, token) and store(table, header, rows):
+        rows, cols = db_fetch(table)
+        time_series_graph(table, rows, cols)
         return jsonify(result='Success')
     else:
         return jsonify(result='Failure')
