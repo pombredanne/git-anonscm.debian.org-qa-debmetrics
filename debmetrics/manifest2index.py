@@ -41,6 +41,7 @@ def manifest2index(manifests):
         <script src="static/js/jquery.flot.js"></script>
         <script src="static/js/jquery.flot.time.js"></script>
         <script src="static/js/jquery.flot.hiddengraphs.js"></script>
+        <script src="static/js/jquery.flot.tooltip.min.js"></script>
         <script> $SCRIPT_ROOT = "";</script>
         <script src="static/js/global.js"></script>
     </body>

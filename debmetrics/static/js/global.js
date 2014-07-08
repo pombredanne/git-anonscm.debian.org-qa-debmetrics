@@ -86,12 +86,17 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                         mode: 'time'
                     },
                     legend: {
-                        show: true,
-                        container: "#flot-graph-legend",
+                        container: $('#flot-graph-legend'),
                         hideable: true,
+                    },
+                    grid: {
+                        hoverable: true
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
                     }
                 };
-                var plot = $('#flot-graph').plot(d, options).data('plot');
+                $.plot(('#flot-graph'), d, options).data('plot');
             });
     });
 }
