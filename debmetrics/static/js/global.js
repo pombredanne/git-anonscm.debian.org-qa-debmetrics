@@ -86,10 +86,12 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                         mode: 'time'
                     },
                     legend: {
-                        container: $('#flot-graph-legend')
+                        show: true,
+                        container: "#flot-graph-legend",
+                        hideable: true,
                     }
                 };
-                $.plot($('#flot-graph'), d, options);
+                var plot = $('#flot-graph').plot(d, options).data('plot');
             });
     });
 }
