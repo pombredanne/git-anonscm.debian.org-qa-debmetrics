@@ -161,7 +161,7 @@ def db_fetch(table):
     """
     res = []
     the_class = table_factory(table)
-    q = Session.query(the_class)
+    q = Session.query(the_class).order_by(the_class.ts)
     r = q.all()
     for i in r:
         res.append(row2list(i))
