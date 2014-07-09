@@ -12,12 +12,19 @@ from runner_helper import db_fetch, db_insert
 from graph_helper import time_series_graph
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
 
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
 conn_str = settings['PSYCOPG2_DB_STRING']
+
+if not os.path.isabs(directory):
+    directory = os.path.join(pkg_dir, directory)
+if not os.path.isabs(man_dir):
+    man_dir = os.path.join(pkg_dir, man_dir)
+if not os.path.isabs(graph_scripts_directory):
+    graph_scripts_directory = os.path.join(pkg_dir, graph_scripts_directory)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

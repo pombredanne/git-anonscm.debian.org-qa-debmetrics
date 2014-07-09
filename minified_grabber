@@ -1,25 +1,25 @@
 #!/bin/sh
 
-wget -P debmetrics/static/js/ http://code.jquery.com/jquery-1.11.1.min.js
-wget -P debmetrics/static/js/ https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
-wget -P debmetrics/static/js/ https://github.com/christianbach/tablesorter/raw/master/jquery.tablesorter.min.js
-wget -P debmetrics/static/js/ https://github.com/markrcote/flot-hiddengraphs/raw/master/jquery.flot.hiddengraphs.js
-wget -P debmetrics/static/js/ https://github.com/krzysu/flot.tooltip/raw/master/js/jquery.flot.tooltip.min.js
+wget -P static/js/ http://code.jquery.com/jquery-1.11.1.min.js
+wget -P static/js/ https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
+wget -P static/js/ https://github.com/christianbach/tablesorter/raw/master/jquery.tablesorter.min.js
+wget -P static/js/ https://github.com/markrcote/flot-hiddengraphs/raw/master/jquery.flot.hiddengraphs.js
+wget -P static/js/ https://github.com/krzysu/flot.tooltip/raw/master/js/jquery.flot.tooltip.min.js
 
-mkdir -p debmetrics/static/css/ts-blue/
-wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/asc.gif
-wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/bg.gif
-wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/desc.gif
-wget -P debmetrics/static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/style.css
+mkdir -p static/css/ts-blue/
+wget -P static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/asc.gif
+wget -P static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/bg.gif
+wget -P static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/desc.gif
+wget -P static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/style.css
 
 mkdir -p temp
 wget -P temp http://jqueryui.com/resources/download/jquery-ui-1.10.4.zip
 unzip -d temp temp/jquery-ui-1.10.4.zip
-mv temp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js debmetrics/static/js/
-mv temp/jquery-ui-1.10.4/css/ui-lightness/ debmetrics/static/css/
+mv temp/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js static/js/
+mv temp/jquery-ui-1.10.4/css/ui-lightness/ static/css/
 
 wget -P temp http://www.flotcharts.org/downloads/flot-0.8.3.zip
 unzip -d temp temp/flot-0.8.3.zip
-mv temp/flot/jquery.flot.js debmetrics/static/js
-mv temp/flot/jquery.flot.time.js debmetrics/static/js
+mv temp/flot/jquery.flot.js static/js
+mv temp/flot/jquery.flot.time.js static/js
 rm -r temp

@@ -21,4 +21,4 @@ def read_config(config_file):
                                                      'DIRECTORY')
 
 if __name__ == '__main__':
-    read_config('.debmetrics.ini')
+    read_config('../.debmetrics.ini')
