@@ -53,7 +53,7 @@ if ($('table#index')) {
                 $.each(data.non_ts_metrics, function(i, el) {
                     select.append('<option value="' + el + '">' + el + '</option>');
                 });
-                var table_select = $('<select></select').attr('id', 'table-metrics-list');
+                var table_select = $('<select></select>').attr('id', 'table-metrics-list');
                 $.each(data.metrics, function(i, el) {
                     table_select.append('<option value"' + el + '">' + el + '</option>');
                 });
