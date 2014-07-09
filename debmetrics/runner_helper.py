@@ -161,7 +161,12 @@ def db_fetch(table):
     """
     res = []
     the_class = table_factory(table)
-    q = Session.query(the_class).order_by(the_class.ts)
+    if hasattr(the_class, 'ts'):
+        q = Session.query(the_class).order_by(the_class.ts)
+    elif hasattr(the_class, 'an_id'):
+        q = Session.query(the_class).order_by(the_class.an_id)
+    else:
+        q = Session.query(the_class)
     r = q.all()
     for i in r:
         res.append(row2list(i))
