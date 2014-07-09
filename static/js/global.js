@@ -2,13 +2,20 @@ function isNumber(obj) {
     return !isNaN(parseFloat(obj));
 }
 
-if (typeof tablesorter !== 'undefined' && $.isFunction(tablesorter)) {
-    $('.tablesorter').tablesorter();
-}
-
-if (typeof stickyTableHeaders !== 'undefined' && $.isFunction(stickyTableHeaders)) {
-    $('table').stickyTableHeaders();
-}
+$.tablesorter.addParser({
+    id: 'customDate',
+    is: function(s) {
+        return /\d{1,4}}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}.\d{1,6}/.test(s);
+    },
+    format: function(s) {
+        s = s.replace(/\-/g," ");
+        s = s.replace(/:/g," ");
+        s = s.replace(/\./g," ");
+        s = s.split(" ");
+        return $.tablesorter.formatFloat(new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]).getTime() + parseInt(s[6]));
+    },
+    type: 'numeric'
+});
 
 var metric = $('h1').text();
 
@@ -115,12 +122,12 @@ $('#display-in-table').click(function() {
             $('#table').remove();
             var headers = data.headers;
             var rows = data.rows;
-            table = '<table id="table"><tr>'
+            table = '<table id="table" class="tablesorter"><thead><tr>'
             for (var i=0; i < headers.length; i++) {
                 var header = headers[i];
                 table += '<th>' + header + '</th>';
             }
-            table += '</tr>';
+            table += '</tr></thead>';
             for (var i=0; i < rows.length; i++) {
                 row = rows[i];
                 table += '<tr>';
@@ -131,6 +138,10 @@ $('#display-in-table').click(function() {
                 table += '</tr>';
             }
             $('#table-tab').append(table);
+            $('.tablesorter').tablesorter({
+                dateFormat: 'yyyymmdd'
+            });
+            $('table').stickyTableHeaders();
         });
 });
 
