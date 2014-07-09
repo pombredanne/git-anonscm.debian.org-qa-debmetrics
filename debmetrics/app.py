@@ -215,7 +215,7 @@ def _metricgraphdata(metric):
 def _allmetrics():
     """A route to get a list of all metrics."""
     metrics = get_all_metrics()
-    non_ts_metrics = metrics
+    non_ts_metrics = list(metrics)
     for metric in get_metrics_non_ts():
         non_ts_metrics.remove(metric)
     return jsonify(non_ts_metrics=non_ts_metrics, metrics=metrics)
