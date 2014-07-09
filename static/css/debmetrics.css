@@ -18,6 +18,17 @@ tr:nth-child(odd) {
     background: #fff;
 }
 
+#flot-graph-legend th, 
+#flot-graph-legend td {
+    padding: 1px;
+    text-align: start;
+    border: initial;
+}
+
+#flot-graph-legend tr:nth-child(odd) {
+    background: initial;
+}
+
 .cf:before,
 .cf:after {
     content: " ";
