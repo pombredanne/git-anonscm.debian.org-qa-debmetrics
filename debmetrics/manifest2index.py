@@ -29,6 +29,7 @@ def manifest2index(manifests):
         <meta charset=utf-8>
         <title>Debian Metrics Portal</title>
         <link rel="stylesheet" href="{{ url_for('static2', filename='css/ui-lightness/jquery-ui-1.10.4.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static2', filename='css/debmetrics.css') }}" />
     </head>
     <body>
         <h1>Debian Metrics Portal</h1>
