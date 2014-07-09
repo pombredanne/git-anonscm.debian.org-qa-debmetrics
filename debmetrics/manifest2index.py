@@ -28,6 +28,7 @@ def manifest2index(manifests):
     <head>
         <meta charset=utf-8>
         <title>Debian Metrics Portal</title>
+        <link rel="stylesheet" href="{{ url_for('static2', filename='css/ui-lightness/jquery-ui-1.10.4.min.css') }}" />
     </head>
     <body>
         <h1>Debian Metrics Portal</h1>
@@ -38,6 +39,7 @@ def manifest2index(manifests):
               % (manifest, manifest, descriptions[ind])
     print """       </table>
         <script src="{{ url_for('static2', filename='js/jquery-1.11.1.min.js') }}"></script>
+        <script src="{{ url_for('static2', filename='js/jquery-ui-1.10.4.min.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.time.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.hiddengraphs.js') }}"></script>

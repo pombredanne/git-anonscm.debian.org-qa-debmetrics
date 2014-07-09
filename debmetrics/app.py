@@ -221,6 +221,13 @@ def _allmetrics():
     return jsonify(non_ts_metrics=non_ts_metrics, metrics=metrics)
 
 
+@app.route('/_<metric>gettable')
+def _metricgettable(metric):
+    """A route to get the table headers and rows."""
+    rows, headers = db_fetch(metric)
+    return jsonify(headers=headers, rows=rows)
+
+
 @app.route('/push', methods=['POST'])
 def push():
     """A route to push data for a push metric."""
