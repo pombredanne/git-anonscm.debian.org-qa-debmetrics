@@ -38,12 +38,12 @@ if (typeof datepicker !== 'undefined' && $.isFunction(datepicker)) {
     });
 }
 
-if ($('table#index')) {
+if ($('table#index').length > 0) {
     $('table#index').remove();
 
-    $('body').append('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
+    $('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
            + '</li><li><a href="#table-tab">Table</a></li></ul>'
-           + '<div id="graph-tab"></div><div id="table-tab"></div></div>');
+           + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');
     $('#graph-tab').append('<div id="flot-graph" style="width: 500px;'
            + ' height: 300px; float: left"></div>');
     $('#graph-tab').append('<div id="flot-graph-legend" style="float: left"></div>');

@@ -23,15 +23,9 @@ def manifest2index(manifests):
     manifests, descriptions = (list(x) for x in zip(*sorted(
                                                     zip(manifests,
                                                         descriptions))))
-    print """<!doctype html>
-<html lang=en>
-    <head>
-        <meta charset=utf-8>
-        <title>Debian Metrics Portal</title>
-        <link rel="stylesheet" href="{{ url_for('static2', filename='css/ui-lightness/jquery-ui-1.10.4.min.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static2', filename='css/debmetrics.css') }}" />
-    </head>
-    <body>
+    print """{% extends "layout.html" %}
+    {% block title %}Debmetrics Home {% endblock %}
+    {% block body %}
         <h1>Debian Metrics Portal</h1>
         <table id="index">
             <tr><th>Metric</th><th>Description</th></tr>"""
@@ -39,16 +33,7 @@ def manifest2index(manifests):
         print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
               % (manifest, manifest, descriptions[ind])
     print """       </table>
-        <script src="{{ url_for('static2', filename='js/jquery-1.11.1.min.js') }}"></script>
-        <script src="{{ url_for('static2', filename='js/jquery-ui-1.10.4.min.js') }}"></script>
-        <script src="{{ url_for('static2', filename='js/jquery.flot.js') }}"></script>
-        <script src="{{ url_for('static2', filename='js/jquery.flot.time.js') }}"></script>
-        <script src="{{ url_for('static2', filename='js/jquery.flot.hiddengraphs.js') }}"></script>
-        <script src="{{ url_for('static2', filename='js/jquery.flot.tooltip.min.js') }}"></script>
-        <script> $SCRIPT_ROOT = "";</script>
-        <script src="{{ url_for('static2', filename='js/global.js') }}"></script>
-    </body>
-</html>"""
+    {% endblock %}"""
 
 
 if __name__ == '__main__':
