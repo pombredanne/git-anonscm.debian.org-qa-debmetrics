@@ -41,7 +41,7 @@ if (typeof datepicker !== 'undefined' && $.isFunction(datepicker)) {
 if ($('table#index')) {
     $('table#index').remove();
 
-    $('body').append('<div id="tabs"><ul><li><a href="#graph-tab">Graph</a>'
+    $('body').append('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
            + '</li><li><a href="#table-tab">Table</a></li></ul>'
            + '<div id="graph-tab"></div><div id="table-tab"></div></div>');
     $('#graph-tab').append('<div id="flot-graph" style="width: 500px;'

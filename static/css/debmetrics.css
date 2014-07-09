@@ -18,6 +18,16 @@ tr:nth-child(odd) {
     background: #fff;
 }
 
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
 .tabs {
     position: relative;
     min-height: 2000px;
