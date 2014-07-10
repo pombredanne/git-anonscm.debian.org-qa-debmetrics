@@ -7,12 +7,12 @@ import os.path
 import logging
 import subprocess
 import ConfigParser
-from graph_helper import time_series_graph
-from config_reader import settings, read_config
-from runner_helper import db_fetch, db_insert, handle_csv, pack, should_run
+from debmetrics.graph_helper import time_series_graph
+from debmetrics.config_reader import settings, read_config
+from debmetrics.runner_helper import db_fetch, db_insert, handle_csv, pack, should_run
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
 
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']

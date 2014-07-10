@@ -26,10 +26,7 @@ def manifest2orm(manifest):
     print """\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
 import sqlalchemy
-try:
-    from base import engine, Base, Session
-except ImportError:
-    from debmetrics.base import engine, Base, Session
+from debmetrics.base import engine, Base, Session
 from sqlalchemy import Column, Integer, String, Date, DateTime, TIMESTAMP
     
 class {0}(Base):

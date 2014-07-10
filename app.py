@@ -8,16 +8,15 @@ import os
 import datetime
 import logging
 import ConfigParser
-from graph_helper import time_series_graph
+from debmetrics.graph_helper import time_series_graph
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
-from models import models
-from config_reader import settings, read_config
-app = Flask(__name__, static_folder='../static/',
-            template_folder='../templates/')
+from debmetrics.models import models
+from debmetrics.config_reader import settings, read_config
+app = Flask(__name__)
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
+read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
 
 man_dir = settings['MANIFEST_DIRECTORY']
 if not os.path.isabs(man_dir):
@@ -157,7 +156,7 @@ def index():
 @app.route('/static/<path:filename>')
 def static2(filename):
     """Returns static files from static dir."""
-    return send_from_directory(os.path.join('..', 'static'), filename)
+    return send_from_directory(os.path.join('static'), filename)
 
 
 @app.route('/<metric>')
