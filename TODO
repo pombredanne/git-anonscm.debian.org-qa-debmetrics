@@ -3,14 +3,7 @@
 - package python-crontab
 - fix error about lack of beautifulsoup when running tests
 - fix errors with releases and releases_count metrics
-- use css for tabs on static interface instead of JS
-- create manifest2index.py and add it to makefile
-- get initial dynamic web interface working
 - do all operations in unicode
-- move non-python files to root dir
-- generate push graph upon data being pushed
-- add description of metric to manifest file
-- make JQuery plugin sort the date column correctly
 
 [LOW]
 - historical data injection
@@ -71,3 +64,17 @@
 - use "with open()" in runner_helper
 - use a variable dir in makefile instead of hardcoded
 - rename rc_bug to rc_bug_count
+- create manifest2index.py and add it to makefile
+- add description of metric to manifest file
+- get initial dynamic web interface working
+- use css for tabs on static interface instead of JS
+- generate push graph upon data being pushed
+- move non-python files to root dir
+- add table to dynamic web interface
+- import debmetrics.css on index page
+- clearfix for collapsing container on graph tab
+- fix flot-graph-legend style
+- use layout.html as template for index page
+- make JQuery plugin sort the date column correctly
+- fix attempt relative import in non-package error
+- move target all to top of Makefile
