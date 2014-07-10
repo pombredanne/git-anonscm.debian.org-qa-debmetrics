@@ -7,8 +7,8 @@ import csv
 import datetime
 import StringIO
 from crontab import CronTab
-from models import models
-from base import engine, Base, Session
+from debmetrics.models import models
+from debmetrics.base import engine, Base, Session
 
 _tables = {}
 pkg_dir = os.path.dirname(os.path.abspath(__file__))

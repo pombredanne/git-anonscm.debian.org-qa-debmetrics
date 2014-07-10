@@ -5,7 +5,7 @@ import os.path
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from config_reader import settings, read_config
+from debmetrics.config_reader import settings, read_config
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
 read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
