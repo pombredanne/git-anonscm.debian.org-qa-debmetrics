@@ -108,7 +108,8 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     },
                     tooltip: true,
                     tooltipOpts: {
-                    }
+                    },
+                    metric: metric
                 };
                 $.plot(('#flot-graph'), d, options);
             });
