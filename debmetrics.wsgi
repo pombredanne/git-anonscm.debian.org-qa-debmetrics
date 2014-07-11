@@ -3,7 +3,7 @@ import os
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/var/www/debmetrics/")
-os.chdir("/var/www/debmetrics/debmetrics/")
+sys.path.insert(0, "/var/www/debmetrics/")
+os.chdir("/var/www/debmetrics/")
 
-from debmetrics.app import app as application
+from app import app as application
