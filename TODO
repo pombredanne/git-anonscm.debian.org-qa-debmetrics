@@ -4,6 +4,10 @@
 - fix error about lack of beautifulsoup when running tests
 - fix errors with releases and releases_count metrics
 - do all operations in unicode
+- rework landing interface and URLs
+- switch to python3
+- add more parsers other than csv
+- add a custom graph for releases_count
 
 [LOW]
 - historical data injection
@@ -78,3 +82,6 @@
 - make JQuery plugin sort the date column correctly
 - fix attempt relative import in non-package error
 - move target all to top of Makefile
+- generate csv for download by user
+- remove tabbed interface to put graph and table on same page
+- use debian.css
