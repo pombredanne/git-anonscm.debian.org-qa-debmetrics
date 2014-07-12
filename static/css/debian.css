@@ -1,5 +1,5 @@
 /*
-	http://www.debian.org Stylesheet
+	https://www.debian.org Stylesheet
 
 	Copyright 2011 Kalle Söderman
 
@@ -73,7 +73,7 @@ body {
 	line-height: 1.5;
 	color: #222;
 	background-color: white;
-	background-image:url('/static/img/gradient.png'); /* modified wrt Debian version */
+	background-image:url('Pics/gradient.png');
 	background-position: 0 0;
 	background-repeat: repeat-x;
 	/* Uncomment to show baseline grid 
@@ -83,8 +83,6 @@ body {
 }
 #content {
 	margin: 0 10px 0 52px;
-	min-height: 300px; /* added for debsources, required to avoid the
-			      infobox to overlap the footer */
 }
 #inner {
 	position: relative;
@@ -209,9 +207,6 @@ ul.subnav li {
 #searchbox p {
 	margin: 0;
 	padding: 0;
-}
-#searchbox form { /* modified wrt Debian version */
-    display: inline;
 }
 #upperheader {
 	margin:0;
@@ -378,7 +373,7 @@ h2 {
 h3 {
 	font-size: 1.125em;
 	line-height: 1.333em;
-	margin: 1.333em 0 1.333em 0; /* modified */
+	margin: 1.333em 0 0 0;
 }
 h4 {
 	font-weight: normal;
@@ -425,7 +420,7 @@ pre {
 }
 tt, code {
 	font-family: monospace;
-	/* see http://lists.debian.org/debian-www/2011/08/msg00181.html */
+	/* see https://lists.debian.org/debian-www/2011/08/msg00181.html */
 	/* white-space: pre; */
 	color: black;
 }
@@ -512,13 +507,12 @@ acronym, abbr {
 	font-size: 0.75em;
 	border: 1px solid #dfdfe0;
 	padding:1em;
-	background-color: rgba(245, 246, 247, 0.6); /* modified */
-	margin: 30px 10px 0 52px; /* modified wrt Debian version */
+	background-color: #f5f6f7;
+	margin: 0 10px 0 52px;
 	line-height: 1.5em;
 	border-left: 0;
 	border-right: 0;
 	clear: both;
-        text-align: center;
 }
 #content #footer {
 	margin-left: 0;
@@ -649,7 +643,6 @@ form#pageLang {
 
 input:focus {
 	background-color:#FFFFCB;
-        outline: none; /* modified wrt Debian version */
 	
 }
 .hidecss {
@@ -727,6 +720,12 @@ ul.downlist li:after {
 ul.downlist li:last-child:after {
 	content: '';
 }
+
+/* don't consider dash in arch name as an hyphen #718307 */
+ul.downlist li a {
+	white-space: nowrap;
+}
+
 div.tip
 , div.important
 , div.warning
