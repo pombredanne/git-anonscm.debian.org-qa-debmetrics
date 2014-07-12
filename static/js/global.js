@@ -48,32 +48,31 @@ if (typeof datepicker !== 'undefined' && $.isFunction(datepicker)) {
 if ($('table#index').length > 0) {
     $('table#index').remove();
 
-    $('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
+    $('#content').append('<div id="graph-table-container"></div>');
+    /*$('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
            + '</li><li><a href="#table-tab">Table</a></li></ul>'
-           + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');
-    $('#graph-tab').append('<div id="flot-graph" style="width: 500px;'
+           + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');*/
+    $('#graph-table-container').append('<div id="flot-graph" style="width: 500px;'
            + ' height: 300px; float: left"></div>');
-    $('#graph-tab').append('<div id="flot-graph-legend" style="float: left"></div>');
+    $('#graph-table-container').append('<div id="flot-graph-legend" style="float: left"></div>');
     $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
             function(data) {
                 var select = $('<select></select>').attr('id', 'metrics-list');
-                $.each(data.non_ts_metrics, function(i, el) {
-                    select.append('<option value="' + el + '">' + el + '</option>');
-                });
-                var table_select = $('<select></select>').attr('id', 'table-metrics-list');
                 $.each(data.metrics, function(i, el) {
-                    table_select.append('<option value"' + el + '">' + el + '</option>');
+                    select.append('<option value"' + el + '">' + el + '</option>');
                 });
-                $('#graph-tab').append(select);
-                $('#table-tab').append(table_select);
+                $('#graph-table-container').append(select);
             });
-    $('#add-to-graph').click();
-    $('#graph-tab').append('<button id="add-to-graph">Add metric to graph</button>');
-    $('#table-tab').append('<button id="display-in-table">Display metric in table</button>');
+    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
 }
 
+$('#add-metric').click(function() {
+    addToGraph();
+    displayInTable();
+});
+
 if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
-    $('#add-to-graph').click(function() {
+    function addToGraph() {
         var metric = $('select#metrics-list').val();
         $.getJSON($SCRIPT_ROOT + '/_' + metric + 'graphdata', {},
             function(data) {
@@ -113,11 +112,11 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                 };
                 $.plot(('#flot-graph'), d, options);
             });
-    });
+    }
 }
 
-$('#display-in-table').click(function() {
-    var table_metric = $('select#table-metrics-list').val();
+function displayInTable() {
+    var table_metric = $('select#metrics-list').val();
     $.getJSON($SCRIPT_ROOT + '/_' + table_metric + 'gettable', {},
         function(data) {
             $('#table').remove();
@@ -138,12 +137,10 @@ $('#display-in-table').click(function() {
                 }
                 table += '</tr>';
             }
-            $('#table-tab').append(table);
+            $('#graph-table-container').append(table);
             $('.tablesorter').tablesorter({
                 dateFormat: 'yyyymmdd'
             });
             $('table').stickyTableHeaders();
         });
-});
-
-$('#tabs').tabs();
+}
