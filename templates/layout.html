@@ -9,13 +9,29 @@
         <link rel="stylesheet" href="static/css/debmetrics.css" />
     </head>
     <body>
-        <header>
-            <a href="/">Debmetrics home</a>
+        <header id="header">
+            <div id="upperheader">
+                <div id="logo">
+                    <a href="http://www.debian.org/" title="Debian Home"><img src="{{ url_for('static', filename='img/debian-50.png') }}" alt="Debian"></a>
+                </div>
+                <p class="section"><a href="/">Debmetrics home</a></p>
+            </div>
+            <nav id="navbar">
+                <p class="hidecss"><a href="#content">Skip Quicknav</a></p>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+            <p id="breadcrumbs"></p>
         </header>
-        {% block body %}{% endblock %}
-        <footer>
-            <a href="http://anonscm.debian.org/gitweb/?p=users/josephbisch-guest/debmetrics.git;a=summary">Source Code</a>
-             - <a href="{{ url_for('contact') }}">Contact</a>
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
+        <footer id="footer">
+            <p>
+                <a href="http://anonscm.debian.org/gitweb/?p=users/josephbisch-guest/debmetrics.git;a=summary">Source Code</a>
+                | <a href="{{ url_for('contact') }}">Contact</a>
+            </p>
         </footer>
         <script src="static/js/jquery-1.11.1.min.js"></script>
         <script src="static/js/jquery-ui-1.10.4.min.js"></script>
