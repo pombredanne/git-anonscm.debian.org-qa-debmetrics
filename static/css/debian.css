@@ -73,7 +73,7 @@ body {
 	line-height: 1.5;
 	color: #222;
 	background-color: white;
-	background-image:url('Pics/gradient.png');
+	background-image:url('../img/gradient.png'); /* changed */
 	background-position: 0 0;
 	background-repeat: repeat-x;
 	/* Uncomment to show baseline grid 
@@ -700,7 +700,7 @@ div.downloads .col50 {
 ul.downlist {
 	padding-left: 30px;
 	text-indent:0;
-	background: url('Pics/emblem-downloads.png') no-repeat 0 0.15em;
+	background: url('../img/emblem-downloads.png') no-repeat 0 0.15em; /* changed */
 	min-height: 23px;
 	/* 
 	 * border-top: 0.17em solid #339900;
@@ -748,17 +748,17 @@ div.tip p
 	margin: 1em 0 1em 0;
 }
 div.tip {
-	background-image: url('Pics/admon-tip.png');
+	background-image: url('../img/admon-tip.png'); /* changed */
 }
 div.important{
-	background-image: url('Pics/admon-important.png');
+	background-image: url('../img/admon-important.png'); /* changed */
 }
 div.warning {
-	background-image: url('Pics/admon-warning.png');
+	background-image: url('../img/admon-warning.png'); /* changed */
 }
 div.note
 , div.trans-note  {
-	background-image: url('Pics/admon-note.png');
+	background-image: url('../img/admon-note.png'); /* changed */
 }
 
 /* Layout Elements */
