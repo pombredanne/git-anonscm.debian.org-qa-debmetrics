@@ -2,12 +2,14 @@
 
 """This module contains the Flask code for debmetrics."""
 
-from flask import (Flask, abort, jsonify, request, render_template,
-                   send_from_directory)
+from flask import (Flask, abort, jsonify, make_response, request,
+                   render_template, send_from_directory)
 import os
+import csv
 import datetime
 import logging
 import ConfigParser
+import StringIO
 from debmetrics.graph_helper import time_series_graph
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
@@ -121,6 +123,21 @@ def get_metrics_non_ts():
         if override_ts:
             metrics.append(key)
     return metrics
+
+
+def get_csv(cols, rows):
+    """Returns csv data from columns and rows.
+
+    Keyword arguments:
+    cols -- the columns
+    rows -- the actual data
+    """
+    si = StringIO.StringIO()
+    cw = csv.writer(si)
+    cw.writerow(cols)
+    for row in rows:
+        cw.writerow(row)
+    return si.getvalue().strip('\r\n')
 
 
 def graph_helper(t):
@@ -242,6 +259,21 @@ def push():
         return jsonify(result='Success')
     else:
         return jsonify(result='Failure')
+
+
+@app.route('/csv/<metric>')
+def csv_route(metric):
+    """A route to return csv data for a metric.
+
+    Keyword arguments:
+    metric -- a metric
+    """
+    rows, cols = db_fetch(metric)
+    csv = get_csv(cols, rows)
+    response = make_response(csv)
+    response.headers['Content-Disposition'] = \
+        'attachment; filename=%s.csv' % (metric,)
+    return response
 
 
 @app.route('/graphs/<path:filename>')

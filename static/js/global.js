@@ -120,6 +120,7 @@ function displayInTable() {
     $.getJSON($SCRIPT_ROOT + '/_' + table_metric + 'gettable', {},
         function(data) {
             $('#table').remove();
+            $('#csvLink').remove();
             var headers = data.headers;
             var rows = data.rows;
             table = '<table id="table" class="tablesorter"><thead><tr>'
@@ -137,6 +138,8 @@ function displayInTable() {
                 }
                 table += '</tr>';
             }
+            var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download CSV</a>';
+            $('#graph-table-container').append(csvLink);
             $('#graph-table-container').append(table);
             $('.tablesorter').tablesorter({
                 dateFormat: 'yyyymmdd'
