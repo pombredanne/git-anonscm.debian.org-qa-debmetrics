@@ -35,15 +35,6 @@ def table2class(table):
     return table.title().replace('_', '')
 
 
-def quote(data):
-    """Quotes string data for insertion in the database."""
-    if 'timestamp' in data:
-        return data
-    if data.isdigit():
-        return data
-    return "'" + data + "'"
-
-
 def db_insert(header, rows, table):
     """Inserts data in the database.
 
@@ -79,7 +70,7 @@ def handle_csv(data):
         else:
             r = []
             for col in row:
-                r.append(quote(col))
+                r.append(col)
             rows.append(r)
         rownum += 1
     return header, rows
