@@ -64,9 +64,9 @@ if ($('table#index').length > 0) {
                 select.insertBefore('#add-metric');
             });
     $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
-    $('#graph-table-container').append('<div id="graph-dim-container"' +
+    $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="graph-dim-container"' +
            ' style="border: 1px solid black; float: left; padding: 8px;' +
-           '">Graph dimensions:</div>')
+           '">Graph dimensions:</div></div>')
     $('#graph-dim-container').append('<div style="">width:' +
            '<input id="graph-width" value="500" />px</div><br />');
     $('#graph-dim-container').append('<div style="">height:' +
@@ -167,3 +167,8 @@ function resizeGraph() {
     placeholder.width(w).height(h);
     addToGraph();
 }
+
+$('#accordion').accordion({
+    collapsible: true,
+    active: false
+});
