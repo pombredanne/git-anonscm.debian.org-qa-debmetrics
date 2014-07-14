@@ -63,13 +63,23 @@ if ($('table#index').length > 0) {
                 });
                 select.insertBefore('#add-metric');
             });
-    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');        
+    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
+    $('#graph-table-container').append('<div id="graph-dim-container"' +
+           ' style="border: 1px solid black; float: left; padding: 8px;' +
+           '">Graph dimensions:</div>')
+    $('#graph-dim-container').append('<div style="">width:' +
+           '<input id="graph-width" value="500" />px</div><br />');
+    $('#graph-dim-container').append('<div style="">height:' +
+           '<input id="graph-height" value="300" />px</div>');
+    $('#graph-dim-container').append('<button id="resize-graph">Update graph dimensions</button>');
 }
 
 $('#add-metric').click(function() {
     addToGraph();
     displayInTable();
 });
+
+$('#resize-graph').click(resizeGraph);
 
 if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
     function addToGraph() {
@@ -146,4 +156,13 @@ function displayInTable() {
             });
             $('table').stickyTableHeaders();
         });
+}
+
+function resizeGraph() {
+    var placeholder = $('#flot-graph');
+    var w = $('#graph-width').val();
+    var h = $('#graph-height').val();
+    alert(w);
+    placeholder.width(w).height(h);
+    addToGraph();
 }
