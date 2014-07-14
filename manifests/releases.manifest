@@ -2,7 +2,7 @@
 type = pull
 freq = 0 0 * * *
 script = scripts/releases.py
-fields = name:String, releasedate:DateTime, releaseversion:String
+fields = ts:DateTime, name:String, release_date:DateTime, release_version:String
 format = csv
 override_ts = true
 graph_type = table
