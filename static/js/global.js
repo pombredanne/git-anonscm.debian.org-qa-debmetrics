@@ -133,7 +133,7 @@ function displayInTable() {
             $('#csvLink').remove();
             var headers = data.headers;
             var rows = data.rows;
-            table = '<div style="clear: both;"><table id="table" class="tablesorter"><thead><tr>'
+            table = '<div id="table-container" style="clear: both;"><table id="table" class="tablesorter"><thead><tr>'
             for (var i=0; i < headers.length; i++) {
                 var header = headers[i];
                 table += '<th>' + header + '</th>';
@@ -150,8 +150,8 @@ function displayInTable() {
             }
             table += '</table></div>';
             var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download CSV</a>';
-            $('#graph-table-container').append(csvLink);
             $('#graph-table-container').append(table);
+            $('#table-container').prepend(csvLink);
             $('.tablesorter').tablesorter({
                 dateFormat: 'yyyymmdd'
             });
