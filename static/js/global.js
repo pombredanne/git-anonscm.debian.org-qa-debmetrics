@@ -162,7 +162,6 @@ function resizeGraph() {
     var placeholder = $('#flot-graph');
     var w = $('#graph-width').val();
     var h = $('#graph-height').val();
-    alert(w);
     placeholder.width(w).height(h);
     addToGraph();
 }
