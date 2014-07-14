@@ -5,6 +5,9 @@ wget -P static/js/ https://github.com/jmosbech/StickyTableHeaders/raw/master/js/
 wget -P static/js/ https://github.com/christianbach/tablesorter/raw/master/jquery.tablesorter.min.js
 wget -P static/js/ https://github.com/markrcote/flot-hiddengraphs/raw/master/jquery.flot.hiddengraphs.js
 wget -P static/js/ https://github.com/krzysu/flot.tooltip/raw/master/js/jquery.flot.tooltip.min.js
+wget -P static/js/ https://github.com/akottr/dragtable/raw/master/jquery.dragtable.js
+
+wget -P static/css/ https://github.com/akottr/dragtable/raw/master/dragtable.css
 
 mkdir -p static/css/ts-blue/
 wget -P static/css/ts-blue/ https://github.com/christianbach/tablesorter/raw/master/themes/blue/asc.gif
