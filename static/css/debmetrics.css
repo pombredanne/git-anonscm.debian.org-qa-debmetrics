@@ -84,3 +84,9 @@ tr:nth-child(odd) {
 [type=radio]:checked ~ label ~ .content {
     z-index: 1;
 }
+
+/* tablesorter override so that up/down arrows don't overlap header text */
+
+table.tablesorter thead tr .header {
+    padding-right: 20px;
+}
