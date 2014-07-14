@@ -3,8 +3,8 @@ type = pull
 depends = python-beautifulsoup>=3.2.1-1
 freq = 0 0 * * *
 script = scripts/releases_count.py
-fields = name:String, source_files:Integer, source_packages:Integer, disk_usage:Integer, ctags:Integer, sloc:Integer
+fields = ts:DateTime, name:String, source_files:Integer, source_packages:Integer, disk_usage:Integer, ctags:Integer, sloc:Integer
 format = csv
-override_ts = false
+override_ts = true
 graph_type = custom
 description = Provides statistics about releases such as source files, source packages, disk usage, lines of code.
