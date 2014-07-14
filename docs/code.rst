@@ -3,7 +3,7 @@ Documentation for the Code
 
 app.py
 ======
-.. automodule:: debmetrics.app
+.. automodule:: app
    :members:
 
 base.py
@@ -18,7 +18,16 @@ config_reader.py
 
 create_all.py
 =============
-.. automodule:: debmetrics.create_all
+.. automodule:: create_all
+   :members:
+
+graph_helper.py
+===============
+.. automodule:: debmetrics.graph_helper
+
+manifest2index.py
+=================
+.. automodule:: debmetrics.manifest2index
    :members:
 
 manifest2orm.py
@@ -28,7 +37,17 @@ manifest2orm.py
 
 pull_runner.py
 ==============
-.. automodule:: debmetrics.pull_runner
+.. automodule:: pull_runner
+   :members:
+
+push_runner.py
+==============
+.. automodule:: push_runner
+   :members:
+
+runner_helper.py
+================
+.. automodule:: runner_helper
    :members:
 
 
