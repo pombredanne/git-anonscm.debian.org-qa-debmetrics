@@ -286,6 +286,12 @@ def graphs(filename):
     return send_from_directory('graphs', filename)
 
 
+@app.route('/thanks')
+def thanks():
+    """A route for thanking contributors."""
+    return render_template('thanks.html')
+
+
 @app.route('/contact')
 def contact():
     """A route for contact information."""
