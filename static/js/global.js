@@ -61,9 +61,9 @@ if ($('table#index').length > 0) {
                 $.each(data.metrics, function(i, el) {
                     select.append('<option value"' + el + '">' + el + '</option>');
                 });
-                $('#graph-table-container').append(select);
+                select.insertBefore('#add-metric');
             });
-    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
+    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');        
 }
 
 $('#add-metric').click(function() {
