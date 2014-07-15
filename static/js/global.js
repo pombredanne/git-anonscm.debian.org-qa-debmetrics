@@ -90,6 +90,7 @@ $('#add-metric').click(function() {
 $('#resize-graph').click(resizeGraph);
 
 var d = [];
+var plot;
 
 if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
     function addToGraph() {
@@ -134,7 +135,7 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     indices: indices,
                     lastIndex: lastIndex
                 };
-                $.plot(('#flot-graph'), d, options);
+                plot = $.plot(('#flot-graph'), d, options);
             });
     }
 }
@@ -179,7 +180,9 @@ function resizeGraph() {
     var w = $('#graph-width').val();
     var h = $('#graph-height').val();
     placeholder.width(w).height(h);
-    addToGraph();
+    plot.resize();
+    plot.setupGrid();
+    plot.draw();
 }
 
 $('#accordion').accordion({
