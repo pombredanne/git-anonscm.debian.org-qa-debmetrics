@@ -179,10 +179,12 @@ function resizeGraph() {
     var placeholder = $('#flot-graph');
     var w = $('#graph-width').val();
     var h = $('#graph-height').val();
-    placeholder.width(w).height(h);
-    plot.resize();
-    plot.setupGrid();
-    plot.draw();
+    if (w != 0 && h != 0) {
+        placeholder.width(w).height(h);
+        plot.resize();
+        plot.setupGrid();
+        plot.draw();
+    }
 }
 
 $('#accordion').accordion({
