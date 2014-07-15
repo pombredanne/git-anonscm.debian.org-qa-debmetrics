@@ -64,6 +64,7 @@ if ($('table#index').length > 0) {
                 select.insertBefore('#add-metric');
             });
     $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
+    $('#graph-table-container').append('<button id="remove-metrics">Remove all metrics</button>');
     $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="graph-dim-container"' +
            ' style="border: 1px solid black; float: left; padding: 8px;' +
            '">Graph dimensions:</div></div>')
@@ -86,6 +87,8 @@ $('#add-metric').click(function() {
     addToGraph();
     displayInTable();
 });
+
+$('#remove-metrics').click(removeAllMetrics);
 
 $('#resize-graph').click(resizeGraph);
 
@@ -138,6 +141,19 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                 plot = $.plot(('#flot-graph'), d, options);
             });
     }
+}
+
+function removeAllMetrics() {
+    d = [];
+    metrics = [];
+    indices = [];
+    index = 0;
+    lastIndex = 0;
+    plot.setData(d);
+    plot.setupGrid();
+    plot.draw();
+    $('#table').remove();
+    $('#csvLink').remove();
 }
 
 function displayInTable() {
