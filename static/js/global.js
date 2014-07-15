@@ -77,6 +77,7 @@ if ($('table#index').length > 0) {
 var metrics = [];
 var indices = [];
 var index = 0;
+var lastIndex;
 
 $('#add-metric').click(function() {
     var metric = $('select#metrics-list').val();
@@ -111,11 +112,10 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     }
                 }
                 index += labels.length + 1;
+                lastIndex = index;
                 for (var i=0; i < pairs.length; i++) {
                     d.push({label: labels[i], data: pairs[i]});
                 }
-                alert(metrics);
-                alert(indices);
                 var options = {
                     xaxis: {
                         mode: 'time'
@@ -131,7 +131,8 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     tooltipOpts: {
                     },
                     metrics: metrics,
-                    indices: indices
+                    indices: indices,
+                    lastIndex: lastIndex
                 };
                 $.plot(('#flot-graph'), d, options);
             });

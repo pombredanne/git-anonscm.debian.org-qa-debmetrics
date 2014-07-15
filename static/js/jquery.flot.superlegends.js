@@ -25,9 +25,19 @@
             }
         }
 
+        function metric2index(metric, increment) {
+            metricIndex = options.metrics.indexOf(metric);
+            index = options.indices[metricIndex + increment];
+            if (index != null) {
+                return index;
+            } else {
+                return options.lastIndex;
+            }
+        }
+
         function setHideAction(elem) {
             elem.unbind('click').click(function() {
-                for (var i=0; i < $(this).parent().siblings().length; i++) {
+                for (var i=metric2index($(this).text(), 0); i < metric2index($(this).text(), 1); i++) {
                     labelClicked($(this).parent().siblings().eq(i).text());
                 }
             });
@@ -101,7 +111,7 @@
         });
     }
 
-    var options = {metrics: ['default'], indices: [0]};
+    var options = {metrics: ['default'], indices: [0]}, lastIndex=0;
 
     $.plot.plugins.push({
         init: init,
