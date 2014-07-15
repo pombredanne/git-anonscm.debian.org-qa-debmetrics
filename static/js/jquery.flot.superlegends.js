@@ -5,22 +5,24 @@
 (function($) {
     function init(plot) {
         function addMetricLabel(plot, options) {
-            if (!options.metric) {
+            if (!options.metrics) {
                 return;
             }
 
             var p = plot.getPlaceholder();
-            var tr = '<tr><td class="legendColorBox2"></td>'
-                   + '<td class="legendLabel2"><span class="graphlabel2">'
-                   + options.metric + '</span>' + '</td></tr>';
-            var legend = $('#flot-graph-legend');
-            legend.find('tbody').first().prepend(tr);
+            for (var i=0; i < options.indices.length; i++) {
+                var tr = '<tr><td class="legendColorBox2"></td>'
+                       + '<td class="legendLabel2"><span class="graphlabel2">'
+                       + options.metrics[i] + '</span>' + '</td></tr>';
+                var legend = $('#flot-graph-legend');
+                legend.find('tr').eq(options.indices[i]).before(tr);
 
-            var graphlabel = legend.find('.legendLabel2').first();
-            var legendColorBox = legend.find('.legendColorBox2').first();
+                var graphlabel = legend.find('.legendLabel2').eq(i);
+                var legendColorBox = legend.find('.legendColorBox2').eq(i);
 
-            setHideAction(graphlabel);
-            setHideAction(legendColorBox);
+                setHideAction(graphlabel);
+                setHideAction(legendColorBox);
+            }
         }
 
         function setHideAction(elem) {
@@ -99,7 +101,7 @@
         });
     }
 
-    var options = {metric: 'default'};
+    var options = {metrics: ['default'], indices: [0]};
 
     $.plot.plugins.push({
         init: init,

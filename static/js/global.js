@@ -74,36 +74,48 @@ if ($('table#index').length > 0) {
     $('#graph-dim-container').append('<button id="resize-graph">Update graph dimensions</button>');
 }
 
+var metrics = [];
+var indices = [];
+var index = 0;
+
 $('#add-metric').click(function() {
+    var metric = $('select#metrics-list').val();
+    metrics.push(metric);
+    indices.push(index);
     addToGraph();
     displayInTable();
 });
 
 $('#resize-graph').click(resizeGraph);
 
+var d = [];
+
 if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
     function addToGraph() {
         var metric = $('select#metrics-list').val();
         $.getJSON($SCRIPT_ROOT + '/_' + metric + 'graphdata', {},
             function(data) {
-                var pairs = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+                var pairs = [];
                 var labels = [];
                 for (var i=0; i < data.res.length; i++) {
                     var x = Date.parse(data.res[i][0].replace('-', '-').substring(0, data.res[i][0].indexOf(' ')));
                     var ys = data.res[i].slice(1);
                     for (var j=0; j < ys.length; j++) {
                         if (isNumber(ys[j])) {
-                            pairs[j].push([x, ys[j]]);
                             if (i==0) {
+                                pairs[j] = [];
                                 labels.push(data.cols.slice(1)[j]);
                             }
+                            pairs[j].push([x, ys[j]]);
                         }
                     }
                 }
-                var d = [];
+                index += labels.length + 1;
                 for (var i=0; i < pairs.length; i++) {
                     d.push({label: labels[i], data: pairs[i]});
                 }
+                alert(metrics);
+                alert(indices);
                 var options = {
                     xaxis: {
                         mode: 'time'
@@ -118,7 +130,8 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     tooltip: true,
                     tooltipOpts: {
                     },
-                    metric: metric
+                    metrics: metrics,
+                    indices: indices
                 };
                 $.plot(('#flot-graph'), d, options);
             });
