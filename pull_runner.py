@@ -4,6 +4,7 @@
 
 import os
 import os.path
+import sys
 import logging
 import subprocess
 import ConfigParser
@@ -84,3 +85,4 @@ if __name__ == '__main__':
     if not os.path.exists('graphs'):
         os.makedirs('graphs')
     run()
+    exit(0)
