@@ -82,9 +82,11 @@ var lastIndex;
 
 $('#add-metric').click(function() {
     var metric = $('select#metrics-list').val();
-    metrics.push(metric);
-    indices.push(index);
-    addToGraph();
+    if ($.inArray(metric, metrics) === -1) {
+        metrics.push(metric);
+        indices.push(index);
+        addToGraph();
+    }
     displayInTable();
 });
 
