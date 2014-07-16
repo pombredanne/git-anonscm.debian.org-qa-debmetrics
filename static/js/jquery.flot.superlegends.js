@@ -25,6 +25,42 @@
             }
         }
 
+        function addDeleteButtons(plot, options) {
+            var legend = $('#flot-graph-legend');
+            legend.find('tr').each(function(i) {
+                $(this).prepend('<td><button class="close"></button></td>');
+            });
+            addDeleteFunction();
+        }
+        
+        function addDeleteFunction() {
+            var legend = $('#flot-graph-legend');
+            legend.find('button').each(function(i) {
+                if ($(this).parent().siblings().eq(0).attr('class') === 'legendColorBox') {
+                    $(this).unbind('click').click(function() {
+                        deleteColumn(i, true);
+                    });
+                } else {
+                    $(this).unbind('click').click(function() {
+                        metric = $(this).parent().parent().text();
+                        alert(metric2index(metric,0) + ':' + metric2index(metric, 1));
+                        for (var j=metric2index(metric, 0); j < metric2index(metric, 1); j++) {
+                            deleteColumn(i, false);
+                        }
+                        addDeleteFunction();
+                    });
+                }
+            });
+        }
+
+        function deleteColumn(i, reset) {
+            var legend = $('#flot-graph-legend');
+            legend.find('tr').eq(i).remove();
+            if (reset) {
+                addDeleteFunction();
+            }
+        }
+
         function metric2index(metric, increment) {
             metricIndex = options.metrics.indexOf(metric);
             index = options.indices[metricIndex + increment];
@@ -108,6 +144,7 @@
         plot.hooks.draw.push(function(plot, ctx) {
             options = plot.getOptions();
             addMetricLabel(plot, options);
+            addDeleteButtons(plot, options);
         });
     }
 
