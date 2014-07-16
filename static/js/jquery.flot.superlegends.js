@@ -43,7 +43,6 @@
                 } else {
                     $(this).unbind('click').click(function() {
                         metric = $(this).parent().parent().text();
-                        alert(metric2index(metric,0) + ':' + metric2index(metric, 1));
                         for (var j=metric2index(metric, 0); j < metric2index(metric, 1); j++) {
                             deleteColumn(i, false);
                         }
