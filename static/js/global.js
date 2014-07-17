@@ -202,7 +202,7 @@ function displayInTable() {
             table = '<div id="table-container" style="clear: both;"><table id="table" class="tablesorter"><thead><tr>'
             for (var i=0; i < headers.length; i++) {
                 var header = headers[i];
-                table += '<th>' + header + '</th>';
+                table += '<th><div class="drag-handle">&#9776;</div>' + header + '</th>';
             }
             table += '</tr></thead>';
             for (var i=0; i < rows.length; i++) {
@@ -222,7 +222,7 @@ function displayInTable() {
                 dateFormat: 'yyyymmdd'
             });
             $('#table').stickyTableHeaders();
-            $('#table').dragtable();
+            $('#table').dragtable({dragHandle: '.drag-handle'});
         });
 }
 

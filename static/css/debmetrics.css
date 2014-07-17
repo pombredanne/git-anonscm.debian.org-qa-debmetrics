@@ -50,6 +50,15 @@ button.close:before {
     clear: both;
 }
 
+.drag-handle {
+    font-size: 2em;
+    cursor: move;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
 .tabs {
     position: relative;
     min-height: 2000px;
