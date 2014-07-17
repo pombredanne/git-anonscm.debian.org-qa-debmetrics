@@ -215,7 +215,7 @@ function displayInTable() {
                 table += '</tr>';
             }
             table += '</table></div>';
-            var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download CSV</a>';
+            var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download ' + table_metric + ' CSV</a>';
             $('#graph-table-container').append(table);
             $('#table-container').prepend(csvLink);
             $('.tablesorter').tablesorter({
