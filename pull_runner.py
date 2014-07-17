@@ -10,7 +10,8 @@ import subprocess
 import ConfigParser
 from debmetrics.graph_helper import time_series_graph
 from debmetrics.config_reader import settings, read_config
-from debmetrics.runner_helper import db_fetch, db_insert, handle_csv, pack, should_run
+from debmetrics.runner_helper import (db_delete_all, db_fetch, db_insert,
+                                      handle_csv, pack, should_run)
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
 read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
@@ -48,6 +49,10 @@ def run():
                             directory, filename))
                         if format == 'csv':
                             header, rows = handle_csv(output)
+                        delete = manifest.getboolean('script1',
+                                                     'delete_before_insert')
+                        if delete:
+                            db_delete_all(name)
                         db_insert(header, rows, name)
                     except subprocess.CalledProcessError:
                         msg = 'Failure calling process for pull script %s'

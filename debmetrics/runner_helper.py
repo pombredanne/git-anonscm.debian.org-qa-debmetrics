@@ -35,6 +35,16 @@ def table2class(table):
     return table.title().replace('_', '')
 
 
+def db_delete_all(table):
+    """Delete all data from a particular db table.
+
+    Keyword args:
+    table -- the name of the table to delete data from
+    """
+    the_class = table_factory(table)
+    Session.query(the_class).delete()
+
+
 def db_insert(header, rows, table):
     """Inserts data in the database.
 

@@ -6,5 +6,6 @@ tablename = rc_bug_count
 fields = rc_bugs:Integer, with_patch:Integer, with_fix:Integer, ignored:Integer, concern_current_stable:Integer, concern_next_release:Integer
 format = json
 override_ts = false
+delete_before_insert = false
 graph_type = default
 description = Provides statistics about release critical bugs.

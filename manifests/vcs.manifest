@@ -5,5 +5,6 @@ script = scripts/vcs.py
 fields = svn:Integer, darcs:Integer, git:Integer, bzr:Integer, using_vcs:Integer, cvs:Integer, mtn:Integer, total:Integer, arch:Integer, hg:Integer
 format = csv
 override_ts = false
+delete_before_insert = false
 graph_type = default
 description = Provides statistics on how popular each vcs is with Debian packages.

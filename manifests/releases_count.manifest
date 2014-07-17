@@ -6,5 +6,6 @@ script = scripts/releases_count.py
 fields = ts:DateTime, name:String, source_files:Integer, source_packages:Integer, disk_usage:Integer, ctags:Integer, sloc:Integer
 format = csv
 override_ts = true
+delete_before_insert = false
 graph_type = custom
 description = Provides statistics about releases such as source files, source packages, disk usage, lines of code.
