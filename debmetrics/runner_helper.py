@@ -44,15 +44,16 @@ def db_insert(header, rows, table):
     table -- the name of the table to insert the data in
     """
     the_class = table_factory(table)
-    an_instance = the_class()
     for row in rows:
+        an_instance = the_class()
         for ind, h in enumerate(header):
             setattr(an_instance, h, row[ind])
-    try:
-        Session.add(an_instance)
-        Session.commit()
-    except Exception:
-        Session.rollback()
+        try:
+            Session.add(an_instance)
+            Session.commit()
+            Session.flush()
+        except Exception:
+            Session.rollback()
 
 
 def handle_csv(data):
