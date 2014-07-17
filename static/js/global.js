@@ -145,6 +145,39 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
     }
 }
 
+function updateIndices(i) {
+    for (var j=0; j < indices.length; j++) {
+        if (indices[j] >= i) {
+            indices[j] = indices[j] - 1;
+        }
+    }
+    plot.getOptions().indices = indices;
+    plot.setData(d);
+    plot.setupGrid();
+    plot.draw();
+}
+
+function removeColumnGraph(column) {
+    for (var i=0; i < d.length; i++) {
+        if (d[i].label === column) {
+            d.splice(i, 1);
+        }
+    }
+    ind = $.inArray(column, metrics);
+    if (ind !== -1) {
+        metrics.splice(ind, 1);
+        indices.splice(ind, 1);
+    }
+    plot.getOptions().metrics = metrics;
+    plot.getOptions().indices = indices;
+    index -= 1;
+    lastIndex = index;
+    plot.getOptions().lastIndex = lastIndex;
+    plot.setData(d);
+    plot.setupGrid();
+    plot.draw();
+}
+
 function removeAllMetrics() {
     d = [];
     metrics = [];

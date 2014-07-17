@@ -36,6 +36,7 @@
                 | <a href="{{ url_for('contact') }}">Contact</a>
             </p>
         </footer>
+        <script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
         <script src="static/js/jquery-1.11.1.min.js"></script>
         <script src="static/js/jquery-ui-1.10.4.min.js"></script>
         <script src="static/js/jquery.stickytableheaders.min.js"></script>
@@ -45,9 +46,8 @@
         <script src="{{ url_for('static2', filename='js/jquery.flot.time.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.hiddengraphs.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.tooltip.min.js') }}"></script>
+        <script src="{{ url_for('static2', filename='js/global.js') }}"></script>
         <script src="{{ url_for('static2', filename='js/jquery.flot.superlegends.js') }}"></script>
-        <script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
-        <script src="static/js/global.js"></script>
         {% block scripts %}{% endblock %}
     </body>
 </html>
