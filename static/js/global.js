@@ -65,14 +65,20 @@ if ($('table#index').length > 0) {
             });
     $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
     $('#graph-table-container').append('<button id="remove-metrics">Remove all metrics</button>');
-    $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="graph-dim-container"' +
-           ' style="border: 1px solid black; float: left; padding: 8px;' +
-           '">Graph dimensions:</div></div>')
+    $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="options"><div id="graph-dim-container"' +
+           ' style="border: 1px solid black; padding: 8px;' +
+           '">Graph dimensions:</div><div id="xaxis-range-container" style="border: 1px solid black; padding: 8px;">' +
+           'X-axis range:</div></div></div>')
     $('#graph-dim-container').append('<div style="">width:' +
            '<input id="graph-width" value="500" />px</div><br />');
     $('#graph-dim-container').append('<div style="">height:' +
            '<input id="graph-height" value="300" />px</div>');
     $('#graph-dim-container').append('<button id="resize-graph">Update graph dimensions</button>');
+    $('#xaxis-range-container').append('<div>start: <input id="xaxis-start" /></div>');
+    $('#xaxis-range-container').append('<div>end: <input id="xaxis-end" /></div>');
+    $('#xaxis-range-container').append('<button id="update-xaxis-range">Update x-axis range</button>');
+    $('#xaxis-start').datepicker();
+    $('#xaxis-end').datepicker();
 }
 
 var metrics = [];
@@ -93,6 +99,8 @@ $('#add-metric').click(function() {
 $('#remove-metrics').click(removeAllMetrics);
 
 $('#resize-graph').click(resizeGraph);
+
+$('#update-xaxis-range').click(updateXaxisRange);
 
 var d = [];
 var plot;
@@ -236,6 +244,17 @@ function resizeGraph() {
         plot.setupGrid();
         plot.draw();
     }
+}
+
+function updateXaxisRange() {
+    var start = $('#xaxis-start').val();
+    var end = $('#xaxis-end').val();
+    start = Date.parse(start);
+    end = Date.parse(end);
+    plot.getOptions().xaxes[0].min = start;
+    plot.getOptions().xaxes[0].max = end;
+    plot.setupGrid();
+    plot.draw();
 }
 
 $('#accordion').accordion({
