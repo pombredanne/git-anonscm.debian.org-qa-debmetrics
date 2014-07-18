@@ -30,7 +30,7 @@ def manifest2index(manifests):
         <table id="index">
             <tr><th>Metric</th><th>Description</th></tr>"""
     for ind, manifest in enumerate(manifests):
-        print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></p></td><td>%s</td></tr>' \
+        print '            <tr><td><a href="{{ url_for(\'metric\', metric=\'%s\') }}">%s</a></td><td>%s</td></tr>' \
               % (manifest, manifest, descriptions[ind])
     print """       </table>
     {% endblock %}"""

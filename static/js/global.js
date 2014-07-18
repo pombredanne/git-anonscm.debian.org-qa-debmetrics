@@ -59,7 +59,7 @@ if ($('table#index').length > 0) {
             function(data) {
                 var select = $('<select></select>').attr('id', 'metrics-list');
                 $.each(data.metrics, function(i, el) {
-                    select.append('<option value"' + el + '">' + el + '</option>');
+                    select.append('<option value="' + el + '">' + el + '</option>');
                 });
                 select.insertBefore('#add-metric');
             });
