@@ -167,7 +167,6 @@ function formatDate(date) {
     res += ($.inArray(components[0], months) + 1);
     res += '/01/';
     res += components[1];
-    alert(res);
     return res;
 }
 
