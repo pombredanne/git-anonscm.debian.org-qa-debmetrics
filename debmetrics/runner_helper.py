@@ -43,6 +43,7 @@ def db_delete_all(table):
     """
     the_class = table_factory(table)
     Session.query(the_class).delete()
+    Session.commit()
 
 
 def db_insert(header, rows, table):
