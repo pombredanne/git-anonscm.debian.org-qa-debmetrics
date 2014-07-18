@@ -77,14 +77,16 @@ if ($('table#index').length > 0) {
     $('#xaxis-range-container').append('<div>start: <input id="xaxis-start" /></div>');
     $('#xaxis-range-container').append('<div>end: <input id="xaxis-end" /></div>');
     $('#xaxis-range-container').append('<button id="update-xaxis-range">Update x-axis range</button>');
-    $('#xaxis-start').datepicker();
-    $('#xaxis-end').datepicker();
+   // $('#xaxis-start').datepicker();
+   // $('#xaxis-end').datepicker();
+   // $('#xaxis-start').datepicker('setDate', '07/01/2014');
 }
 
 var metrics = [];
 var indices = [];
 var index = 0;
 var lastIndex;
+var plot
 
 $('#add-metric').click(function() {
     var metric = $('select#metrics-list').val();
@@ -103,7 +105,6 @@ $('#resize-graph').click(resizeGraph);
 $('#update-xaxis-range').click(updateXaxisRange);
 
 var d = [];
-var plot;
 
 if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
     function addToGraph() {
@@ -149,8 +150,25 @@ if (typeof $.plot !== 'undefined' && $.isFunction($.plot)) {
                     lastIndex: lastIndex
                 };
                 plot = $.plot(('#flot-graph'), d, options);
+                var start = $('.flot-x-axis .flot-tick-label').first().text();
+                var end = $('.flot-x-axis .flot-tick-label').last().text();
+                $('#xaxis-start').datepicker();
+                $('#xaxis-end').datepicker();
+                $('#xaxis-start').datepicker('setDate', formatDate(start));
+                $('#xaxis-end').datepicker('setDate', formatDate(end));
             });
     }
+}
+
+function formatDate(date) {
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    var components = date.split(' ');
+    var res = '0';
+    res += ($.inArray(components[0], months) + 1);
+    res += '/01/';
+    res += components[1];
+    alert(res);
+    return res;
 }
 
 function updateIndices(i) {
