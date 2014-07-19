@@ -2,16 +2,21 @@
 - roll back on non-zero exit status/error
 - package python-crontab
 - fix error about lack of beautifulsoup when running tests
-- fix errors with releases and releases_count metrics
+- fix error with releases_count metrics
 - do all operations in unicode
-- rework landing interface and URLs
 - switch to python3
 - add more parsers other than csv
 - add a custom graph for releases_count
+- fix error with tablesorter due to dragtable
+- add 2-3 more metrics
+- make table columns deletable
+- add multiple metrics to table
+- display common portion when graphing multiple metrics
 
 [LOW]
 - historical data injection
 - customizable page templates
+- stable URLs for combined metrics
 
 [DONE]
 - add git hook to email upon commit
@@ -85,3 +90,37 @@
 - generate csv for download by user
 - remove tabbed interface to put graph and table on same page
 - use debian.css
+- fix error with releases metric
+- Fix path to pull_runner.py in crontab
+- Move create_all.py to root dir
+- Don't quote strings
+- Swap metric list and add metric button
+- Tablesorter css override so that up/down arrows don't overlap header text
+- Allow graph dimensions to be changed
+- Add thanks.html
+- Add jquery.dragtable.js and use it
+- Move download csv link
+- Make options accordion dropdown
+- Allow multiple metrics to be added to the graph
+- Make columns show/hide when metric name is clicked
+- Resize graph instead of readding metric
+- Prevent resizing of graph to 0 width or height
+- Add remove metric button
+- Add exit(0) to pull_runner.py
+- Add delete buttons to legend
+- Only add metric to graph if it was not already added
+- Improve delete button
+- Insert all rows into db instead of just last row
+- Add delete_on_insert to manifests
+- Add grab handle to table
+- Display metric name in csv download link
+- Add xaxis update option
+- Correct path to graphs dir in graph_helper.py
+- Add Session.commit() to db_delete_all()
+- Populate x-axis options with default values
+- HTML validator fixes
+- rework landing interface and URLs
+- stable URLs for individual metrics
+- default to static interface
+- remove tabbed interface from static interface
+- download csv link for static interface
