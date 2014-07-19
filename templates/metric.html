@@ -7,6 +7,7 @@
         <img src="{{ timeseries }}" />
     {% endif %}
     <h2>Table</h2>
+    <a href="{{ url_for('csv_route', metric=title) }}">Download {{ title }} CSV</a>
     <table class="tablesorter">
         <thead>
             <tr>
