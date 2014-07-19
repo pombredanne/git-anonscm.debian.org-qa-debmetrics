@@ -2,55 +2,32 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <h1>{{ title }}</h1>
-    <div class="tabs">
-        {% if timeseries %}
-            <div class="tab">
-                <input type="radio" id="tab-1" name="tab-group-1" checked>
-                <label for="tab-1">Timeseries</label>
-
-                <div class="content">
-                    <h2>Timeseries</h2>
-                    <img src="{{ timeseries }}" />
-                </div>
-            </div>
-        {% endif %}
-        <div class="tab">
-            <input type="radio" id="tab-2" name="tab-group-1">
-            <label for="tab-2">Table</label>
-
-            <div class="content">
-                <h2>Table</h2>
-                <table class="tablesorter">
-                    <thead>
-                        <tr>
-                            {% for header in headers %}
-                                <th>{{ header }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in rows %}
-                            <tr>
-                                {% for col in row %}
-                                    <td>{{ col }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {% if graph %}
-            <div class="tab">
-                <input type="radio" id="tab-3" name="tab-group-1">
-                <label for="tab-3">{{ name }}</label>
-
-                <div class="content">
-                    <h2 class="title">{{ name }}</h2>
-                    <img id="graph" src="{{ graph }}" />
-                    <input type="date" id="date" />
-                </div>
-            </div>
-        {% endif %}
-    </div>
+    {% if timeseries %}
+        <h2>Timeseries</h2>
+        <img src="{{ timeseries }}" />
+    {% endif %}
+    <h2>Table</h2>
+    <table class="tablesorter">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    {% for col in row %}
+                        <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if graph %}
+        <h2 class="title">{{ name }}</h2>
+        <img id="graph" src="{{ graph }}" />
+        <input type="date" id="date" />
+    {% endif %}
 {% endblock %}
