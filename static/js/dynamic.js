@@ -45,42 +45,38 @@ if (typeof datepicker !== 'undefined' && $.isFunction(datepicker)) {
     });
 }
 
-if ($('table#index').length > 0) {
-    $('table#index').remove();
-
-    $('#content').append('<div id="graph-table-container"></div>');
-    /*$('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
-           + '</li><li><a href="#table-tab">Table</a></li></ul>'
-           + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');*/
-    $('#graph-table-container').append('<div id="flot-graph" style="width: 500px;'
-           + ' height: 300px; float: left"></div>');
-    $('#graph-table-container').append('<div id="flot-graph-legend" style="float: left"></div>');
-    $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
-            function(data) {
-                var select = $('<select></select>').attr('id', 'metrics-list');
-                $.each(data.metrics, function(i, el) {
-                    select.append('<option value="' + el + '">' + el + '</option>');
-                });
-                select.insertBefore('#add-metric');
+$('#content').append('<div id="graph-table-container"></div>');
+/*$('<div id="tabs" class="cf"><ul><li><a href="#graph-tab">Graph</a>'
+       + '</li><li><a href="#table-tab">Table</a></li></ul>'
+       + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');*/
+$('#graph-table-container').append('<div id="flot-graph" style="width: 500px;'
+      + ' height: 300px; float: left"></div>');
+$('#graph-table-container').append('<div id="flot-graph-legend" style="float: left"></div>');
+$.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
+        function(data) {
+            var select = $('<select></select>').attr('id', 'metrics-list');
+            $.each(data.metrics, function(i, el) {
+                select.append('<option value="' + el + '">' + el + '</option>');
             });
-    $('#graph-table-container').append('<button id="add-metric">Add metric</button>');
-    $('#graph-table-container').append('<button id="remove-metrics">Remove all metrics</button>');
-    $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="options"><div id="graph-dim-container"' +
-           ' style="border: 1px solid black; padding: 8px;' +
-           '">Graph dimensions:</div><div id="xaxis-range-container" style="border: 1px solid black; padding: 8px;">' +
-           'X-axis range:</div></div></div>')
-    $('#graph-dim-container').append('<div style="">width:' +
-           '<input id="graph-width" value="500" />px</div><br />');
-    $('#graph-dim-container').append('<div style="">height:' +
-           '<input id="graph-height" value="300" />px</div>');
-    $('#graph-dim-container').append('<button id="resize-graph">Update graph dimensions</button>');
-    $('#xaxis-range-container').append('<div>start: <input id="xaxis-start" /></div>');
-    $('#xaxis-range-container').append('<div>end: <input id="xaxis-end" /></div>');
-    $('#xaxis-range-container').append('<button id="update-xaxis-range">Update x-axis range</button>');
-   // $('#xaxis-start').datepicker();
-   // $('#xaxis-end').datepicker();
-   // $('#xaxis-start').datepicker('setDate', '07/01/2014');
-}
+            select.insertBefore('#add-metric');
+       });
+$('#graph-table-container').append('<button id="add-metric">Add metric</button>');
+$('#graph-table-container').append('<button id="remove-metrics">Remove all metrics</button>');
+$('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="options"><div id="graph-dim-container"' +
+       ' style="border: 1px solid black; padding: 8px;' +
+       '">Graph dimensions:</div><div id="xaxis-range-container" style="border: 1px solid black; padding: 8px;">' +
+       'X-axis range:</div></div></div>')
+$('#graph-dim-container').append('<div style="">width:' +
+       '<input id="graph-width" value="500" />px</div><br />');
+$('#graph-dim-container').append('<div style="">height:' +
+       '<input id="graph-height" value="300" />px</div>');
+$('#graph-dim-container').append('<button id="resize-graph">Update graph dimensions</button>');
+$('#xaxis-range-container').append('<div>start: <input id="xaxis-start" /></div>');
+$('#xaxis-range-container').append('<div>end: <input id="xaxis-end" /></div>');
+$('#xaxis-range-container').append('<button id="update-xaxis-range">Update x-axis range</button>');
+// $('#xaxis-start').datepicker();
+// $('#xaxis-end').datepicker();
+// $('#xaxis-start').datepicker('setDate', '07/01/2014');
 
 var metrics = [];
 var indices = [];
