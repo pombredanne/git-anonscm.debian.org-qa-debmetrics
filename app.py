@@ -176,7 +176,7 @@ def static2(filename):
     return send_from_directory(os.path.join('static'), filename)
 
 
-@app.route('/<metric>')
+@app.route('/m/<metric>')
 def metric(metric):
     """A general route for all metrics. Return 404 if metric does not exist.
 
