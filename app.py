@@ -286,6 +286,12 @@ def graphs(filename):
     return send_from_directory('graphs', filename)
 
 
+@app.route('/dynamic')
+def dynamic():
+    """A route to render the dynamic interface."""
+    return render_template('dynamic.html')
+
+
 @app.route('/thanks')
 def thanks():
     """A route for thanking contributors."""
