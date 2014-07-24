@@ -4,6 +4,7 @@ import os
 import os.path
 import re
 import csv
+import json
 import datetime
 import StringIO
 from crontab import CronTab
@@ -74,6 +75,39 @@ def handle_csv(data):
     data -- the csv data
     """
     data = csv.reader(StringIO.StringIO(data))
+    rows = []
+    rownum = 0
+    for row in data:
+        if rownum == 0:
+            header = row
+        else:
+            r = []
+            for col in row:
+                r.append(col)
+            rows.append(r)
+        rownum += 1
+    return header, rows
+
+
+def handle_json(data):
+    """Parses json data and returns the headers and rows.
+
+    Keyword args:
+    data -- the json data
+    """
+    data = json.loads(data)
+    headers = data.columns
+    rows = data.results
+    return headers, rows
+
+
+def handle_tab_delimited(data):
+    """Parses tab delimited data and returns the headers and rows.
+
+    Keyword args:
+    data -- the tab-delimited data
+    """
+    data = csv.reader(StringIO.StringIO(data), delimiter='\t')
     rows = []
     rownum = 0
     for row in data:
