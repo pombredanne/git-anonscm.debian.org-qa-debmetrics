@@ -1,6 +1,6 @@
 """This module reads config files"""
 
-import ConfigParser
+import configparser
 
 settings = dict()
 
@@ -11,7 +11,7 @@ def read_config(config_file):
     Keyword arguments:
     config_file -- The location of the config file
     """
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     config.read(config_file)
     settings['DB_URI'] = config.get('db', 'DB_URI')
     settings['PSYCOPG2_DB_STRING'] = config.get('db', 'PSYCOPG2_DB_STRING')

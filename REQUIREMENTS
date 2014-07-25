@@ -1,5 +1,7 @@
 alembic
-python-sqlalchemy
-python-flask
-python-crontab (not currently available as a debian package)
-python-croniter (for some functionality of python-crontab)
+python3-sqlalchemy
+python3-psycopg2
+python3-flask
+python3-matplotlib
+python3-crontab (not currently available as a debian package)
+python3-croniter (for some functionality of python3-crontab)

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 """This module handles data from push scripts and generate graphs from the
 data."""
@@ -6,7 +6,7 @@ data."""
 import os
 import os.path
 import logging
-import ConfigParser
+import configparser
 from debmetrics.config_reader import settings, read_config
 from debmetrics.runner_helper import db_fetch, db_insert
 from debmetrics.graph_helper import time_series_graph
@@ -39,7 +39,7 @@ def token_matches(man, token):
     for manifest in os.listdir(man_dir):
         name, ext = os.path.splitext(manifest)
         if name == man:
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.read(os.path.join(man_dir, manifest))
             t = config.get('script1', 'token')
             if t == token:
@@ -58,7 +58,7 @@ def graph():
         if ext == '.manifest':
             table = name
             data, cols = db_fetch(table)
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.read(os.path.join(man_dir, filename))
             t = config.get('script1', 'type')
             if t != 'push':

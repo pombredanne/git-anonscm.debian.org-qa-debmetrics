@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 """This module runs all pull scripts and generates graphs from the data."""
 
@@ -7,7 +7,7 @@ import os.path
 import sys
 import logging
 import subprocess
-import ConfigParser
+import configparser
 from debmetrics.graph_helper import time_series_graph
 from debmetrics.config_reader import settings, read_config
 from debmetrics.runner_helper import (db_delete_all, db_fetch, db_insert,
@@ -37,11 +37,11 @@ def run():
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
         if ext == '.py' and not name == '__init__':
-            manifest = ConfigParser.RawConfigParser()
+            manifest = configparser.RawConfigParser()
             manifest.read(os.path.join(man_dir, name + '.manifest'))
             t = manifest.get('script1', 'type')
             if t == 'pull':
-                print os.path.join(man_dir, name + '.manifest')
+                print(os.path.join(man_dir, name + '.manifest'))
                 format = manifest.get('script1', 'format')
                 if should_run(name+ext, manifest.get('script1', 'freq')):
                     try:
@@ -66,7 +66,7 @@ def run():
             try:
                 table = '_'.join(name.split('_')[0:-1])
                 data, cols = db_fetch(table)
-                config = ConfigParser.RawConfigParser()
+                config = configparser.RawConfigParser()
                 config.read(os.path.join(man_dir, table + '.manifest'))
                 t = config.get('script1', 'type')
                 graph_type = config.get('script1', 'graph_type')

@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 """This module contains the Flask code for debmetrics."""
 
@@ -8,8 +8,8 @@ import os
 import csv
 import datetime
 import logging
-import ConfigParser
-import StringIO
+import configparser
+import io
 from debmetrics.graph_helper import time_series_graph
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
@@ -114,7 +114,7 @@ def get_all_metrics():
 
 def get_metrics_non_ts():
     """Returns a list of non-timeseries metrics."""
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     metrics = []
     for key in models.keys():
         logger.error(key)
@@ -132,7 +132,7 @@ def get_csv(cols, rows):
     cols -- the columns
     rows -- the actual data
     """
-    si = StringIO.StringIO()
+    si = io.StringIO()
     cw = csv.writer(si)
     cw.writerow(cols)
     for row in rows:
@@ -234,7 +234,7 @@ def _allmetrics():
     non_ts_metrics = list(metrics)
     for metric in get_metrics_non_ts():
         non_ts_metrics.remove(metric)
-    return jsonify(non_ts_metrics=non_ts_metrics, metrics=metrics)
+    return jsonify(non_ts_metrics=list(non_ts_metrics), metrics=list(metrics))
 
 
 @app.route('/_<metric>gettable')

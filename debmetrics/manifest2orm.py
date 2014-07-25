@@ -1,12 +1,12 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 """This module creates the orm from a manifest file."""
 
-import ConfigParser
+import configparser
 import sys
 import ntpath
 
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 
 
 def manifest2orm(manifest):
@@ -23,7 +23,7 @@ def manifest2orm(manifest):
     types = fieldtypes[1::2]
     override_ts = config.getboolean('script1', 'override_ts')
 
-    print """\"\"\"This module defines the {0} class and {1} table.\"\"\"
+    print("""\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
 import sqlalchemy
 from debmetrics.base import engine, Base, Session
@@ -34,16 +34,16 @@ class {0}(Base):
     __table_args__ =  {{'schema': 'metrics'}}
                 
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
-           ntpath.basename(file_name).split('.', 1)[0])
+           ntpath.basename(file_name).split('.', 1)[0]))
 
     if not override_ts:
-        print '    ts = Column(TIMESTAMP, primary_key=True)'
+        print('    ts = Column(TIMESTAMP, primary_key=True)')
     else:
-        print '    an_id = Column(Integer, primary_key=True,' \
-              'autoincrement=True)'
+        print('    an_id = Column(Integer, primary_key=True,' \
+              'autoincrement=True)')
     
     for i in range(len(fields)):
-        print '    '+fields[i]+' = Column('+types[i]+')'
+        print('    '+fields[i]+' = Column('+types[i]+')')
 
 
 def table2class(table):
