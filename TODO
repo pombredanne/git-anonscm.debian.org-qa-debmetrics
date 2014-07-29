@@ -3,15 +3,14 @@
 - package python-crontab
 - fix error about lack of beautifulsoup when running tests
 - fix error with releases_count metrics
-- do all operations in unicode
-- switch to python3
-- add more parsers other than csv
 - add a custom graph for releases_count
 - fix error with tablesorter due to dragtable
-- add 2-3 more metrics
+- add 1-2 more metrics
 - make table columns deletable
 - add multiple metrics to table
 - display common portion when graphing multiple metrics
+- add pagination to table
+- make display names for columns different from column names for db
 
 [LOW]
 - historical data injection
@@ -124,3 +123,9 @@
 - default to static interface
 - remove tabbed interface from static interface
 - download csv link for static interface
+- Set SQLAlchemy timeout to 90 seconds
+- Add dpkg_formats metric
+- Add json parser and tab-delimited parser
+- add more parsers other than csv
+- switch to python3
+- do all operations in unicode
