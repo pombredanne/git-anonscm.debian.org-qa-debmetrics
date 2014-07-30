@@ -3,6 +3,7 @@ type = pull
 freq = 0 0 * * *
 script = scripts/dpkg_formats.py
 fields = v1dot0:Integer, v3dot0_native:Integer, v3dot0_quilt:Integer
+display_fields = 1.0, 3.0 (native), 3.0 (quilt)
 format = csv
 override_ts = false
 delete_before_insert = false
