@@ -252,32 +252,32 @@ def _axes():
     metrics = json.loads(request.args.get('metrics'))
     for ind, metric in enumerate(metrics):
         if ind == 0:
-            minDate = min_x(metric)
-            maxDate = max_x(metric)
+            min_date = min_x(metric)
+            max_date = max_x(metric)
         else:
             try:
                 if min_x(metric).date() \
-                        > minDate.date():
-                    minDate = min_x(metric)
+                        > min_date.date():
+                    min_date = min_x(metric)
             except Exception:
                 if min_x(metric).date() \
-                        > minDate.date():
-                    minDate = min_x(metric)
+                        > min_date.date():
+                    min_date = min_x(metric)
             try:
                 if max_x(metric).date() \
-                        < maxDate.date():
-                    maxDate = man_x(metric)
+                        < max_date.date():
+                    max_date = man_x(metric)
             except Exception:
                 if max_x(metric).date() \
-                        < maxDate.date():
-                    maxDate = man_x(metric)
-    print(minDate)
-    print(maxDate)
-    minDate = datetime.datetime.strftime(minDate, '%Y-%m-%d')
-    maxDate = datetime.datetime.strftime(maxDate, '%Y-%m-%d')
-    print(minDate)
-    print(maxDate)
-    return jsonify(minDate=minDate, maxDate=maxDate)
+                        < max_date.date():
+                    max_date = man_x(metric)
+    print(min_date)
+    print(max_date)
+    min_date = datetime.datetime.strftime(min_date, '%Y-%m-%d')
+    max_date = datetime.datetime.strftime(max_date, '%Y-%m-%d')
+    print(min_date)
+    print(max_date)
+    return jsonify(minDate=min_date, maxDate=max_date)
 
 
 @app.route('/push', methods=['POST'])
