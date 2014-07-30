@@ -10,7 +10,9 @@ import datetime
 import logging
 import configparser
 import io
+import json
 from debmetrics.graph_helper import time_series_graph
+from debmetrics.runner_helper import min_x, max_x
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
 from debmetrics.models import models
@@ -242,6 +244,40 @@ def _metricgettable(metric):
     """A route to get the table headers and rows."""
     rows, headers = db_fetch(metric)
     return jsonify(headers=headers, rows=rows)
+
+
+@app.route('/_axes')
+def _axes():
+    """A route to get the common xaxis range between multiple metrics."""
+    metrics = json.loads(request.args.get('metrics'))
+    for ind, metric in enumerate(metrics):
+        if ind == 0:
+            minDate = min_x(metric)
+            maxDate = max_x(metric)
+        else:
+            try:
+                if min_x(metric).date() \
+                        > minDate.date():
+                    minDate = min_x(metric)
+            except Exception:
+                if min_x(metric).date() \
+                        > minDate.date():
+                    minDate = min_x(metric)
+            try:
+                if max_x(metric).date() \
+                        < maxDate.date():
+                    maxDate = man_x(metric)
+            except Exception:
+                if max_x(metric).date() \
+                        < maxDate.date():
+                    maxDate = man_x(metric)
+    print(minDate)
+    print(maxDate)
+    minDate = datetime.datetime.strftime(minDate, '%Y-%m-%d')
+    maxDate = datetime.datetime.strftime(maxDate, '%Y-%m-%d')
+    print(minDate)
+    print(maxDate)
+    return jsonify(minDate=minDate, maxDate=maxDate)
 
 
 @app.route('/push', methods=['POST'])

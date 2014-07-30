@@ -7,6 +7,7 @@ import csv
 import json
 import datetime
 import io
+from sqlalchemy import func
 from crontab import CronTab
 from debmetrics.models import models
 from debmetrics.base import engine, Base, Session
@@ -45,6 +46,26 @@ def db_delete_all(table):
     the_class = table_factory(table)
     Session.query(the_class).delete()
     Session.commit()
+
+
+def min_x(table):
+    """Get the min x value for a particular db table.
+
+    Keyword args:
+    table -- the name of the table
+    """
+    the_class = table_factory(table)
+    return Session.query(func.min(the_class.ts).label('min_ts')).one().min_ts
+
+
+def max_x(table):
+    """Get the max x value for a particular db table.
+
+    Keyword args:
+    table -- the name of the table
+    """
+    the_class = table_factory(table)
+    return Session.query(func.max(the_class.ts).label('max_ts')).one().max_ts
 
 
 def db_insert(header, rows, table):

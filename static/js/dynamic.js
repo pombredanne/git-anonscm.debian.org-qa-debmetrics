@@ -90,6 +90,7 @@ $('#add-metric').click(function() {
         metrics.push(metric);
         indices.push(index);
         addToGraph();
+        updateAxes();
     }
     displayInTable();
 });
@@ -268,6 +269,16 @@ function updateXaxisRange() {
     plot.getOptions().xaxes[0].max = end;
     plot.setupGrid();
     plot.draw();
+}
+
+function updateAxes() {
+    $.getJSON($SCRIPT_ROOT + '/_axes', {metrics: JSON.stringify(metrics)},
+            function(data) {
+                plot.getOptions().xaxes[0].min = Date.parse(data.minDate);
+                plot.getOptions().xaxes[0].max = Date.parse(data.maxDate);
+                plot.setupGrid();
+                plot.draw();
+            });
 }
 
 $('#accordion').accordion({
