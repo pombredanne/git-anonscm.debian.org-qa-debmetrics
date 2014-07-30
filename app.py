@@ -271,12 +271,8 @@ def _axes():
                 if max_x(metric).date() \
                         < max_date.date():
                     max_date = man_x(metric)
-    print(min_date)
-    print(max_date)
     min_date = datetime.datetime.strftime(min_date, '%Y-%m-%d')
     max_date = datetime.datetime.strftime(max_date, '%Y-%m-%d')
-    print(min_date)
-    print(max_date)
     return jsonify(minDate=min_date, maxDate=max_date)
 
 
