@@ -7,14 +7,21 @@ import csv
 import json
 import datetime
 import io
+import configparser
 from sqlalchemy import func
 from crontab import CronTab
 from debmetrics.models import models
+from debmetrics.config_reader import settings, read_config
 from debmetrics.base import engine, Base, Session
 
 _tables = {}
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '..', '.debmetrics.ini'))
 
+man_dir = settings['MANIFEST_DIRECTORY']
+
+if not os.path.isabs(man_dir):
+    man_dir = os.path.join(pkg_dir, '..', man_dir)
 
 def table_factory(name):
     """A factory to generate a class from a table name string.
@@ -228,7 +235,12 @@ def db_fetch(table):
     r = q.all()
     for i in r:
         res.append(row2list(i))
-    cols = the_class.__table__.columns.keys()
+    config = configparser.RawConfigParser()
+    config.read(os.path.join(man_dir, table + '.manifest'))
+    if config.has_option('script1', 'display_fields'):
+        cols = config.get('script1', 'display_fields').split(', ')
+    else:
+        cols = the_class.__table__.columns.keys()
     return res, cols
 
 
