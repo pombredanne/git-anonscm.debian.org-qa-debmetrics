@@ -18,7 +18,7 @@ def run():
     writer.writerow([today, j['svn'], j['darcs'],
                     j['git'], j['bzr'], j['using_vcs'], j['cvs'], j['mtn'],
                     j['total'], j['arch'], j['hg']])
-    sys.exit(0)
+    exit(0)
 
 
 if __name__ == '__main__':

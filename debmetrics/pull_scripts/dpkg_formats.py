@@ -18,7 +18,7 @@ def run():
     writer = csv.writer(sys.stdout)
     writer.writerow(['ts', '1.0', '3.0 (native)', '3.0 (quilt)'])
     writer.writerow(data)
-    sys.exit(0)
+    exit(0)
 
 if __name__ == '__main__':
     run()

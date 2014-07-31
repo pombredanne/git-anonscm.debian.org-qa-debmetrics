@@ -28,7 +28,7 @@ def run():
                                  elem[5], elem[6], elem[7], elem[8], elem[9],
                                  elem[10], elem[11], elem[12], elem[13],
                                  elem[14]])
-    sys.exit(0)
+    exit(0)
 
 
 if __name__ == '__main__':

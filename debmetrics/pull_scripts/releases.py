@@ -23,7 +23,7 @@ def run():
     writer.writerow(['ts', 'name', 'release_date', 'release_version'])
     for row in data:
         writer.writerow(row)
-    sys.exit(0)
+    exit(0)
 
 if __name__ == '__main__':
     run()

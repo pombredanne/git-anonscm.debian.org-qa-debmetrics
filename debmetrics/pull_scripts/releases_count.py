@@ -44,7 +44,7 @@ def run():
         row = [today] + row
         writer.writerow(row)
         time.sleep(2)
-    sys.exit(0)
+    exit(0)
 
 if __name__ == '__main__':
     run()
