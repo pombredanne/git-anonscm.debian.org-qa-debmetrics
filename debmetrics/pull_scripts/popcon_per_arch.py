@@ -17,7 +17,7 @@ def format_ts(ts):
     day = ts[4:6]
     time = ts[7:15]
     year = ts[16:20]
-    ts = year + '-' + month + '-' + day + ' ' + time + '.000000'
+    ts = '%s-%s-%s %s.000000' % (year, month, day, time)
     return ts
 
 
