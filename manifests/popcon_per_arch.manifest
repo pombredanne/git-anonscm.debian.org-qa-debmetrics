@@ -1,0 +1,10 @@
+[script1]
+type = pull
+freq = 0 0 * * *
+script = scripts/popcon_per_arch.py
+fields = alpha:Integer, amd64:Integer, arm:Integer, armel:Integer, armhf:Integer, hppa:Integer, hurd-i386:Integer, i386:Integer, ia64:Integer, kfreebsd-amd64:Integer, kfreebsd-i386:Integer, m68k:Integer, mips:Integer, mipsel:Integer, powerpc:Integer, ppc64:Integer, ppc64el:Integer, s390:Integer, s390x:Integer, sh4:Integer, sparc:Integer, sparc64:Integer, x32:Integer, unknown:Integer
+format = csv
+override_ts = false
+delete_before_insert = false
+graph_type = default
+description = Provides number of popcon submissions for the various architectures.
