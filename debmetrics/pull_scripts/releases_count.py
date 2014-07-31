@@ -1,18 +1,18 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 import sys
 import csv
 import time
 import datetime
-import urllib2
-from BeautifulSoup import BeautifulSoup
+import urllib.request as urllib2
+from bs4 import BeautifulSoup
 
 
 def run():
     url = 'http://sources.debian.net/stats/'
     soup = BeautifulSoup(urllib2.urlopen(url))
-    rows = soup.findAll('a', {'name': 'size_cur_releases'})[0]. \
-        parent.findNext('table').findAll('tr')
+    rows = soup.find_all('a', {'name': 'size_cur_releases'})[0]. \
+        parent.find_next('table').find_all('tr')
     rownum = 0
     data = []
     for row in rows:
@@ -20,7 +20,7 @@ def run():
         if rownum == 0:
             # header
             thnum = 0
-            for th in row.findAll('th'):
+            for th in row.find_all('th'):
                 if thnum == 0:
                     # blank th
                     pass
@@ -30,7 +30,7 @@ def run():
                     data[thnum-1].append(th.find('a').string.strip())
                 thnum += 1
         else:
-            for col in row.findAll('td'):
+            for col in row.find_all('td'):
                 if not len(data) >= colnum + 1:
                     data.append([])
                 data[colnum].append(col.string)

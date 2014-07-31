@@ -2,16 +2,16 @@
 
 import sys
 import csv
-import urllib2
-from BeautifulSoup import BeautifulSoup
+import urllib.request as urllib2
+from bs4 import BeautifulSoup
 
 
 def run():
     url = 'http://upsilon.cc/~zack/stuff/dpkg-v3/'
     soup = BeautifulSoup(urllib2.urlopen(url))
-    rows = soup.findAll('td')
+    rows = soup.find_all('td')
     data = []
-    ts = soup.findAll('tt')[0].string
+    ts = soup.find_all('tt')[0].string
     data.append(ts)
     for row in rows:
         data.append(row.string)

@@ -1,15 +1,15 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 import sys
 import json
 import csv
-import urllib2
+import urllib.request as urllib2
 import datetime
 
 
 def run():
     url = 'https://upsilon.cc/~zack/stuff/vcs-usage/usage.json'
-    j = json.load(urllib2.urlopen(url))
+    j = json.loads(urllib2.urlopen(url).readall().decode('utf8'))
     j = j['values'][0]
     writer = csv.writer(sys.stdout)
     writer.writerow(['ts', 'svn', 'darcs', 'git', 'bzr', 'using_vcs', 'cvs',

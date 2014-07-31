@@ -1,14 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 import csv
-import urllib2
+import urllib.request as urllib2
 
 
 def run():
     url = 'http://ircbots.debian.net/stats/package_differences.txt'
     contents = urllib2.urlopen(url)
-    data = list(csv.reader(contents, delimiter='\t'))
+    contents = contents.read().decode('utf-8')
+    data = csv.reader(contents.splitlines(), delimiter='\t')
     writer = csv.writer(sys.stdout)
     for ind, elem in enumerate(data):
         if ind == 0:
