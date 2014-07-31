@@ -245,7 +245,25 @@ function displayInTable() {
             });
             $('#table').stickyTableHeaders();
             $('#table').dragtable({dragHandle: '.drag-handle'});
+            addDeleteButtonToTable();
         });
+}
+
+function addDeleteButtonToTable() {
+    $('.table-delete').remove();
+    var table = $('#table');
+    var ths = table.find('th');
+    ths.each(function(index) {
+        var button = '<button class="table-delete close" style="float: left"></button>';
+        $(this).prepend(button);
+    });
+    $('.table-delete').on('click', function() {
+        var th = $(this).parent();
+        var i = th.index();
+        th.remove();
+        table.find('tr').find('td:eq(' + i + ')').remove();
+        addDeleteButtonToTable();
+    });
 }
 
 function resizeGraph() {
