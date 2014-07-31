@@ -2,12 +2,12 @@
 
 import sys
 import csv
-import urllib.request as urllib2
+from urllib.request import urlopen
 
 
 def run():
     url = 'http://ircbots.debian.net/stats/package_differences.txt'
-    contents = urllib2.urlopen(url)
+    contents = urlopen(url)
     contents = contents.read().decode('utf-8')
     data = csv.reader(contents.splitlines(), delimiter='\t')
     writer = csv.writer(sys.stdout)

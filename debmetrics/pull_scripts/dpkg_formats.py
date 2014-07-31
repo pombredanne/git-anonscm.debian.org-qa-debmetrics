@@ -2,13 +2,13 @@
 
 import sys
 import csv
-import urllib.request as urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
 def run():
     url = 'http://upsilon.cc/~zack/stuff/dpkg-v3/'
-    soup = BeautifulSoup(urllib2.urlopen(url))
+    soup = BeautifulSoup(urlopen(url))
     rows = soup.find_all('td')
     data = []
     ts = soup.find_all('tt')[0].string

@@ -3,7 +3,7 @@
 import sys
 import csv
 import calendar
-import urllib.request as urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
@@ -29,7 +29,7 @@ def find_between(s, first, last):
 
 def run():
     url = 'http://popcon.debian.org/'
-    soup = BeautifulSoup(urllib2.urlopen(url))
+    soup = BeautifulSoup(urlopen(url))
     table = soup.find_all('table')[0]
     td = table.find_all('td')[0]
     footer = soup.find_all('div', {'id': 'footer'})[0]

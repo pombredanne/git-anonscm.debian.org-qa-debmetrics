@@ -4,13 +4,13 @@ import sys
 import csv
 import time
 import datetime
-import urllib.request as urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
 def run():
     url = 'http://sources.debian.net/stats/'
-    soup = BeautifulSoup(urllib2.urlopen(url))
+    soup = BeautifulSoup(urlopen(url))
     rows = soup.find_all('a', {'name': 'size_cur_releases'})[0]. \
         parent.find_next('table').find_all('tr')
     rownum = 0
