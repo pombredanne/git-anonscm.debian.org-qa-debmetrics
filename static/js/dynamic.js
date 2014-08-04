@@ -60,7 +60,8 @@ $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
             });
             select.insertBefore('#add-metric');
        });
-$('#graph-table-container').append('<button id="add-metric">Add metric</button>');
+$('#graph-table-container').append('<button id="add-metric">Add metric to graph</button>');
+$('#graph-table-container').append('<button id="show-table">Show metric in table</button>');
 $('#graph-table-container').append('<button id="remove-metrics">Remove all metrics</button>');
 $('#graph-table-container').append('<div id="accordion" style="float: right"><h3>Options</h3><div id="options"><div id="graph-dim-container"' +
        ' style="border: 1px solid black; padding: 8px;' +
@@ -92,6 +93,9 @@ $('#add-metric').click(function() {
         addToGraph();
         updateAxes();
     }
+});
+
+$('#show-table').click(function() {
     displayInTable();
 });
 
