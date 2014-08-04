@@ -155,10 +155,10 @@ def graph_helper(t):
     for filename in os.listdir('graphs'):
         fileparts = os.path.splitext(filename)[0].split('_')
         if '_'.join(fileparts[0:-3]) == t and fileparts[-1] != 'timeseries':
-            graphs.append(os.path.join('graphs', filename))
+            graphs.append(os.path.join('/', 'graphs', filename))
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
-            timeseries = os.path.join('graphs', filename)
+            timeseries = os.path.join('/', 'graphs', filename)
     if not graphs:
         graphs.append(None)
     if not names:

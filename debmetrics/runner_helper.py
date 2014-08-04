@@ -102,7 +102,7 @@ def handle_csv(data):
     Keyword args:
     data -- the csv data
     """
-    data = csv.reader(io.StringIO(data))
+    data = csv.reader(io.StringIO(data.decode('utf-8')))
     rows = []
     rownum = 0
     for row in data:
@@ -135,7 +135,7 @@ def handle_tab_delimited(data):
     Keyword args:
     data -- the tab-delimited data
     """
-    data = csv.reader(io.StringIO(data), delimiter='\t')
+    data = csv.reader(io.StringIO(data.decode('utf-8')), delimiter='\t')
     rows = []
     rownum = 0
     for row in data:

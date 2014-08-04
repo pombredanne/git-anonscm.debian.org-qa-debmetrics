@@ -18,7 +18,7 @@ def time_series_graph(table, data, cols):
     cols -- the column names corresponding to the data
     """
     plt.clf()
-    ts, rest = zip(*data)[0], zip(*data)[1:]
+    ts, rest = list(zip(*data))[0], list(zip(*data))[1:]
     ts = list(ts)
     for ind, t in enumerate(ts):
         try:

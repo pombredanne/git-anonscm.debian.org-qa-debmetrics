@@ -1,5 +1,5 @@
 [script1]
-output = pull
+type = pull
 freq = */5 * * * *
 url = 
 tablename = rc_bug_count

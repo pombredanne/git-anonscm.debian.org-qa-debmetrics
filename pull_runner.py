@@ -60,11 +60,11 @@ def run():
                 else:
                     logger.error('Did not run pull script %s', filename)
 
-    for filename in os.listdir(graph_scripts_directory):
+    for filename in os.listdir(man_dir):
         name, ext = os.path.splitext(filename)
-        if ext == '.py' and not name == '__init__' and 'api' not in name:
+        if ext == '.manifest' and not '__init__' in name:
             try:
-                table = '_'.join(name.split('_')[0:-1])
+                table = name
                 data, cols = db_fetch(table)
                 config = configparser.RawConfigParser()
                 config.read(os.path.join(man_dir, table + '.manifest'))
@@ -74,17 +74,19 @@ def run():
                     if data:
                         if graph_type == 'default':
                             time_series_graph(table, data, cols)
-                    data = pack(data)
-                    proc = subprocess.Popen([os.path.join(
-                                            graph_scripts_directory,
-                                            filename)], stdin=subprocess.PIPE)
-                    out, err = proc.communicate(data)
-                    if err:
-                        logger.error('Failure with graph script for %s: %s',
-                                     table, err)
+                    if filename in os.listdir(graph_scripts_directory):
+                        data = pack(data)
+                        proc = subprocess.Popen([os.path.join(
+                                                graph_scripts_directory,
+                                                filename)],
+                                                stdin=subprocess.PIPE)
+                        out, err = proc.communicate(data)
+                        if err:
+                            logger.error('Failure with graph script for' +
+                                         '%s: %s', table, err)
             except subprocess.CalledProcessError:
-                logger.error('Failure calling process for graph script for %s',
-                             table)
+                logger.error('Failure calling process for graph script' +
+                             'for %s', table)
 
 if __name__ == '__main__':
     if not os.path.exists('graphs'):
