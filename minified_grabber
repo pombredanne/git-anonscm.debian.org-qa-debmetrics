@@ -1,8 +1,6 @@
 #!/bin/sh
 
 wget -P static/js/ http://code.jquery.com/jquery-1.11.1.min.js
-wget -P static/js/ https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
-wget -P static/js/ https://github.com/christianbach/tablesorter/raw/master/jquery.tablesorter.min.js
 wget -P static/js/ https://github.com/markrcote/flot-hiddengraphs/raw/master/jquery.flot.hiddengraphs.js
 wget -P static/js/ https://github.com/krzysu/flot.tooltip/raw/master/js/jquery.flot.tooltip.min.js
 wget -P static/js/ https://github.com/akottr/dragtable/raw/master/jquery.dragtable.js

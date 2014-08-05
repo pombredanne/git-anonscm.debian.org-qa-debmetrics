@@ -2,21 +2,6 @@ function isNumber(obj) {
     return !isNaN(parseFloat(obj));
 }
 
-$.tablesorter.addParser({
-    id: 'customDate',
-    is: function(s) {
-        return /\d{1,4}}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}.\d{1,6}/.test(s);
-    },
-    format: function(s) {
-        s = s.replace(/\-/g," ");
-        s = s.replace(/:/g," ");
-        s = s.replace(/\./g," ");
-        s = s.split(" ");
-        return $.tablesorter.formatFloat(new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]).getTime() + parseInt(s[6]));
-    },
-    type: 'numeric'
-});
-
 var metric = $('h1').text();
 
 if ($('input#date')) {
@@ -244,10 +229,6 @@ function displayInTable() {
             var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download ' + table_metric + ' CSV</a>';
             $('#graph-table-container').append(table);
             $('#table-container').prepend(csvLink);
-            $('.tablesorter').tablesorter({
-                dateFormat: 'yyyymmdd'
-            });
-            $('#table').stickyTableHeaders();
             $('#table').dragtable({dragHandle: '.drag-handle'});
             $('#table').dataTable();
             addDeleteButtonToTable();
