@@ -199,6 +199,7 @@ function removeAllMetrics() {
     plot.setupGrid();
     plot.draw();
     $('#table').remove();
+    $('#table_wrapper').remove();
     $('#csvLink').remove();
 }
 
