@@ -195,9 +195,11 @@ function removeAllMetrics() {
     indices = [];
     index = 0;
     lastIndex = 0;
-    plot.setData(d);
-    plot.setupGrid();
-    plot.draw();
+    if (typeof plot !== 'undefined') {
+        plot.setData(d);
+        plot.setupGrid();
+        plot.draw();
+    }
     $('#table').remove();
     $('#table_wrapper').remove();
     $('#csvLink').remove();
