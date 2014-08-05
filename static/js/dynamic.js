@@ -36,6 +36,10 @@ $('#content').append('<div id="graph-table-container"></div>');
        + '<div id="graph-tab"></div><div id="table-tab"></div></div>').insertBefore('footer');*/
 $('#graph-table-container').append('<div id="flot-graph" style="width: 500px;'
       + ' height: 300px; float: left"></div>');
+$('#flot-graph').append('<span id="help-text">Use the dropdown to select a metric. Click on ' +
+        'the buttons to add the metric to the graph or show it in the table. Click on "Remove' +
+        ' all metrics" to remove the graph and table. Click on the options accordion to modify' +
+        ' options relating to the graph.</span>');
 $('#graph-table-container').append('<div id="flot-graph-legend" style="float: left"></div>');
 $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
         function(data) {
