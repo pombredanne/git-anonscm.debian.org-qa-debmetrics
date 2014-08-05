@@ -17,7 +17,9 @@ static/js/jquery.flot.time.js*
 static/js/jquery.flot.hiddengraphs.js*
 static/js/jquery.flot.tooltip.min.js*
 static/js/jquery.dragtable.js*
+static/js/jquery.dataTables.min.js*
 static/css/dragtable.css*
+static/css/jquery.dataTables.min.css*
 static/css/ui-lightness/
 static/css/ts-blue/
 templates/index.html

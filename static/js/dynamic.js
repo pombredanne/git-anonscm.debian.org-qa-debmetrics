@@ -249,6 +249,7 @@ function displayInTable() {
             });
             $('#table').stickyTableHeaders();
             $('#table').dragtable({dragHandle: '.drag-handle'});
+            $('#table').dataTable();
             addDeleteButtonToTable();
         });
 }
