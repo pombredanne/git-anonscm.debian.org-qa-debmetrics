@@ -238,7 +238,10 @@ def db_fetch(table):
     config = configparser.RawConfigParser()
     config.read(os.path.join(man_dir, table + '.manifest'))
     if config.has_option('script1', 'display_fields'):
-        cols = config.get('script1', 'display_fields').split(', ')
+        if hasattr(the_class, 'ts'):
+            cols = ['ts'] + config.get('script1', 'display_fields').split(', ')
+        elif hasattr(the_class, 'an_id'):
+            cols = ['an_id'] + config.get('script1', 'display_fields').split(', ')
     else:
         cols = the_class.__table__.columns.keys()
     return res, cols
