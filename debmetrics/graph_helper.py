@@ -38,8 +38,8 @@ def time_series_graph(table, data, cols):
     fig.autofmt_xdate()
     plt.grid(True)
     plt.legend()
-    plt.tight_layout()
     if not count == 0:
+        plt.tight_layout()
         pkg_dir = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(pkg_dir, '..', 'graphs', table + '_timeseries.png')
         plt.savefig(path)
