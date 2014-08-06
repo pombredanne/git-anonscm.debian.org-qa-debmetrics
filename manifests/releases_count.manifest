@@ -3,7 +3,7 @@ type = pull
 depends = python-beautifulsoup>=3.2.1-1
 freq = 0 0 * * *
 script = scripts/releases_count.py
-fields = ts:DateTime, name:String, source_files:Integer, source_packages:Integer, disk_usage:Integer, ctags:Integer, sloc:Integer
+fields = ts:DateTime, name:String, source_files:String, source_packages:String, disk_usage:String, ctags:String, sloc:String
 format = csv
 override_ts = true
 delete_before_insert = false
