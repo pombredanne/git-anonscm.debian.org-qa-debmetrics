@@ -2,15 +2,8 @@
 - roll back on non-zero exit status/error
 - package python-crontab
 - fix error about lack of beautifulsoup when running tests
-- fix error with releases_count metrics
 - add a custom graph for releases_count
-- fix error with tablesorter due to dragtable
-- add 1-2 more metrics
-- make table columns deletable
-- add multiple metrics to table
-- display common portion when graphing multiple metrics
-- add pagination to table
-- make display names for columns different from column names for db
+- include non-ascii stuff to see if there are encoding errors
 
 [LOW]
 - historical data injection
@@ -129,3 +122,23 @@
 - add more parsers other than csv
 - switch to python3
 - do all operations in unicode
+- display common portion when graphing multiple metrics
+- make display names for columns different from column names for db
+- Add popcon_per_arch metric
+- Update pull scripts for python3
+- make table columns deletable
+- fix options block typeface size
+- Set heightStyle to content on options accordion
+- add a "show button in table" button and only render the table when the button is clicked
+- add missing graphs to static pages
+- add pagination to table
+- Add DataTables plugin
+- Remove tablesorter and stickyTableHeaders
+- Remove DataTables elements when removing table
+- Allow table to be removed even when graph is not rendered
+- introductory/help text for dynamic interface
+- Change fields to String type to fix releases_count metric
+- Fix error with static graph generation
+- Add ts or an_id header when using display_fields
+- Point footer link to deployed version of source code
+- Sort list of metrics
