@@ -111,7 +111,7 @@ def get_graph_data(t):
 
 def get_all_metrics():
     """Returns a list of all metrics."""
-    return sorted(list(models.keys()))
+    return sorted(models.keys())
 
 
 def get_metrics_non_ts():
