@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    code
+   add_metric
 
 
 Indices and tables
