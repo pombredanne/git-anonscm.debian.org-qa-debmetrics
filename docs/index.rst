@@ -13,6 +13,7 @@ Contents:
 
    code
    add_metric
+   hack
 
 
 Indices and tables
