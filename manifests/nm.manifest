@@ -1,0 +1,10 @@
+[script1]
+type = pull
+freq = 0 0 * * *
+script = scripts/nm.py
+fields = app_new:Integer, app_rcvd:Integer, app_hold:Integer, adv_rcvd:Integer, app_ok:Integer, am_rcvd:Integer, am:Integer, am_hold:Integer, am_ok:Integer, fd_hold:Integer, fd_ok:Integer, dam_hold:Integer, dam_ok:Integer, done:Integer, cancelled:Integer, total:Integer
+format = csv
+override_ts = false
+delete_before_insert = false
+graph_type = default
+description = Provides statistics on the new member process.
