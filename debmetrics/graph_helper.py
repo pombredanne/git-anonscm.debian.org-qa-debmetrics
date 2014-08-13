@@ -36,10 +36,10 @@ def time_series_graph(table, data, cols):
             sub.plot(ts, r, label=cols[ind+1])
     plt.title("Time series data for " + table)
     fig.autofmt_xdate()
+    legend = sub.legend(loc='top left', bbox_to_anchor=(1.05, 1.0))
     plt.grid(True)
-    plt.legend()
     if not count == 0:
         plt.tight_layout()
         pkg_dir = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(pkg_dir, '..', 'graphs', table + '_timeseries.png')
-        plt.savefig(path)
+        plt.savefig(path, bbox_extra_artists=(legend,), bbox_inches='tight')
