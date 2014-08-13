@@ -204,7 +204,7 @@ function removeAllMetrics() {
         plot.setupGrid();
         plot.draw();
     }
-    $('#table').remove();
+    $('#table-container').remove();
     $('#table_wrapper').remove();
     $('#csvLink').remove();
 }
@@ -240,6 +240,54 @@ function displayInTable() {
             $('#table').dataTable();
             addDeleteButtonToTable();
         });
+    $.getJSON($SCRIPT_ROOT + '/_' + table_metric + 'getstatistics', {},
+        function(data) {
+            var mean = data.mean;
+            var sd = data.sd;
+            var min = data.min;
+            var max = data.max;
+            var table = '<table class="tablesorter">';
+            table += '<tr><th>Statistic</th>';
+            for (var i=0; i < data.headers.length; i++) {
+                table += '<th>' + data.headers[i] + '</th>';
+            }
+            table += '</tr>';
+            table += '<tr><td>Mean</td>';
+            for (var i=0; i < mean.length; i++) {
+                if (!isNaN(parseFloat(mean[i])) && String(mean[i]).indexOf('.') !== -1) {
+                    table += '<td>' + mean[i].toFixed(3) + '</td>';
+                } else {
+                    table += '<td>' + mean[i] + '</td>';
+                }
+            }
+            table += '</tr><tr><td>SD</td>';
+            for (var i=0; i < sd.length; i++) {
+                if (!isNaN(parseFloat(sd[i])) && String(sd[i]).indexOf('.') !== -1) {
+                    table += '<td>' + sd[i].toFixed(3) + '</td>';
+                } else {
+                    table += '<td>' + sd[i] + '</td>';
+                }
+            }
+            table += '</tr><tr><td>Min</td>';
+            for (var i=0; i < min.length; i++) {
+                if (!isNaN(parseFloat(min[i])) && String(min[i]).indexOf('.') !== -1) {
+                    table += '<td>' + min[i].toFixed(3) + '</td>';
+                } else {
+                    table += '<td>' + min[i] + '</td>';
+                }
+            }
+            table += '</tr><tr><td>Max</td>';
+            for (var i=0; i < max.length; i++) {
+                if (!isNaN(parseFloat(max[i])) && String(max[i]).indexOf('.') !== -1) {
+                    table += '<td>' + max[i].toFixed(3) + '</td>';
+                } else {
+                    table += '<td>' + max[i] + '</td>';
+                }
+            }
+            table += '</tr></table>';
+            $('#table-container').append(table);
+        });
+
 }
 
 function addDeleteButtonToTable() {

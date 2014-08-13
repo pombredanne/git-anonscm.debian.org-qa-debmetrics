@@ -9,6 +9,7 @@ import csv
 import datetime
 import logging
 import configparser
+import statistics
 import io
 import json
 from debmetrics.graph_helper import time_series_graph
@@ -125,6 +126,44 @@ def get_metrics_non_ts():
         if override_ts:
             metrics.append(key)
     return metrics
+
+
+def get_statistics(rows):
+    """Returns statistics based on rows.
+
+    Keyword arguments:
+    rows -- the data
+    """
+    stats = {
+            'mean': [],
+            'sd': [],
+            'min': [],
+            'max': []
+            }
+    for col in zip(*rows):
+        col = list(col)
+        for ind, elem in enumerate(col[:]):
+            try:
+                col[ind] = int(elem)
+            except Exception:
+                pass
+        for elem in col[:]:
+            if not isinstance(elem, int):
+                col.remove(elem)
+        stats['mean'].append(float(sum(col))/len(col) if len(col) > 0 else 'nan')
+        try:
+            stats['sd'].append(statistics.stdev(col))
+        except Exception:
+            stats['sd'].append('nan')
+        try:
+            stats['min'].append(min(col))
+        except Exception:
+            stats['min'].append('nan')
+        try:
+            stats['max'].append(max(col))
+        except Exception:
+            stats['max'].append('nan')
+    return stats
 
 
 def get_csv(cols, rows):
@@ -244,6 +283,15 @@ def _metricgettable(metric):
     """A route to get the table headers and rows."""
     rows, headers = db_fetch(metric)
     return jsonify(headers=headers, rows=rows)
+
+
+@app.route('/_<metric>getstatistics')
+def _metricgetstatistics(metric):
+    """A route to get the statistics for a metric."""
+    rows, headers = db_fetch(metric)
+    stats = get_statistics(rows)
+    return jsonify(mean=stats['mean'], sd=stats['sd'], min=stats['min'],
+                   max=stats['max'], headers=headers)
 
 
 @app.route('/_axes')
