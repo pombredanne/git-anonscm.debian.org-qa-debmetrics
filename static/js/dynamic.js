@@ -223,7 +223,8 @@ function displayInTable() {
     var table_metric = $('select#metrics-list').val();
     $.getJSON($SCRIPT_ROOT + '/_' + table_metric + 'gettable', {},
         function(data) {
-            $('#table').remove();
+            $('#table-container').remove();
+            $('#table_wrapper').remove();
             $('#csvLink').remove();
             var headers = data.headers;
             var rows = data.rows;
