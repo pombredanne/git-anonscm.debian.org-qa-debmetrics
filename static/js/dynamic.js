@@ -231,7 +231,7 @@ function displayInTable() {
             table = '<div id="table-container" style="clear: both;"><table id="table" class="tablesorter"><thead><tr>'
             for (var i=0; i < headers.length; i++) {
                 var header = headers[i];
-                table += '<th><div class="drag-handle">&#9776;</div>' + header + '</th>';
+                table += '<th>' + header + '</th>';
             }
             table += '</tr></thead>';
             for (var i=0; i < rows.length; i++) {
@@ -247,9 +247,7 @@ function displayInTable() {
             var csvLink = '<a id="csvLink" href="csv/' + table_metric + '">Download ' + table_metric + ' CSV</a>';
             $('#graph-table-container').append(table);
             $('#table-container').prepend(csvLink);
-            $('#table').dragtable({dragHandle: '.drag-handle'});
             $('#table').dataTable();
-            addDeleteButtonToTable();
         });
     $.getJSON($SCRIPT_ROOT + '/_' + table_metric + 'getstatistics', {},
         function(data) {
@@ -299,23 +297,6 @@ function displayInTable() {
             $('#table-container').append(table);
         });
 
-}
-
-function addDeleteButtonToTable() {
-    $('.table-delete').remove();
-    var table = $('#table');
-    var ths = table.find('th');
-    ths.each(function(index) {
-        var button = '<button class="table-delete close" style="float: left"></button>';
-        $(this).prepend(button);
-    });
-    $('.table-delete').on('click', function() {
-        var th = $(this).parent();
-        var i = th.index();
-        th.remove();
-        table.find('tr').find('td:eq(' + i + ')').remove();
-        addDeleteButtonToTable();
-    });
 }
 
 function resizeGraph() {
