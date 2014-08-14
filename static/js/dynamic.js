@@ -47,7 +47,17 @@ $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
             $.each(data.metrics, function(i, el) {
                 select.append('<option value="' + el + '">' + el + '</option>');
             });
+            var select2 = $('<select disabled></select>').attr('id', 'description-list');
+            $.each(data.descriptions, function(i, el) {
+                select2.append('<option value="' + el + '">' + el + '</option>');
+            });
             select.insertBefore('#add-metric');
+            select2.insertBefore('#add-metric');
+            $('#metrics-list').change(function() {
+                $('#metrics-list option:selected').each(function() {
+                    $('#description-list :nth-child(' + ($(this).index() + 1) + ')').prop('selected', true);
+                });
+            });
        });
 $('#graph-table-container').append('<button id="add-metric">Add metric to graph</button>');
 $('#graph-table-container').append('<button id="show-table">Show metric in table</button>');

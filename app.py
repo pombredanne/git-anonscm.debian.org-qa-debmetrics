@@ -13,7 +13,7 @@ import statistics
 import io
 import json
 from debmetrics.graph_helper import time_series_graph
-from debmetrics.runner_helper import min_x, max_x
+from debmetrics.runner_helper import min_x, max_x, get_description
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
 from debmetrics.models import models
@@ -126,6 +126,15 @@ def get_metrics_non_ts():
         if override_ts:
             metrics.append(key)
     return metrics
+
+
+def get_descriptions():
+    """Returns a list of descriptions of metrics."""
+    models_list = sorted(models.keys())
+    descriptions = []
+    for model in  models_list:
+        descriptions.append(get_description(model))
+    return descriptions
 
 
 def get_statistics(rows):
@@ -270,12 +279,14 @@ def _metricgraphdata(metric):
 
 @app.route('/_allmetrics')
 def _allmetrics():
-    """A route to get a list of all metrics."""
+    """A route to get a list of all metrics and descriptions."""
     metrics = get_all_metrics()
     non_ts_metrics = list(metrics)
     for metric in get_metrics_non_ts():
         non_ts_metrics.remove(metric)
-    return jsonify(non_ts_metrics=list(non_ts_metrics), metrics=list(metrics))
+    descriptions = get_descriptions()
+    return jsonify(non_ts_metrics=list(non_ts_metrics), metrics=list(metrics),
+                   descriptions=descriptions)
 
 
 @app.route('/_<metric>gettable')

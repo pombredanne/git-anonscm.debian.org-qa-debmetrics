@@ -218,6 +218,17 @@ def str_to_date(astring):
     return datetime.datetime.strptime(astring, '%Y-%m-%d %H:%M')
 
 
+def get_description(metric):
+    """Gets description from a metric name.
+    
+    Keyword args:
+    metric -- the name of the metric
+    """
+    config = configparser.RawConfigParser()
+    config.read(os.path.join(man_dir, metric + '.manifest'))
+    return config.get('script1', 'description')
+
+
 def db_fetch(table):
     """Fetches data from the database
 
