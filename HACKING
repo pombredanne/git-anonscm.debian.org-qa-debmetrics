@@ -22,8 +22,8 @@ Getting the Code
 
 You can get a copy of the latest code with this command:
 
-    git clone git://git.debian.org/users/josephbisch-guest/debmetrics.git
-    cd debmetrics.git
+    git clone git://anonscm.debian.org/users/josephbisch-guest/debmetrics.git
+    cd debmetrics
 
 To get updates (as long as you haven't committed changes to master) run this
 command:
@@ -39,17 +39,11 @@ instead of tabs. Limit lines to 79 characters.
 Getting JS and css files
 ========================
 
-Minified JS and css files were excluded from this repo, but are necessary to
+3rd party JS and css files were excluded from this repo, but are necessary to
 take full advantage of the web interface.
 
-- JQuery: Download the compressed JQuery. This project currently uses JQuery 
-1.11.1.[1] Put JQuery in static/js/jquery-1.11.1.min.js.
-- JQuery UI: Download the compressed JQuery UI. This project currently uses 
-JQuery UI 1.10.4.[2] Put JQuery UI in static/js/jquery-ui-1.10.4.min.js. Put 
-the contents of the ui-lightness directory under static/css/ui-lightness.
-- StickyTableHeaders: Download the compressed StickyTableHeaders. This project 
-uses the latest version from GitHub.[3] Put StickyTableHeaders under 
-static/js/jquery.stickytableheaders.min.js.
+It is recommended that you use minified_grabber to download 3rd party JS and
+css.
 
 Structure
 =========
@@ -80,6 +74,3 @@ TODO
 - A list of tasks to be done.
 
 [0] http://legacy.python.org/dev/peps/pep-0008/
-[1] http://code.jquery.com/jquery-1.11.1.min.js
-[2] http://jqueryui.com/resources/download/jquery-ui-1.10.4.zip
-[3] https://github.com/jmosbech/StickyTableHeaders/raw/master/js/jquery.stickytableheaders.min.js
