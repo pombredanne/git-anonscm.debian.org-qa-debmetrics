@@ -41,23 +41,23 @@ $('#flot-graph').append('<span id="help-text">Use the dropdown to select a metri
         ' all metrics" to remove the graph and table. Click on the options accordion to modify' +
         ' options relating to the graph.</span>');
 $('#graph-table-container').append('<div id="flot-graph-legend" style="float: left"></div>');
+var descriptions = [];
 $.getJSON($SCRIPT_ROOT + '/_allmetrics', {},
         function(data) {
+            descriptions = data.descriptions;
             var select = $('<select></select>').attr('id', 'metrics-list');
             $.each(data.metrics, function(i, el) {
                 select.append('<option value="' + el + '">' + el + '</option>');
             });
-            var select2 = $('<select disabled></select>').attr('id', 'description-list');
-            $.each(data.descriptions, function(i, el) {
-                select2.append('<option value="' + el + '">' + el + '</option>');
-            });
+            var textbox = $('<textarea disabled cols="20", rows="6"></textarea>').attr('id', 'description-textarea').attr('style', 'vertical-align: top');
             select.insertBefore('#add-metric');
-            select2.insertBefore('#add-metric');
+            textbox.insertBefore('#add-metric');
             $('#metrics-list').change(function() {
                 $('#metrics-list option:selected').each(function() {
-                    $('#description-list :nth-child(' + ($(this).index() + 1) + ')').prop('selected', true);
+                    $('#description-textarea').val(descriptions[$(this).index()]);
                 });
             });
+            $('#metrics-list').change();
        });
 $('#graph-table-container').append('<button id="add-metric">Add metric to graph</button>');
 $('#graph-table-container').append('<button id="show-table">Show metric in table</button>');
