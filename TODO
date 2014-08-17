@@ -3,7 +3,7 @@
 - package python-crontab
 - fix error about lack of beautifulsoup when running tests
 - add a custom graph for releases_count
-- include non-ascii stuff to see if there are encoding errors
+- integrate custom graphs into static and dynamic interfaces
 
 [LOW]
 - historical data injection
@@ -142,3 +142,19 @@
 - Add ts or an_id header when using display_fields
 - Point footer link to deployed version of source code
 - Sort list of metrics
+- include non-ascii stuff to see if there are encoding errors
+- improve documentation
+- Add mentors metric
+- Add nm metric
+- Add statistics table to dynamic interface
+- Move legend outside of graph for static interface
+- Add running of create_all.py to Makefile
+- Add description to dynamic interface
+- Remove tables in dynamic interface before displaying new metric in table
+- Add sort arrow images for dynamic tables
+- Remove x button and dragtable from tables
+- Use textarea for description in dynamic interface
+- Remove obsolete CREDENTIALS.SAMPLE
+- Update README
+- Update HACKING
+- Add statistics table to static interface
