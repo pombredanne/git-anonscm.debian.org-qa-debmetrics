@@ -26,6 +26,41 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if statistics %}
+        <h2>Statistics</h2>
+        <table class="tablesorter">
+            <tr>
+                <th>Statistic</th>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Mean</td>
+                {% for mean in statistics.mean %}
+                    <td>{{ '%0.2f' % mean|float }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>SD</td>
+                {% for sd in statistics.sd %}
+                    <td>{{ '%0.2f' % sd|float }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Min</td>
+                {% for min in statistics.min %}
+                    <td>{{ '%0.2f' % min|float }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Max</td>
+                {% for max in statistics.max %}
+                    <td>{{ '%0.2f' % max|float }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    {% endif %}
     {% if graph %}
         <h2 class="title">{{ name }}</h2>
         <img id="graph" src="{{ graph }}" />

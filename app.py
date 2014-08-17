@@ -235,10 +235,11 @@ def metric(metric):
     """
     if metric in models:
         rows, cols = db_fetch(metric)
+        statistics = get_statistics(rows)
         graphs, name, timeseries = graph_helper(metric)
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
-                               headers=cols, rows=rows)
+                               headers=cols, rows=rows, statistics=statistics)
     else:
         abort(404)
 
