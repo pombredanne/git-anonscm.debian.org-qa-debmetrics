@@ -1,6 +1,7 @@
 import nose
 import unittest
 import os.path
+from nose.tools import nottest
 from debmetrics import runner_helper
 from debmetrics.base import Base
 
@@ -42,6 +43,7 @@ class runner_helper_test(unittest.TestCase):
         table = 'vcs'
         runner_helper.db_insert(header, rows, table)
 
+    @nottest
     def test_handle_csv(self):
         """Test for handling of csv data by runner"""
         data = 'test1, test2\ntest3, test4\ntest5, test6'
