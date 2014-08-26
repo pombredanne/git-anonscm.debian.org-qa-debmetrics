@@ -9,7 +9,8 @@ Debian Metrics Portal
 Introduction
 ============
 
-Debian Metrics Portal is a uniform (Web) interface to peruse Debian metrics, as well as a uniform (declarative) interface to add and maintain metrics.
+Debian Metrics Portal is a uniform (Web) interface to peruse Debian metrics,
+as well as a uniform (declarative) interface to add and maintain metrics.
 
 Requirements
 ============
