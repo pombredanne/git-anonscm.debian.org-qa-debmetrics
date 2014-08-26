@@ -34,12 +34,6 @@ class runner_helper_test(unittest.TestCase):
         self.assertEqual(runner_helper.table2class('releases_count'),
                          'ReleasesCount')
 
-    def test_quote(self):
-        """Test quoting of strings sent to the runner"""
-        self.assertEqual(runner_helper.quote('timestamp'), 'timestamp')
-        self.assertEqual(runner_helper.quote('123'), '123')
-        self.assertEqual(runner_helper.quote('hello'), "'hello'")
-
     def test_db_insert(self):
         """Test for insert of data into database via runner"""
         header = ['ts', 'svn', 'darcs', 'git', 'bzr', 'using_vcs', 'cvs',
