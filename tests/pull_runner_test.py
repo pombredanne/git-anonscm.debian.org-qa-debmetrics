@@ -2,7 +2,7 @@ import nose
 import os
 import os.path
 import unittest
-from debmetrics import pull_runner
+import pull_runner
 
 
 class pull_runner_test(unittest.TestCase):
