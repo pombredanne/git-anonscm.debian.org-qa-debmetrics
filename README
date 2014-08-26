@@ -12,6 +12,8 @@ Introduction
 Debian Metrics Portal is a uniform (Web) interface to peruse Debian metrics,
 as well as a uniform (declarative) interface to add and maintain metrics.
 
+Debian Metrics Portal requires Python3. It will not work with Python2.
+
 Requirements
 ============
 
