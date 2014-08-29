@@ -22,7 +22,7 @@ Getting the Code
 
 You can get a copy of the latest code with this command:
 
-    git clone git://anonscm.debian.org/users/josephbisch-guest/debmetrics.git
+    git clone git://anonscm.debian.org/qa/debmetrics.git
     cd debmetrics
 
 To get updates (as long as you haven't committed changes to master) run this

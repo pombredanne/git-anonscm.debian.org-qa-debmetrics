@@ -3,7 +3,7 @@ Hacking on Debmetrics
 
 It is easy to hack on debmetrics or just setup a local instance.
 
-* git clone git://anonscm.debian.org/users/josephbisch-guest/debmetrics.git
+* git clone git://anonscm.debian.org/qa/debmetrics.git
 * cd debmetrics
 * mkdir graphs
 * make
