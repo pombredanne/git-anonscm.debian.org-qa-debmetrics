@@ -1,7 +1,7 @@
 [HIGH]
 - roll back on non-zero exit status/error
 - package python-crontab
-- fix error about lack of beautifulsoup when running tests
+- fix error about running tests multiple times in a row
 - add a custom graph for releases_count
 - integrate custom graphs into static and dynamic interfaces
 
@@ -158,3 +158,10 @@
 - Update README
 - Update HACKING
 - Add statistics table to static interface
+- Fix line length in README
+- Add python3 requirement to README
+- Fix import path for pull_runner.py in tests
+- Remove quote test from runner_helper_test.py
+- Suppress test_handle_csv
+- Point to qa repo instead of private repo
+- Add debhelper_vs_cdbs metric
