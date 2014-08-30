@@ -1,6 +1,6 @@
 [script1]
 type = pull
-depends = python-beautifulsoup>=3.2.1-1
+depends = python3-bs4
 freq = 0 0 * * *
 script = scripts/releases_count.py
 fields = ts:DateTime, name:String, source_files:String, source_packages:String, disk_usage:String, ctags:String, sloc:String
