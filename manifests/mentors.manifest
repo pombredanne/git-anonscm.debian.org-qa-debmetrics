@@ -7,4 +7,5 @@ format = csv
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = http://mentors.debian.net/packages/feed
 description = Provides statistics on the number of packages waiting in mentor.debian.net.

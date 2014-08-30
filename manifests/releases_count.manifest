@@ -8,4 +8,5 @@ format = csv
 override_ts = true
 delete_before_insert = false
 graph_type = custom
+source = http://sources.debian.net/stats/
 description = Provides statistics about releases such as source files, source packages, disk usage, lines of code.

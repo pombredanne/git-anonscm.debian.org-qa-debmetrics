@@ -2,6 +2,11 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <h1>{{ title }}</h1>
+    {% if source %}
+    Source: <a href="{{ source }}">{{ source }}</a>
+    {% else %}
+        No source available
+    {% endif %}
     {% if timeseries %}
         <h2>Timeseries</h2>
         <img src="{{ timeseries }}" />

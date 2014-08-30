@@ -9,4 +9,5 @@ format = csv
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = http://upsilon.cc/~zack/stuff/dh-vs-cdbs/
 description = Compares the number of packages build depending on debhelper vs the number build depending on cdbs in sid.

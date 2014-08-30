@@ -8,4 +8,5 @@ format = csv
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = http://upsilon.cc/~zack/stuff/dpkg-v3/
 description = Provides statistics on dpkg source formats used in Debian source packages.

@@ -7,4 +7,5 @@ format = csv
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = https://upsilon.cc/~zack/stuff/vcs-usage/usage.json
 description = Provides statistics on how popular each vcs is with Debian packages.

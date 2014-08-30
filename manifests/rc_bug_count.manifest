@@ -8,4 +8,5 @@ format = json
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = https://bugs.debian.org/release-critical/
 description = Provides statistics about release critical bugs.

@@ -7,4 +7,5 @@ format = csv
 override_ts = false
 delete_before_insert = false
 graph_type = default
+source = http://ircbots.debian.net/stats/package_differences.txt
 description = Provides package statistics. Useful for comparing between Debian versions.

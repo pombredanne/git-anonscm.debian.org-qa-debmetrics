@@ -13,7 +13,7 @@ import statistics
 import io
 import json
 from debmetrics.graph_helper import time_series_graph
-from debmetrics.runner_helper import min_x, max_x, get_description
+from debmetrics.runner_helper import min_x, max_x, get_description, get_source
 from pull_runner import db_fetch, handle_csv
 from push_runner import store, token_matches
 from debmetrics.models import models
@@ -237,9 +237,11 @@ def metric(metric):
         rows, cols = db_fetch(metric)
         statistics = get_statistics(rows)
         graphs, name, timeseries = graph_helper(metric)
+        source = get_source(metric)
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
-                               headers=cols, rows=rows, statistics=statistics)
+                               headers=cols, rows=rows, statistics=statistics,
+                               source=source)
     else:
         abort(404)
 

@@ -229,6 +229,17 @@ def get_description(metric):
     return config.get('script1', 'description')
 
 
+def get_source(metric):
+    """Gets data source from a metric name.
+
+    Keyword args:
+    metric -- the name of the metric
+    """
+    config = configparser.RawConfigParser({'source': None})
+    config.read(os.path.join(man_dir, metric + '.manifest'))
+    return config.get('script1', 'source')
+
+
 def db_fetch(table):
     """Fetches data from the database
 
