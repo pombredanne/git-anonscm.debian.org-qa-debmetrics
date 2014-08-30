@@ -1,0 +1,12 @@
+[script1]
+type = pull
+depends = python3-bs4
+freq = 0 0 * * *
+script = scripts/debhelper_vs_cdbs.py
+fields = debhelper_grtr_eq7:Integer, cdbs:Integer
+display_fields = debhelper (>= 7), CDBS
+format = csv
+override_ts = false
+delete_before_insert = false
+graph_type = default
+description = Compares the number of packages build depending on debhelper vs the number build depending on cdbs in sid.
