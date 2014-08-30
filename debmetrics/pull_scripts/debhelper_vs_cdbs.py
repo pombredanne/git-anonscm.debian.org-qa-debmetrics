@@ -14,7 +14,7 @@ def run():
     dh = cols[0].string.strip()
     cdbs = cols[1].string.strip()
     writer = csv.writer(sys.stdout)
-    writer.writerow(['ts', 'debhelper_grtr_7', 'cdbs'])
+    writer.writerow(['ts', 'debhelper_grtr_eq7', 'cdbs'])
     today = '%s' % datetime.datetime.utcnow()
     writer.writerow([today, dh, cdbs])
     exit(0)
