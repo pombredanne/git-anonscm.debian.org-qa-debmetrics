@@ -2,7 +2,10 @@ MANIFEST_DIR = cat .debmetrics.ini | grep manifest | grep DIRECTORY | sed 's/.*\
 MANIFESTS = $(wildcard $(shell $(MANIFEST_DIR))/*.manifest)
 ORM_MODULES = $(patsubst $(shell $(MANIFEST_DIR))/%.manifest,debmetrics/models/%.py,$(MANIFESTS))
 
-all: $(ORM_MODULES) templates/index.html create_all
+all: install_depends $(ORM_MODULES) templates/index.html create_all
+
+install_depends:
+	./install_depends.py
 
 debmetrics/models/%.py: $(shell $(MANIFEST_DIR))/%.manifest
 	./debmetrics/manifest2orm.py $< > $@
