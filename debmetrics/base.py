@@ -10,7 +10,11 @@ from debmetrics.config_reader import settings, read_config
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
 read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
 
-engine = create_engine(settings['DB_URI'], echo=True,
-                       connect_args={'connect_timeout': 90})
+if settings['TEST']:
+    engine = create_engine(settings['DB_URI'], echo=False,
+                           connect_args={'connect_timeout': 90})
+else:
+    engine = create_engine(settings['DB_URI'], echo=True,
+                           connect_args={'connect_timeout': 90})
 Base = declarative_base(bind=engine)
 Session = scoped_session(sessionmaker(engine))
