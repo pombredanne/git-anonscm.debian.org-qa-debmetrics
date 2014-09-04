@@ -14,6 +14,7 @@ Contents:
    code
    add_metric
    hack
+   tests
 
 
 Indices and tables
