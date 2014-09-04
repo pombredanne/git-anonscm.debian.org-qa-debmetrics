@@ -158,10 +158,14 @@ def should_run(filename, freq):
     filename -- filename of the script to run
     freq -- the crontab string of how frequently to run the script
     """
+    if settings['TEST']:
+        log = 'last_ran_test.txt'
+    else:
+        log = 'last_ran.txt'
     job = CronTab(tab=freq + ' dummy')[0]
-    if not os.path.exists(os.path.join(pkg_dir, 'last_ran.txt')):
-        f = open(os.path.join(pkg_dir, 'last_ran.txt'), 'w')
-    with open(os.path.join(pkg_dir, 'last_ran.txt'), 'r') as f:
+    if not os.path.exists(os.path.join(pkg_dir, log)):
+        f = open(os.path.join(pkg_dir, log), 'w')
+    with open(os.path.join(pkg_dir, log), 'r') as f:
         for line in f:
             line = line.rstrip('\n')
             if line == '':
@@ -183,21 +187,25 @@ def update_last_ran(filename):
     Keyword args:
     filename -- the filename of the script
     """
+    if settings['TEST']:
+        log = 'last_ran_test.txt'
+    else:
+        log = 'last_ran.txt'
     pat = '.+,' + filename
     now = datetime.datetime.now()
-    with open(os.path.join(pkg_dir, 'last_ran.txt'), 'r+') as f:
+    with open(os.path.join(pkg_dir, log), 'r+') as f:
         if not any(re.search(pat, line) for line in f):
             f.write(date_to_str(now) + ',' + filename + '\n')
             return
 
-    with open(os.path.join(pkg_dir, 'last_ran.txt')) as f:
+    with open(os.path.join(pkg_dir, log)) as f:
         out_f = 'last_ran.tmp'
         out = open(out_f, 'w')
         for line in f:
             out.write(re.sub(pat, date_to_str(now) + ',' + filename + '\n',
                       line))
         out.close()
-        os.rename(out_f, os.path.join(pkg_dir, 'last_ran.txt'))
+        os.rename(out_f, os.path.join(pkg_dir, log))
 
 
 def date_to_str(date):

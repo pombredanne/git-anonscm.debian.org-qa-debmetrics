@@ -4,7 +4,7 @@ alembic.ini
 *.swp
 docs/_build/
 graphs/
-last_ran.txt
+last_ran*.txt
 debmetrics/models/
 .coverage
 cover/

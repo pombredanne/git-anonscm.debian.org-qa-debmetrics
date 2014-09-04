@@ -19,6 +19,7 @@ def read_config(config_file):
     settings['PULL_DIRECTORY'] = config.get('pull_scripts', 'DIRECTORY')
     settings['GRAPH_SCRIPTS_DIRECTORY'] = config.get('graph_scripts',
                                                      'DIRECTORY')
+    settings['TEST'] = config.getboolean('test', 'TEST')
 
 if __name__ == '__main__':
     read_config('../.debmetrics.ini')
