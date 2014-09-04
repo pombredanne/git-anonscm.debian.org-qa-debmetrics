@@ -4,8 +4,12 @@
 
 import configparser
 import sys
+import os.path
 import ntpath
+from config_reader import settings, read_config
 
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+read_config(os.path.join(pkg_dir, '..', '.debmetrics.ini'))
 config = configparser.RawConfigParser()
 
 
@@ -31,10 +35,12 @@ from sqlalchemy import Column, Integer, String, Date, DateTime, TIMESTAMP
     
 class {0}(Base):
     __tablename__ = '{1}'
-    __table_args__ =  {{'schema': 'metrics'}}
-                
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
            ntpath.basename(file_name).split('.', 1)[0]))
+    if settings['TEST']:
+        print("""    __table_args__ = {'schema': 'metrics_test'}""")
+    else:
+        print("""    __table_args__ = {'schema': 'metrics'}""")
 
     if not override_ts:
         print('    ts = Column(TIMESTAMP, primary_key=True)')
