@@ -42,10 +42,9 @@ class runner_helper_test(unittest.TestCase):
 
     def test_db_insert(self):
         """Test for insert of data into database via runner"""
-        header = ['ts', 'svn', 'darcs', 'git', 'bzr', 'using_vcs', 'cvs',
-                  'mtn', 'total', 'arch', 'hg']
-        rows = [['2014-05-28 00:14:48.632243', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
-        table = 'vcs'
+        header = ['ts', 'a']
+        rows = [['2014-05-28 00:14:48.632243', 'test']]
+        table = 'test'
         runner_helper.db_insert(header, rows, table)
 
     @nottest
