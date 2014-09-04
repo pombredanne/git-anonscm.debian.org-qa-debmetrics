@@ -19,7 +19,6 @@ read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
-conn_str = settings['PSYCOPG2_DB_STRING']
 
 if not os.path.isabs(directory):
     directory = os.path.join(pkg_dir, directory)
