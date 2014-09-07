@@ -6,6 +6,8 @@ os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.cm as mplcm
+import matplotlib.colors as colors
 from matplotlib import dates
 
 
@@ -27,6 +29,10 @@ def time_series_graph(table, data, cols):
             ts[ind] = datetime.datetime.strptime(t, '%Y-%m-%d %H:%M:%S')
     fig = plt.figure()
     sub = fig.add_subplot(111)
+    cm = plt.get_cmap('gist_rainbow')
+    cNorm  = colors.Normalize(vmin=0, vmax=len(cols)-1)
+    scalarMap = mplcm.ScalarMappable(norm=cNorm, cmap=cm)
+    sub.set_color_cycle([scalarMap.to_rgba(i) for i in range(len(cols))])
     fmt = dates.DateFormatter('%Y-%m-%d')
     sub.xaxis.set_major_formatter(fmt)
     count = 0
