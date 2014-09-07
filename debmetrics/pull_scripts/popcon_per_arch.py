@@ -15,6 +15,8 @@ def format_ts(ts):
     if len(month) == 1:
         month = '0' + month
     day = ts[4:6]
+    if day[0] == ' ':
+        day = '0' + day[1]
     time = ts[7:15]
     year = ts[16:20]
     ts = '%s-%s-%s %s.000000' % (year, month, day, time)
