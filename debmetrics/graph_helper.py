@@ -20,6 +20,11 @@ def time_series_graph(table, data, cols):
     cols -- the column names corresponding to the data
     """
     plt.clf()
+    """ None values prevent the graph from generating, so remove any rows with
+    them."""
+    for row in data:
+        if any(x is None for x in row):
+            data.remove(row)
     ts, rest = list(zip(*data))[0], list(zip(*data))[1:]
     ts = list(ts)
     for ind, t in enumerate(ts):
