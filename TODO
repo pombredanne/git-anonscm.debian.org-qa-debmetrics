@@ -1,9 +1,11 @@
 [HIGH]
 - roll back on non-zero exit status/error
-- package python-crontab
+- package python-crontab (#740800)
 - fix error about running tests multiple times in a row
 - add a custom graph for releases_count
 - integrate custom graphs into static and dynamic interfaces
+- add source to dynamic interface
+- have nm data source fixed (#760689)
 
 [LOW]
 - historical data injection
@@ -165,3 +167,7 @@
 - Suppress test_handle_csv
 - Point to qa repo instead of private repo
 - Add debhelper_vs_cdbs metric
+- Add source field to manifests and to static interface
+- Update dependencies for releases_count
+- Install dependencies from manifests
+- Test fixes, including adding a TEST flag to the .debmetrics.ini file
