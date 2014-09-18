@@ -1,4 +1,6 @@
 *.py[cod]
+install-depends-stamp
+create-all-stamp
 credentials.py
 alembic.ini
 *.swp
