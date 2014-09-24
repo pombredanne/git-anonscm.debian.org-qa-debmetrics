@@ -1,0 +1,12 @@
+[script1]
+type = pull
+depends = python3-bs4
+freq = 0 0 * * *
+script = scripts/hamm_releases_count.py
+fields = source_files:String, source_packages:String, disk_usage:String, ctags:String, sloc:String
+format = csv
+override_ts = false
+delete_before_insert = false
+graph_type = default
+source = http://sources.debian.net/stats/
+description = Provides statistics about the hamm release such as source files, source packages, disk usage, lines of code.

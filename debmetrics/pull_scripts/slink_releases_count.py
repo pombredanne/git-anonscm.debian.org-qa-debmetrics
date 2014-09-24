@@ -37,13 +37,14 @@ def run():
                 colnum += 1
         rownum += 1
     writer = csv.writer(sys.stdout)
-    writer.writerow(['ts', 'name', 'disk_usage', 'sloc', 'source_packages',
+    writer.writerow(['ts', 'disk_usage', 'sloc', 'source_packages',
                      'source_files', 'ctags'])
     for row in data:
-        today = "%s" % datetime.datetime.utcnow()
-        row = [today] + row
-        writer.writerow(row)
-        time.sleep(2)
+        if row[0] == 'slink':
+            del row[0]
+            today = "%s" % datetime.datetime.utcnow()
+            row = [today] + row
+            writer.writerow(row)
     exit(0)
 
 if __name__ == '__main__':
