@@ -25,5 +25,6 @@ static/css/jquery.dataTables.min.css*
 static/css/ui-lightness/
 static/css/ts-blue/
 templates/index.html
+.debmetrics.local.ini
 
 !debmetrics/models/__init__.py
