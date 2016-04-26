@@ -7,7 +7,7 @@ import configparser
 from debmetrics.config_reader import settings, read_config
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+read_config()
 
 man_dir = settings['MANIFEST_DIRECTORY']
 

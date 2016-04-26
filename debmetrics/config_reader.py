@@ -1,11 +1,25 @@
 """This module reads config files"""
 
 import configparser
+import os
 
 settings = dict()
 
+ROOT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
-def read_config(config_file):
+CONF_FILES = [
+    os.path.join(ROOT_DIR, '.debmetrics.local.ini'),
+    '/etc/debmetrics/debmetrics.ini'
+    ]
+
+
+def read_config():
+    for conffile in CONF_FILES:
+        if os.path.exists(conffile):
+            return read_config_file(conffile)
+
+
+def read_config_file(config_file):
     """Reads a config file, creating a dictionary from it.
 
     Keyword arguments:
@@ -21,4 +35,4 @@ def read_config(config_file):
     settings['TEST'] = config.getboolean('test', 'TEST')
 
 if __name__ == '__main__':
-    read_config('../.debmetrics.ini')
+    read_config()

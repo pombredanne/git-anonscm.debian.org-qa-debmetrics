@@ -7,8 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from debmetrics.config_reader import settings, read_config
 
-pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '../.debmetrics.ini'))
+read_config()
 
 if settings['TEST']:
     engine = create_engine(settings['DB_URI'], echo=False,

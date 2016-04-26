@@ -14,7 +14,7 @@ from debmetrics.runner_helper import (db_delete_all, db_fetch, db_insert,
                                       handle_csv, pack, should_run)
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
-read_config(os.path.join(pkg_dir, '.debmetrics.ini'))
+read_config()
 
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
