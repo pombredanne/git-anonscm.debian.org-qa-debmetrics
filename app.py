@@ -236,7 +236,11 @@ def metric(metric):
     if metric in models:
         rows, cols = db_fetch(metric)
         statistics = get_statistics(rows)
-        graphs, name, timeseries = graph_helper(metric)
+        try:
+            graphs, name, timeseries = graph_helper(metric)
+        except Exception as e:
+            print('Couldn\'t load graphs. Did you setup the cronjobs?')
+            raise e
         source = get_source(metric)
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
