@@ -5,7 +5,11 @@ ORM_MODULES = $(patsubst $(shell $(MANIFEST_DIR))/%.manifest,debmetrics/models/%
 all: install-depends-stamp $(ORM_MODULES) templates/index.html create-all-stamp
 
 install-depends-stamp: $(MANIFESTS)
+ifneq ("$(wildcard /etc/debian-release)", "")
 	./install_depends.py
+else
+	@echo "Skipping installing dependencies, because you are missing /etc/debian-release"
+endif
 	touch $@
 
 debmetrics/models/%.py: $(shell $(MANIFEST_DIR))/%.manifest
