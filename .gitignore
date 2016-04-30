@@ -27,4 +27,9 @@ debmetrics/static/css/ts-blue/
 debmetrics/templates/index.html
 .debmetrics.local.ini
 
+# setup.py created directories
+build/
+debmetrics.egg-info/
+dist/
+
 !debmetrics/models/__init__.py
