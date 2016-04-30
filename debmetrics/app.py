@@ -14,8 +14,8 @@ import io
 import json
 from debmetrics.graph_helper import time_series_graph
 from debmetrics.runner_helper import min_x, max_x, get_description, get_source
-from pull_runner import db_fetch, handle_csv
-from push_runner import store, token_matches
+from debmetrics.pull_runner import db_fetch, handle_csv
+from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
 app = Flask(__name__)
