@@ -2,6 +2,15 @@ function isNumber(obj) {
     return !isNaN(parseFloat(obj));
 }
 
+if (!window.jQuery) {
+    var messageEl = document.createElement('span');
+    messageEl.innerHTML = 'JQuery is not available. If you are the operator of'
+	    + ' this server, make sure you have run minified_grabber to'
+	    + ' fetch it along with other JavaScript and CSS dependencies not'
+	    + ' shipped directly with debmetrics.';
+    document.getElementById('content').appendChild(messageEl);
+}
+
 var metric = $('h1').text();
 
 if ($('input#date')) {
