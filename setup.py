@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('requirements.txt') as f:
     install_requires = [l for l in f.read().splitlines()
@@ -13,5 +13,5 @@ setup(name='debmetrics',
       author='Joseph Bisch',
       author_email='joseph.bisch@gmail.com',
       license='AGPL',
-      packages=['debmetrics'],
+      packages=find_packages(),
       )
