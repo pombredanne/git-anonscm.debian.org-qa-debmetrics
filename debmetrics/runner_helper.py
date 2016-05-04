@@ -21,7 +21,7 @@ read_config()
 man_dir = settings['MANIFEST_DIRECTORY']
 
 if not os.path.isabs(man_dir):
-    man_dir = os.path.join(pkg_dir, '..', man_dir)
+    man_dir = os.path.join(pkg_dir, man_dir)
 
 def table_factory(name):
     """A factory to generate a class from a table name string.
