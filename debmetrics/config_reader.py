@@ -27,6 +27,7 @@ def read_config_file(config_file):
     """
     config = configparser.RawConfigParser()
     config.read(config_file)
+    settings['SECRET_KEY'] = config.get('session', 'SECRET_KEY')
     settings['DB_URI'] = config.get('db', 'DB_URI')
     settings['MANIFEST_DIRECTORY'] = config.get('manifest', 'DIRECTORY')
     settings['PULL_DIRECTORY'] = config.get('pull_scripts', 'DIRECTORY')

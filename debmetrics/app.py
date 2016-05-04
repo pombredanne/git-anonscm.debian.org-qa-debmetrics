@@ -3,7 +3,10 @@
 """This module contains the Flask code for debmetrics."""
 
 from flask import (Flask, abort, jsonify, make_response, request,
-                   render_template, send_from_directory)
+                   render_template, send_from_directory, flash, redirect,
+                   url_for, g)
+from flask_login import (LoginManager, login_user, logout_user,
+                             current_user, login_required)
 import os
 import csv
 import datetime
@@ -13,17 +16,34 @@ import statistics
 import io
 import json
 from debmetrics.graph_helper import time_series_graph
-from debmetrics.runner_helper import min_x, max_x, get_description, get_source
+from debmetrics.runner_helper import min_x, max_x, get_description, get_source, db_list, db_insert
 from debmetrics.pull_runner import db_fetch, handle_csv
 from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
 from debmetrics.database import db
+from debmetrics.models.user import User
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__, static_folder=os.path.join(pkg_dir, '..', 'static'), template_folder=os.path.join(pkg_dir, '..', 'templates'))
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(id)
+
+
+@app.before_request
+def before_request():
+    g.user = current_user
+
 read_config()
 
+app.config['SECRET_KEY'] = settings['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = settings['DB_URI']
 db.init_app(app)
 
@@ -400,6 +420,53 @@ def thanks():
 def contact():
     """A route for contact information."""
     return render_template('contact.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    username = request.form['username']
+    password = request.form['password']
+    registered_user = User.query.filter_by(username=username, password=password).first()
+    if registered_user is None:
+        flash('Username or password is invalid.', 'error')
+        return redirect(url_for('login'))
+    login_user(registered_user)
+    flash('Logged in successfully.')
+    return redirect(request.args.get('next') or url_for('index'))
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/admin')
+@login_required
+def admin():
+    """A route representing the main admin page."""
+    if g.user.username != 'admin':
+        flash('Only admin can access admin routes.', 'error')
+        return redirect(url_for('index'))
+    tables = db_list()
+    return render_template('admin.html', tables=tables)
+
+
+@app.route('/admin/submit_admin_csv_import', methods=['POST'])
+@login_required
+def submit_admin_csv_import():
+    """A route to handle submitting of csv data to be imported into a table"""
+    if g.user.username != 'admin':
+        flash('Only admin can access admin routes.', 'error')
+        return redirect(url_for('admin'))
+    table = request.form['table']
+    csv = request.form['csv']
+    header, rows = handle_csv(csv)
+    db_insert(header, rows, table)
+    flash('Data was inserted in table %s.' % table)
+    return redirect(url_for('admin'))
 
 
 if __name__ == '__main__':

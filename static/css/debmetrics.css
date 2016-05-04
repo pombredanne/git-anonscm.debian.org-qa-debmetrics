@@ -8,6 +8,25 @@ h2 {
     margin: 0.67em 0;
 }
 
+span.links {
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    padding-right: 1em;
+    font-size: 0.75em;
+    text-align: right;
+    float: right;
+    margin-top: -1.5em;
+}
+
+span.links a, span.links span {
+    margin: 0 0 0 1em;
+    text-decoration: none;
+}
+
+span.links a:hover {
+    text-decoration: underline;
+}
+
 th, td {
     padding: 0.45rem;
     text-align: left;

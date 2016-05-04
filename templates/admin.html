@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+    {% block title %}Admin {% endblock %}
+    {% block body %}
+        <h1>Admin Portal</h1>
+	<div>
+	    <h2>Insert CSV Data into Table</h2>
+	    <form method="post" action="{{ url_for('submit_admin_csv_import') }}">
+		<label for="table">Table:</label>
+		<select name="table">
+		{% if tables %}
+		{% for table in tables %}
+		    <option value="{{ table }}">{{ table }}</option>
+		{% endfor %}
+		{% endif %}
+		</select><br />
+		<label for="csv">CSV Data:</label><textarea name="csv"></textarea><br />
+		<input type="submit" value="Insert Data" />
+	    </form>
+	</div>
+    {% endblock %}

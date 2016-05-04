@@ -280,6 +280,11 @@ def db_fetch(table):
     return res, cols
 
 
+def db_list():
+    """Gets lists of all the tables from the database"""
+    return sorted(models.keys())
+
+
 def pack(data):
     """Packs data into a string of csv to pass with subprocess.
 

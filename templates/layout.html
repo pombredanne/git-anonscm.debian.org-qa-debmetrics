@@ -23,11 +23,22 @@
                 <ul>
                     <li><a href="/">Static</a></li>
                     <li><a href="/dynamic">Dynamic</a></li>
+		{% if g.user and g.user.username == 'admin' %}
+		    <li><a href="{{ url_for('admin') }}">Admin</a></li>
+		{% endif %}
                 </ul>
             </nav>
             <p id="breadcrumbs"></p>
         </header>
         <div id="content">
+	    <span class="links">
+	    {% if g.user and not g.user.username %}
+	        <a href="{{ url_for('login', next=request.path) }}">login</a>
+	    {% else %}
+		<span>logged in as {{ g.user.username }}</span>
+		<a href="{{ url_for('logout') }}">logout</a>
+	    {% endif %}
+	    </span>
 	{% with messages = get_flashed_messages() %}
 	    {% if messages %}
 	        <ul class="flashes">
