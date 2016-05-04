@@ -18,10 +18,14 @@ from debmetrics.pull_runner import db_fetch, handle_csv
 from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
+from debmetrics.database import db
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=os.path.join(pkg_dir, '..', 'static'), template_folder=os.path.join(pkg_dir, '..', 'templates'))
 read_config()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = settings['DB_URI']
+db.init_app(app)
 
 man_dir = settings['MANIFEST_DIRECTORY']
 if not os.path.isabs(man_dir):

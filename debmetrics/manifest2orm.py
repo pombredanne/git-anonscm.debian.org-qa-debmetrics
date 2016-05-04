@@ -28,11 +28,10 @@ def manifest2orm(manifest):
 
     print("""\"\"\"This module defines the {0} class and {1} table.\"\"\"
 
-import sqlalchemy
-from debmetrics.base import engine, Base, Session
-from sqlalchemy import Column, Integer, String, Date, DateTime, TIMESTAMP
+from flask_sqlalchemy import SQLAlchemy
+from debmetrics.database import db
     
-class {0}(Base):
+class {0}(db.Model):
     __tablename__ = '{1}'
 """.format(table2class(ntpath.basename(file_name).split('.', 1)[0]),
            ntpath.basename(file_name).split('.', 1)[0]))
@@ -42,13 +41,13 @@ class {0}(Base):
         print("""    __table_args__ = {'schema': 'metrics'}""")
 
     if not override_ts:
-        print('    ts = Column(TIMESTAMP, primary_key=True)')
+        print('    ts = db.Column(db.TIMESTAMP, primary_key=True)')
     else:
-        print('    an_id = Column(Integer, primary_key=True,' \
+        print('    an_id = db.Column(db.Integer, primary_key=True,' \
               'autoincrement=True)')
     
     for i in range(len(fields)):
-        print('    '+fields[i]+' = Column('+types[i]+')')
+        print('    '+fields[i]+' = db.Column(db.'+types[i]+')')
 
 
 def table2class(table):

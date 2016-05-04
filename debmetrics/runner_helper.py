@@ -8,11 +8,10 @@ import json
 import datetime
 import io
 import configparser
-from sqlalchemy import func
 from crontab import CronTab
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
-from debmetrics.base import engine, Base, Session
+from debmetrics.database import db
 
 _tables = {}
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
@@ -51,8 +50,8 @@ def db_delete_all(table):
     table -- the name of the table to delete data from
     """
     the_class = table_factory(table)
-    Session.query(the_class).delete()
-    Session.commit()
+    db.session.query(the_class).delete()
+    db.session.commit()
 
 
 def min_x(table):
@@ -62,7 +61,7 @@ def min_x(table):
     table -- the name of the table
     """
     the_class = table_factory(table)
-    return Session.query(func.min(the_class.ts).label('min_ts')).one().min_ts
+    return db.session.query(db.func.min(the_class.ts).label('min_ts')).one().min_ts
 
 
 def max_x(table):
@@ -72,7 +71,7 @@ def max_x(table):
     table -- the name of the table
     """
     the_class = table_factory(table)
-    return Session.query(func.max(the_class.ts).label('max_ts')).one().max_ts
+    return db.session.query(db.func.max(the_class.ts).label('max_ts')).one().max_ts
 
 
 def db_insert(header, rows, table):
@@ -89,11 +88,11 @@ def db_insert(header, rows, table):
         for ind, h in enumerate(header):
             setattr(an_instance, h, row[ind])
         try:
-            Session.add(an_instance)
-            Session.commit()
-            Session.flush()
+            db.session.add(an_instance)
+            db.session.commit()
+            db.session.flush()
         except Exception:
-            Session.rollback()
+            db.session.rollback()
 
 
 def handle_csv(data):
@@ -257,11 +256,11 @@ def db_fetch(table):
     res = []
     the_class = table_factory(table)
     if hasattr(the_class, 'ts'):
-        q = Session.query(the_class).order_by(the_class.ts)
+        q = db.session.query(the_class).order_by(the_class.ts)
     elif hasattr(the_class, 'an_id'):
-        q = Session.query(the_class).order_by(the_class.an_id)
+        q = db.session.query(the_class).order_by(the_class.an_id)
     else:
-        q = Session.query(the_class)
+        q = db.session.query(the_class)
     r = q.all()
     for i in r:
         res.append(row2list(i))
