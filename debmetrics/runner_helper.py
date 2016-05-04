@@ -101,7 +101,11 @@ def handle_csv(data):
     Keyword args:
     data -- the csv data
     """
-    data = csv.reader(io.StringIO(data.decode('utf-8')))
+    try:
+        data = data.decode('utf-8')
+    except:
+        pass
+    data = csv.reader(io.StringIO(data))
     rows = []
     rownum = 0
     for row in data:
