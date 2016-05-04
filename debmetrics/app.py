@@ -30,6 +30,8 @@ if not os.path.isabs(man_dir):
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+os.makedirs('graphs', exist_ok=True)
+
 
 def get_graph_from_date(t, d):
     """Returns the path to a graph.
