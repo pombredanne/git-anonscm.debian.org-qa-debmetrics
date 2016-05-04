@@ -14,5 +14,6 @@ setup(name='debmetrics',
       author_email='joseph.bisch@gmail.com',
       license='AGPL',
       packages=find_packages(),
-      include_package_data=True
+      include_package_data=True,
+      package_data={'debmetrics': ['manifests/*.manifest']}
       )
