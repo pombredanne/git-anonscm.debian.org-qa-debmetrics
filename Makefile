@@ -1,4 +1,12 @@
-MANIFEST_DIR = cat .debmetrics.ini | grep manifest | grep DIRECTORY | sed 's/.*\://' | sed -e 's/^ *//' -e 's/ *$$//'
+ifneq ("$(wildcard .debmetrics.local.ini)","")
+CONFIG_FILE = .debmetrics.local.ini
+else ifneq ("$(wildcard /etc/debmetrics/debmetrics.ini)","")
+CONFIG_FILE = /etc/debmetrics/debmetrics.ini
+else
+$(error Couldn't find config file at ./.debmetrics.local.ini or /etc/debmetrics/debmetrics.ini) # Vim syntax highlighting fix '
+endif
+
+MANIFEST_DIR = cat $(CONFIG_FILE) | grep manifest | grep DIRECTORY | sed 's/.*\://' | sed -e 's/^ *//' -e 's/ *$$//'
 MANIFESTS = $(wildcard $(shell $(MANIFEST_DIR))/*.manifest)
 ORM_MODULES = $(patsubst $(shell $(MANIFEST_DIR))/%.manifest,debmetrics/models/%.py,$(MANIFESTS))
 
