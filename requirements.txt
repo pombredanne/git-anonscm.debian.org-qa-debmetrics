@@ -6,4 +6,5 @@ setuptools == 20.10.1
 SQLAlchemy == 1.0.12
 beautifulsoup4 == 4.4.1
 python_crontab == 2.0.1
+flask_login == 0.3.2
 flask_sqlalchemy == 2.1
