@@ -6,7 +6,7 @@ log = logging.getLogger('debmetrics')
 
 models = {}
 for i in (i[:-3] for i in glob1(dirname(__file__), '*.py')):
-    if i != '__init__':
+    if i not in ['__init__', 'user']:
         try:
             module = __import__('debmetrics.models.%s' % i,
                                 fromlist=[i])

@@ -33,3 +33,4 @@ debmetrics.egg-info/
 dist/
 
 !debmetrics/models/__init__.py
+!debmetrics/models/user.py
