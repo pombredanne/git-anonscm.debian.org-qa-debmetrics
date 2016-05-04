@@ -18,9 +18,9 @@ from debmetrics.pull_runner import db_fetch, handle_csv
 from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
-app = Flask(__name__)
 
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=os.path.join(pkg_dir, '..', 'static'), template_folder=os.path.join(pkg_dir, '..', 'templates'))
 read_config()
 
 man_dir = settings['MANIFEST_DIRECTORY']
@@ -220,12 +220,6 @@ def graph_helper(t):
 def index():
     """The index of the website."""
     return render_template('index.html')
-
-
-@app.route('/static/<path:filename>')
-def static2(filename):
-    """Returns static files from static dir."""
-    return send_from_directory(os.path.join('static'), filename)
 
 
 @app.route('/m/<metric>')

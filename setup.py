@@ -1,8 +1,16 @@
 from setuptools import setup, find_packages
+import os
 
 with open('requirements.txt') as f:
     install_requires = [l for l in f.read().splitlines()
                         if not l.startswith('#')]
+
+data_files = []
+directories = ['static', 'templates', 'manifests']
+for directory in directories:
+    for (path, directories, filenames) in os.walk(directory):
+        for filename in filenames:
+            data_files.append('../' + os.path.join(path, filename))
 
 setup(name='debmetrics',
       version='0.0.1',
@@ -15,5 +23,5 @@ setup(name='debmetrics',
       license='AGPL',
       packages=find_packages(),
       include_package_data=True,
-      package_data={'debmetrics': ['manifests/*.manifest']}
+      package_data={'': data_files}
       )
