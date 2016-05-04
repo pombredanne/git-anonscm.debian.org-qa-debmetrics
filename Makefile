@@ -12,7 +12,7 @@ else
 endif
 	touch $@
 
-debmetrics/models/%.py: $(shell $(MANIFEST_DIR))/%.manifest
+debmetrics/models/%.py: $(shell $(MANIFEST_DIR))/%.manifest debmetrics/manifest2orm.py
 	./debmetrics/manifest2orm.py $< > $@
 
 templates/index.html: $(MANIFESTS)
