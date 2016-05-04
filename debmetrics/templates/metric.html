@@ -11,6 +11,7 @@
         <h2>Timeseries</h2>
         <img src="{{ timeseries }}" />
     {% endif %}
+    {% if rows %}
     <h2>Table</h2>
     <a href="{{ url_for('csv_route', metric=title) }}">Download {{ title }} CSV</a>
     <table class="tablesorter">
@@ -65,6 +66,10 @@
                 {% endfor %}
             </tr>
         </table>
+    {% endif %}
+    {% else %}
+    <br />No data was retrieved from source yet. This message will be replaced
+    with a data table and statistics table once data has been retrieved.
     {% endif %}
     {% if graph %}
         <h2 class="title">{{ name }}</h2>
