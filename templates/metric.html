@@ -13,7 +13,7 @@
     {% endif %}
     {% if rows %}
     <h2>Table</h2>
-    <a href="{{ url_for('csv_route', metric=title) }}">Download {{ title }} CSV</a>
+    <a href="{{ url_for('csv_route', metric=title) }}">Download all {{ title }} data as CSV</a>
     <table class="tablesorter">
         <thead>
             <tr>
