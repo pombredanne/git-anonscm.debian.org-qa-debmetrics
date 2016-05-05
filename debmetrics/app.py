@@ -248,8 +248,10 @@ def index():
 
 
 @app.route('/m/<metric>')
+@app.route('/m/<metric>/<desc>')
 @app.route('/m/<metric>/<int:page>')
-def metric(metric, page=1):
+@app.route('/m/<metric>/<desc>/<int:page>')
+def metric(metric, desc=None, page=1):
     """A general route for all metrics. Return 404 if metric does not exist.
 
     Keyword args:
@@ -264,13 +266,15 @@ def metric(metric, page=1):
             print('Couldn\'t load graphs. Did you setup the cronjobs?')
             raise e
         source = get_source(metric)
+        if desc:
+            query = query.order_by(the_class.__dict__[cols[0]].desc())
         paged_rows = query.paginate(page, 20, False)
         mapper = inspect(the_class)
         column_names = list(map(lambda x: str(x)[len(metric+'.'):], mapper.attrs))
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
                                headers=cols, rows=paged_rows, statistics=statistics,
-                               source=source, column_names=column_names)
+                               source=source, column_names=column_names, desc=desc)
     else:
         abort(404)
 
