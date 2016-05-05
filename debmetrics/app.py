@@ -396,6 +396,7 @@ def csv_route(metric):
     response = make_response(csv)
     response.headers['Content-Disposition'] = \
         'attachment; filename=%s.csv' % (metric,)
+    response.headers['Content-Type'] = 'text/csv'
     return response
 
 
