@@ -18,7 +18,7 @@ import io
 import json
 import operator
 from debmetrics.graph_helper import time_series_graph
-from debmetrics.runner_helper import min_x, max_x, get_description, get_source, db_list, db_insert
+from debmetrics.runner_helper import min_x, max_x, get_description, get_source, db_list, db_insert, table2class
 from debmetrics.pull_runner import db_fetch, handle_csv
 from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
@@ -271,7 +271,7 @@ def metric(metric, desc=None, page=1):
             query = query.order_by(the_class.__dict__[cols[0]].desc())
         paged_rows = query.paginate(page, 20, False)
         mapper = inspect(the_class)
-        column_names = list(map(lambda x: str(x)[len(metric+'.'):], mapper.attrs))
+        column_names = list(map(lambda x: str(x)[len(table2class(metric))+1:], mapper.attrs))
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
                                headers=cols, rows=paged_rows, statistics=statistics,

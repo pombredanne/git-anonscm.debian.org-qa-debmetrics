@@ -16,7 +16,7 @@ def run():
     for row in rows:
         data.append(row.string)
     writer = csv.writer(sys.stdout)
-    writer.writerow(['ts', '1.0', '3.0 (native)', '3.0 (quilt)'])
+    writer.writerow(['ts', 'v1dot0', 'v3dot0_native', 'v3dot0_quilt'])
     writer.writerow(data)
     exit(0)
 
