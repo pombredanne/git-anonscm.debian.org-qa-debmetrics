@@ -133,7 +133,7 @@ def get_graph_data(t):
     Keyword arguments:
     t -- the metric
     """
-    res, cols = db_fetch(t)
+    res, cols, _, _ = db_fetch(t)
     return res, cols
 
 
@@ -324,14 +324,14 @@ def _allmetrics():
 @app.route('/_<metric>gettable')
 def _metricgettable(metric):
     """A route to get the table headers and rows."""
-    rows, headers = db_fetch(metric)
+    rows, headers, _, _ = db_fetch(metric)
     return jsonify(headers=headers, rows=rows)
 
 
 @app.route('/_<metric>getstatistics')
 def _metricgetstatistics(metric):
     """A route to get the statistics for a metric."""
-    rows, headers = db_fetch(metric)
+    rows, headers, _, _ = db_fetch(metric)
     stats = get_statistics(rows)
     return jsonify(mean=stats['mean'], sd=stats['sd'], min=stats['min'],
                    max=stats['max'], headers=headers)
@@ -377,7 +377,7 @@ def push():
     if format == 'csv':
         header, rows = handle_csv(data)
     if token_matches(table, token) and store(table, header, rows):
-        rows, cols = db_fetch(table)
+        rows, cols, _, _ = db_fetch(table)
         time_series_graph(table, rows, cols)
         return jsonify(result='Success')
     else:
@@ -391,7 +391,7 @@ def csv_route(metric):
     Keyword arguments:
     metric -- a metric
     """
-    rows, cols = db_fetch(metric)
+    rows, cols, _, _ = db_fetch(metric)
     csv = get_csv(cols, rows)
     response = make_response(csv)
     response.headers['Content-Disposition'] = \
