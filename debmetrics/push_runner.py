@@ -17,6 +17,7 @@ read_config()
 directory = settings['PULL_DIRECTORY']
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_scripts_directory = settings['GRAPH_SCRIPTS_DIRECTORY']
+graph_dir = settings['GRAPH_DIRECTORY']
 
 if not os.path.isabs(directory):
     directory = os.path.join(pkg_dir, directory)
@@ -69,6 +70,6 @@ def graph():
 
 
 if __name__ == '__main__':
-    if not os.path.exists('graphs'):
-        os.makedirs('graphs')
+    if not os.path.exists(graph_dir):
+        os.makedirs(graph_dir)
     graph()

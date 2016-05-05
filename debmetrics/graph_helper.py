@@ -9,7 +9,15 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as mplcm
 import matplotlib.colors as colors
 from matplotlib import dates
+from debmetrics.config_reader import settings, read_config
 
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
+
+read_config()
+
+graph_dir = settings['GRAPH_DIRECTORY']
+if not os.path.isabs(graph_dir):
+    graph_dir = os.path.join(pkg_dir, graph_dir)
 
 def time_series_graph(table, data, cols):
     """Generate a time series graph.
@@ -52,5 +60,5 @@ def time_series_graph(table, data, cols):
     if not count == 0:
         plt.tight_layout()
         pkg_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(pkg_dir, '..', 'graphs', table + '_timeseries.png')
+        path = os.path.join(graph_dir, table + '_timeseries.png')
         plt.savefig(path, bbox_extra_artists=(legend,), bbox_inches='tight')

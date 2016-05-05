@@ -50,13 +50,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = settings['DB_URI']
 db.init_app(app)
 
 man_dir = settings['MANIFEST_DIRECTORY']
+graph_dir = settings['GRAPH_DIRECTORY']
 if not os.path.isabs(man_dir):
     man_dir = os.path.join(pkg_dir, man_dir)
+if not os.path.isabs(graph_dir):
+    graph_dir = os.path.join(pkg_dir, graph_dir)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-os.makedirs('graphs', exist_ok=True)
+os.makedirs(graph_dir, exist_ok=True)
 
 
 def get_graph_from_date(t, d):
@@ -66,12 +69,12 @@ def get_graph_from_date(t, d):
     t -- the metric
     d -- the date
     """
-    for filename in os.listdir('graphs'):
+    for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if fileparts[0] == t:
             if d in fileparts[-1]:
-                return os.path.join('graphs', filename)
-    return os.path.join('graphs', os.listdir('graphs')[0])
+                return os.path.join(graph_dir, filename)
+    return os.path.join(graph_dir, os.listdir(graph_dir)[0])
 
 
 def get_graph_name_from_date(t, d):
@@ -81,13 +84,13 @@ def get_graph_name_from_date(t, d):
     t -- the metric
     d -- the date
     """
-    for filename in os.listdir('graphs'):
+    for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if fileparts[0] == t:
             date = fileparts[-1]
             if d in date:
                 return date
-    return os.path.splitext(os.listdir('graphs')[0])[0].split('_')[-1]
+    return os.path.splitext(os.listdir(graph_dir)[0])[0].split('_')[-1]
 
 
 def get_max_date(t):
@@ -98,7 +101,7 @@ def get_max_date(t):
     t -- the metric
     """
     max_date = datetime.datetime.strptime('0010-10-10', '%Y-%m-%d')
-    for filename in os.listdir('graphs'):
+    for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if (fileparts[0] == t and fileparts[-1] != 'timeseries' and
                 fileparts[-1] != 'table'):
@@ -117,7 +120,7 @@ def get_min_date(t):
     t -- the metric
     """
     min_date = datetime.datetime.strptime('9000-10-10', '%Y-%m-%d')
-    for filename in os.listdir('graphs'):
+    for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if (fileparts[0] == t and fileparts[-1] != 'timeseries' and
                 fileparts[-1] != 'table'):
@@ -228,13 +231,13 @@ def graph_helper(t):
     graphs = []
     timeseries = ''
     names = []
-    for filename in os.listdir('graphs'):
+    for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if '_'.join(fileparts[0:-3]) == t and fileparts[-1] != 'timeseries':
-            graphs.append(os.path.join('/', 'graphs', filename))
+            graphs.append(os.path.join('/', graph_dir, filename))
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
-            timeseries = os.path.join('/', 'graphs', filename)
+            timeseries = os.path.join('/', graphs_dir, filename)
     if not graphs:
         graphs.append(None)
     if not names:
@@ -412,7 +415,7 @@ def graphs(filename):
     Keyword args:
     filename -- the path to the graph
     """
-    return send_from_directory('graphs', filename)
+    return send_from_directory(graph_dir, filename)
 
 
 @app.route('/dynamic')
