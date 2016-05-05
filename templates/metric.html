@@ -23,15 +23,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in rows %}
+            {% for row in rows.items %}
                 <tr>
-                    {% for col in row %}
-                        <td>{{ col }}</td>
+                    {% for col in column_names %}
+		        <td>{{ row.__dict__[col] }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% if rows.has_prev %}<a href="{{ url_for('metric', metric=title, page=rows.prev_num) }}">&lt;&lt; Previous page</a>
+    {% else %}&lt;&lt; Previous page{% endif %}
+    {% for page in rows.iter_pages() %}
+        {% if page %}
+	    {% if page != rows.page %}
+	        <a href="{{ url_for('metric', metric=title, page=page) }}">{{ page }}</a>
+	    {% else %}
+	        <strong>{{ page }}</strong>
+            {% endif %}
+	{% else %}
+	    <span>…</span>
+	{% endif %}
+    {% endfor %}
+    {% if rows.has_next %}<a href="{{ url_for('metric', metric=title, page=rows.next_num) }}">Next page &gt;&gt;</a>
+    {% else %}Next page &gt;&gt;{% endif %}
     {% if statistics %}
         <h2>Statistics</h2>
         <table class="tablesorter">

@@ -277,7 +277,7 @@ def db_fetch(table):
             cols = ['an_id'] + config.get('script1', 'display_fields').split(', ')
     else:
         cols = the_class.__table__.columns.keys()
-    return res, cols
+    return res, cols, the_class.query, the_class
 
 
 def db_list():

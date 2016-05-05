@@ -7,6 +7,7 @@ from flask import (Flask, abort, jsonify, make_response, request,
                    url_for, g)
 from flask_login import (LoginManager, login_user, logout_user,
                              current_user, login_required)
+from sqlalchemy.inspection import inspect
 import os
 import csv
 import datetime
@@ -247,14 +248,15 @@ def index():
 
 
 @app.route('/m/<metric>')
-def metric(metric):
+@app.route('/m/<metric>/<int:page>')
+def metric(metric, page=1):
     """A general route for all metrics. Return 404 if metric does not exist.
 
     Keyword args:
     metric -- the metric
     """
     if metric in models:
-        rows, cols = db_fetch(metric)
+        rows, cols, query, the_class = db_fetch(metric)
         statistics = get_statistics(rows)
         try:
             graphs, name, timeseries = graph_helper(metric)
@@ -262,10 +264,13 @@ def metric(metric):
             print('Couldn\'t load graphs. Did you setup the cronjobs?')
             raise e
         source = get_source(metric)
+        paged_rows = query.paginate(page, 20, False)
+        mapper = inspect(the_class)
+        column_names = list(map(lambda x: str(x)[len(metric+'.'):], mapper.attrs))
         return render_template('metric.html', title=metric, graph=graphs[0],
                                name=name[0], timeseries=timeseries,
-                               headers=cols, rows=rows, statistics=statistics,
-                               source=source)
+                               headers=cols, rows=paged_rows, statistics=statistics,
+                               source=source, column_names=column_names)
     else:
         abort(404)
 
