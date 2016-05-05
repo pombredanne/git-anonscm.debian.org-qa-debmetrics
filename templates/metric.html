@@ -60,6 +60,25 @@
     {% endfor %}
     {% if rows.has_next %}<a href="{{ url_for('metric', metric=title, desc=desc, page=rows.next_num) }}">Next page &gt;&gt;</a>
     {% else %}Next page &gt;&gt;{% endif %}
+    {% if column_names[0] == 'ts' %}
+        <h2>When Was...?</h2>
+	<form method="get" action="{{ url_for('when_was', metric=title) }}">
+	    <label for="column">Column:</label>
+	    <select name="column">
+	    {% for column in column_names %}
+	        <option value="{{ column }}">{{ column }}</option>
+	    {% endfor %}
+	    </select>
+	    <select name="comparison">
+		<option value=">">&gt;</option>
+		<option value=">=">&gt;=</option>
+		<option value="<=">&lt;=</option>
+		<option value="<">&lt;</option>
+	    </select>
+	    <input type="text" name="value" />
+	    <input type="submit" value="Search" />
+	</form>
+    {% endif %}
     {% if statistics %}
         <h2>Statistics</h2>
         <table class="tablesorter">

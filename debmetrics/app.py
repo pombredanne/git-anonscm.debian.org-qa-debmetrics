@@ -16,6 +16,7 @@ import configparser
 import statistics
 import io
 import json
+import operator
 from debmetrics.graph_helper import time_series_graph
 from debmetrics.runner_helper import min_x, max_x, get_description, get_source, db_list, db_insert
 from debmetrics.pull_runner import db_fetch, handle_csv
@@ -477,6 +478,26 @@ def submit_admin_csv_import():
     db_insert(header, rows, table)
     flash('Data was inserted in table %s.' % table)
     return redirect(url_for('admin'))
+
+
+@app.route('/when_was/<metric>')
+def when_was(metric):
+    """A route to find when a column was a certain value"""
+    ops = {'>': operator.gt, '>=': operator.ge, '<': operator.lt, '<=': operator.le}
+    _, _, query, the_class = db_fetch(metric)
+    column = request.args.get('column')
+    comparison = request.args.get('comparison')
+    value = request.args.get('value')
+    results = query.filter(ops[comparison](the_class.__dict__[column], value))
+    mapper = inspect(the_class)
+    column_names = list(map(lambda x: str(x)[len(metric+'.'):], mapper.attrs))
+    if comparison[0] == '>':
+        results = results.first()
+    elif comparison[0] == '<':
+        results = results.order_by(the_class.__dict__[column_names[0]].desc()).first()
+    return render_template('when_was.html', metric=metric, results=results,
+                           column_names=column_names, column=column,
+                           comparison=comparison, value=value)
 
 
 if __name__ == '__main__':

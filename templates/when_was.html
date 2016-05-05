@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+    {% block title %}{{ metric }} {% endblock %}
+    {% block body %}
+        <h1>{{ metric }} When Was Results</h1>
+	<div>{{ column }} was {{ comparison }} {{ value }} on {{ results.__dict__[column_names[0]] }}</div>
+	<table>
+	    <thead>
+	        {% for col in column_names %}
+		    <th>{{ col }}</th>
+		{% endfor %}
+	    </thead>
+	    <tbody>
+		{% if results is mapping %}
+	        {% for row in results %}
+		    <tr>
+		        {% for col in column_names %}
+			    <td>{{ row.__dict__[col] }}</td>
+			{% endfor %}
+		    </tr>
+		{% endfor %}
+		{% else %}
+		    <tr>
+	                {% for col in column_names %}
+			    <td>{{ results.__dict__[col] }}</td>
+			{% endfor %}
+		    </tr>
+		{% endif %}
+	    </tbody>
+	</table>
+	<a href="{{ url_for('metric', metric=metric) }}">back to metrics page</a>
+    {% endblock %}
