@@ -9,7 +9,7 @@ from urllib.request import urlopen
 
 def run():
     url = 'https://nm.debian.org/public/stats/?json'
-    j = json.loads(urlopen(url).readall().decode('utf-8'))
+    j = json.loads(urlopen(url).read().decode('utf-8'))
     total = 0
     nm = {
             'app_new': 0,
