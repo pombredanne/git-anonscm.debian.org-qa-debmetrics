@@ -57,6 +57,9 @@ def run():
                     except subprocess.CalledProcessError:
                         msg = 'Failure calling process for pull script %s'
                         logger.error(msg, filename)
+                    except KeyError:
+                        msg = 'Error on %s, does the table in the db exist?'
+                        logger.error(msg, name)
                 else:
                     logger.error('Did not run pull script %s', filename)
 
