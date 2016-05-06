@@ -68,7 +68,7 @@ def run():
         if ext == '.manifest' and not '__init__' in name:
             try:
                 table = name
-                data, cols = db_fetch(table)
+                data, cols, _, _ = db_fetch(table)
                 config = configparser.RawConfigParser()
                 config.read(os.path.join(man_dir, table + '.manifest'))
                 t = config.get('script1', 'type')
