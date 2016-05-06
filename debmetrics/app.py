@@ -6,7 +6,7 @@ from flask import (Flask, abort, jsonify, make_response, request,
                    render_template, send_from_directory, flash, redirect,
                    url_for, g)
 from flask_login import (LoginManager, login_user, logout_user,
-                             current_user, login_required)
+                         current_user, login_required)
 from sqlalchemy.inspection import inspect
 import os
 import csv
