@@ -2,7 +2,7 @@
 
 """This module contains the Flask code for debmetrics."""
 
-from flask import (Flask, abort, jsonify, make_response, request,
+from flask import (abort, jsonify, make_response, request,
                    render_template, send_from_directory, flash, redirect,
                    url_for, g)
 from flask_login import (LoginManager, login_user, logout_user,
@@ -17,18 +17,16 @@ import statistics
 import io
 import json
 import operator
+
+from debmetrics.config_reader import settings, read_config
 from debmetrics.graph_helper import time_series_graph
 from debmetrics.runner_helper import min_x, max_x, get_description, get_source, db_list, db_insert, table2class
 from debmetrics.pull_runner import db_fetch, handle_csv
 from debmetrics.push_runner import store, token_matches
 from debmetrics.models import models
-from debmetrics.config_reader import settings, read_config
-from debmetrics.database import db
 from debmetrics.models.user import User
+from debmetrics.app_object import app
 
-pkg_dir = os.path.dirname(os.path.abspath(__file__))
-
-app = Flask(__name__, static_folder=os.path.join(pkg_dir, '..', 'static'), template_folder=os.path.join(pkg_dir, '..', 'templates'))
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -45,10 +43,7 @@ def before_request():
 
 read_config()
 
-app.config['SECRET_KEY'] = settings['SECRET_KEY']
-app.config['SQLALCHEMY_DATABASE_URI'] = settings['DB_URI']
-db.init_app(app)
-
+pkg_dir = os.path.dirname(os.path.abspath(__file__))
 man_dir = settings['MANIFEST_DIRECTORY']
 graph_dir = settings['GRAPH_DIRECTORY']
 if not os.path.isabs(man_dir):

@@ -12,6 +12,7 @@ from crontab import CronTab
 from debmetrics.models import models
 from debmetrics.config_reader import settings, read_config
 from debmetrics.database import db
+from debmetrics.app_object import app
 
 _tables = {}
 pkg_dir = os.path.dirname(os.path.abspath(__file__))
@@ -50,8 +51,9 @@ def db_delete_all(table):
     table -- the name of the table to delete data from
     """
     the_class = table_factory(table)
-    db.session.query(the_class).delete()
-    db.session.commit()
+    with app.app_context():
+        db.session.query(the_class).delete()
+        db.session.commit()
 
 
 def min_x(table):
@@ -61,7 +63,9 @@ def min_x(table):
     table -- the name of the table
     """
     the_class = table_factory(table)
-    return db.session.query(db.func.min(the_class.ts).label('min_ts')).one().min_ts
+    with app.app_context():
+        min_ts = db.session.query(db.func.min(the_class.ts).label('min_ts')).one().min_ts
+    return min_ts
 
 
 def max_x(table):
@@ -71,7 +75,9 @@ def max_x(table):
     table -- the name of the table
     """
     the_class = table_factory(table)
-    return db.session.query(db.func.max(the_class.ts).label('max_ts')).one().max_ts
+    with app.app_context():
+        max_ts = db.session.query(db.func.max(the_class.ts).label('max_ts')).one().max_ts
+    return max_ts
 
 
 def db_insert(header, rows, table):
@@ -87,12 +93,13 @@ def db_insert(header, rows, table):
         an_instance = the_class()
         for ind, h in enumerate(header):
             setattr(an_instance, h, row[ind])
-        try:
-            db.session.add(an_instance)
-            db.session.commit()
-            db.session.flush()
-        except Exception:
-            db.session.rollback()
+        with app.app_context():
+            try:
+                db.session.add(an_instance)
+                db.session.commit()
+                db.session.flush()
+            except Exception:
+                db.session.rollback()
 
 
 def handle_csv(data):
@@ -259,13 +266,14 @@ def db_fetch(table):
     """
     res = []
     the_class = table_factory(table)
-    if hasattr(the_class, 'ts'):
-        q = db.session.query(the_class).order_by(the_class.ts)
-    elif hasattr(the_class, 'an_id'):
-        q = db.session.query(the_class).order_by(the_class.an_id)
-    else:
-        q = db.session.query(the_class)
-    r = q.all()
+    with app.app_context():
+        if hasattr(the_class, 'ts'):
+            q = db.session.query(the_class).order_by(the_class.ts)
+        elif hasattr(the_class, 'an_id'):
+            q = db.session.query(the_class).order_by(the_class.an_id)
+        else:
+            q = db.session.query(the_class)
+        r = q.all()
     for i in r:
         res.append(row2list(i))
     config = configparser.RawConfigParser()
@@ -277,7 +285,8 @@ def db_fetch(table):
             cols = ['an_id'] + config.get('script1', 'display_fields').split(', ')
     else:
         cols = the_class.__table__.columns.keys()
-    return res, cols, the_class.query, the_class
+    with app.app_context():
+        return res, cols, the_class.query, the_class
 
 
 def db_list():
