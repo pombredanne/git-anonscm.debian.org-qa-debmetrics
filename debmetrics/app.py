@@ -486,7 +486,7 @@ def submit_admin_csv_import():
 @app.route('/when_was/<metric>')
 def when_was(metric):
     """A route to find when a column was a certain value"""
-    ops = {'>': operator.gt, '>=': operator.ge, '<': operator.lt, '<=': operator.le}
+    ops = {'>': operator.gt, '>=': operator.ge, '=': operator.eq, '<': operator.lt, '<=': operator.le}
     _, _, query, the_class = db_fetch(metric)
     column = request.args.get('column')
     comparison = request.args.get('comparison')
@@ -494,13 +494,18 @@ def when_was(metric):
     results = query.filter(ops[comparison](the_class.__dict__[column], value))
     mapper = inspect(the_class)
     column_names = list(map(lambda x: str(x)[len(metric+'.'):], mapper.attrs))
+    count = results.count()
     if comparison[0] == '>':
         results = results.first()
+        count = 1
     elif comparison[0] == '<':
         results = results.order_by(the_class.__dict__[column_names[0]].desc()).first()
+        count = 1
+    elif comparison == '=':
+        results = results.all()
     return render_template('when_was.html', metric=metric, results=results,
                            column_names=column_names, column=column,
-                           comparison=comparison, value=value)
+                           comparison=comparison, value=value, count=count)
 
 
 if __name__ == '__main__':

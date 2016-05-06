@@ -2,7 +2,9 @@
     {% block title %}{{ metric }} {% endblock %}
     {% block body %}
         <h1>{{ metric }} When Was Results</h1>
+	{% if comparison != '=' %}
 	<div>{{ column }} was {{ comparison }} {{ value }} on {{ results.__dict__[column_names[0]] }}</div>
+	{% endif %}
 	<table>
 	    <thead>
 	        {% for col in column_names %}
@@ -10,7 +12,7 @@
 		{% endfor %}
 	    </thead>
 	    <tbody>
-		{% if results is mapping %}
+		{% if count > 1 %}
 	        {% for row in results %}
 		    <tr>
 		        {% for col in column_names %}
