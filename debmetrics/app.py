@@ -229,10 +229,10 @@ def graph_helper(t):
     for filename in os.listdir(graph_dir):
         fileparts = os.path.splitext(filename)[0].split('_')
         if '_'.join(fileparts[0:-3]) == t and fileparts[-1] != 'timeseries':
-            graphs.append(os.path.join('/', graph_dir, filename))
+            graphs.append(url_for('graphs', filename=filename))
             names.append(fileparts[-1])
         elif '_'.join(fileparts[0:-1]) == t and fileparts[-1] == 'timeseries':
-            timeseries = os.path.join('/', graphs_dir, filename)
+            timeseries = os.path.join(url_for('graphs', filename=filename))
     if not graphs:
         graphs.append(None)
     if not names:
