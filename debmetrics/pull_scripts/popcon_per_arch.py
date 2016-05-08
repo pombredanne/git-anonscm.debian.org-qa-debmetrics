@@ -38,7 +38,7 @@ def run():
     ts = find_between(footer.text, 'Last generated on ', '.')
     ts = format_ts(ts)
     columns = ['ts'] + td.text.split()[::4]
-    for ind, col in columns:
+    for ind, col in enumerate(columns):
         columns[ind] = col.replace('-', '_')
     row = [ts] + td.text.split()[2::4]
     writer = csv.writer(sys.stdout)
