@@ -49,7 +49,11 @@ def token_matches(man, token):
 
 
 def store(table, header, rows):
-    db_insert(header, rows, table)
+    try:
+        db_insert(header, rows, table)
+        return True
+    except:
+        return False
 
 
 def graph():
